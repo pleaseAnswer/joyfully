@@ -1,7 +1,13 @@
 <template>
   <div>
     <router-view />
-    <van-tabbar v-model="active" active-color="#07c160" inactive-color="#000">
+
+    <van-tabbar
+      v-model="active"
+      active-color="#07c160"
+      inactive-color="#000"
+      style=" position: fixed;left: 0;bottom: 0;z-index:1"
+    >
       <van-tabbar-item icon="wap-home-o" to="/index">首页</van-tabbar-item>
       <van-tabbar-item icon="flag-o" to="/nation">国家馆</van-tabbar-item>
       <van-tabbar-item icon="qr" to="/classify">分类</van-tabbar-item>
@@ -15,11 +21,19 @@
 export default {
   name: "app",
   data() {
-    return {};
+    return {
+      active: "index"
+    };
   },
   components: {}
 };
 </script>
 
 <style>
+.van-hairline--top-bottom {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 1200;
+}
 </style>

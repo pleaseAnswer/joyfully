@@ -13,10 +13,13 @@ import axios from 'axios';
 import {
   Icon,
   Tabbar,
-  TabbarItem
+  TabbarItem,
+  SubmitBar,
+  Checkbox,
+  CheckboxGroup,Field
 } from 'vant';
 
-Vue.use(base).use(Icon).use(Tabbar).use(TabbarItem);
+Vue.use(base).use(Icon).use(Tabbar).use(TabbarItem).use(SubmitBar).use(Checkbox).use(CheckboxGroup).use(Field);
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.prototype.$axios = axios;
