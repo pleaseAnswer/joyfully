@@ -13,10 +13,11 @@ import axios from 'axios';
 import {
   Icon,
   Tabbar,
-  TabbarItem
+  TabbarItem,
+  Search
 } from 'vant';
 
-Vue.use(base).use(Icon).use(Tabbar).use(TabbarItem);
+Vue.use(base).use(Icon).use(Tabbar).use(TabbarItem).use(Search);
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.prototype.$axios = axios;
