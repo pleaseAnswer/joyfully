@@ -13,10 +13,25 @@ import axios from 'axios';
 import {
   Icon,
   Tabbar,
-  TabbarItem
+  TabbarItem,
+  Swipe,SwipeItem,
+  GoodsAction,
+  GoodsActionIcon,
+  GoodsActionButton
 } from 'vant';
 
-Vue.use(base).use(Icon).use(Tabbar).use(TabbarItem);
+//按需引入element-ui
+
+
+Vue.use(base)
+.use(Icon)
+.use(Tabbar)
+.use(TabbarItem)
+.use(Swipe)
+.use(SwipeItem) 
+.use(GoodsAction)
+.use(GoodsActionIcon)
+.use(GoodsActionButton);
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.prototype.$axios = axios;

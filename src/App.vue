@@ -15,7 +15,9 @@
 export default {
   name: "app",
   data() {
-    return {};
+    return {
+      active:''
+    };
   },
   components: {}
 };
