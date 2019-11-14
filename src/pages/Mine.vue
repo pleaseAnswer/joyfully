@@ -7,7 +7,7 @@
         <p>登录</p>
       </div>
     </div>
-    <div class="java"  @click="goto('/login')">
+    <div class="java" @click="goto('/login')">
       <div class="left">
         <van-icon name="orders-o" size="20" style="margin-top:5px;" />
         <h3>我的订单</h3>
@@ -16,7 +16,7 @@
         <van-icon name="arrow" color="#999" />
       </div>
     </div>
-    <div class="java"  @click="goto('/login')">
+    <div class="java" @click="goto('/login')">
       <div class="left">
         <van-icon name="coupon-o" size="20" style="margin-top:5px;" />
         <h3>我的优惠</h3>
@@ -25,7 +25,7 @@
         <van-icon name="arrow" color="#999" />
       </div>
     </div>
-    <div class="java"  @click="goto('/login')">
+    <div class="java" @click="goto('/login')">
       <div class="left">
         <van-icon name="like-o" size="20" style="margin-top:5px;" />
         <h3>我的喜欢</h3>
@@ -34,7 +34,7 @@
         <van-icon name="arrow" color="#999" />
       </div>
     </div>
-    <div class="java"  @click="goto('/login')">
+    <div class="java" @click="goto('/login')">
       <div class="left">
         <van-icon name="location-o" size="20" style="margin-top:5px;" />
         <h3>收货地址</h3>
@@ -43,7 +43,7 @@
         <van-icon name="arrow" color="#999" />
       </div>
     </div>
-    <div class="java"  @click="goto('/login')">
+    <div class="java" @click="goto('/login')">
       <div class="left">
         <van-icon name="balance-o" size="20" style="margin-top:5px;" />
         <h3>退货退款</h3>
@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="xian"></div>
-    <div class="java"  @click="goto('/login')">
+    <div class="java" @click="goto('/login')">
       <div class="left">
         <van-icon name="bulb-o" size="20" style="margin-top:5px;" />
         <h3>常见问题</h3>
@@ -62,7 +62,7 @@
         <van-icon name="arrow" color="#999" />
       </div>
     </div>
-    <div class="java"  @click="goto('/login')">
+    <div class="java" @click="goto('/login')">
       <div class="left">
         <van-icon name="friends-o" size="20" style="margin-top:5px;" />
         <h3>联系客服</h3>
@@ -71,7 +71,7 @@
         <van-icon name="arrow" color="#999" />
       </div>
     </div>
-    <div class="java" style=" margin-bottom:50px"  @click="goto('/login')">
+    <div class="java" style=" margin-bottom:50px" @click="goto('/login')">
       <div class="left">
         <van-icon name="edit" size="20" style="margin-top:5px;" />
         <h3>意见反馈</h3>

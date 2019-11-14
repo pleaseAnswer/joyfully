@@ -4,39 +4,44 @@
       <h2 class="header-title">购物车</h2>
       <span class="header-right right-coupon">优惠券</span>
     </header>
+
     <div class="freeDelivery">已满足免运费条件</div>
     <div class="cart-list">
       <div class="shopbox">
         <div class="shoptitlebox">
           <div class="cart-check">
-            <van-checkbox v-model="checked"></van-checkbox>
+            <van-checkbox v-model="checked" checked-color="#5fd9da"></van-checkbox>
           </div>
           <div class="shoptitle">意大利zecchin旗舰店</div>
           <div class="icon">></div>
         </div>
-        <div class="cart-box">
+        <div class="cart-box" v-for="item in menu" :key="item.txet">
           <div class="limitReduce">限时降</div>
           <div class="cart-module">
             <div class="cart-check">
-              <van-checkbox v-model="checked"></van-checkbox>
+              <van-checkbox v-model="checked" checked-color="#5fd9da"></van-checkbox>
             </div>
             <div class="cart_img">
-              <img
-                src="https://2-image.xidibuy.com/shop/shop.cd55055aa050f1c0b20815f3b2858be25623165aa4e093fa3500842dd515aa3d.jpeg/1500x1500/240/webp"
-              />
+              <img :src="item.img" />
             </div>
             <div class="intro-left">
               <div class="cart-goods-name">
-                <h3>意大利原产ZECCHIN穆拉诺冰川系列手工玻璃威士忌酒瓶壶900ml</h3>
+                <h3>{{item.text}}</h3>
                 <div class="price">
-                  ¥2508.09
+                  ￥ {{item.price1}}
                   <br />
-                  <del>￥3198.09</del>
+                  <del>￥ {{item.price2}}</del>
                 </div>
               </div>
               <div class="cart-counter">
-                <el-input-number v-model="num" :min="1" :max="10" size="mini"></el-input-number>
-                <div class="remove">
+                <el-input-number
+                  v-model="item.qty"
+                  :min="1"
+                  :max="50"
+                  size="mini"
+                  @click="changQty(item.id,$event)"
+                ></el-input-number>
+                <div class="remove" @click="removeCart(item.id)">
                   <i class="el-icon-delete"></i>
                 </div>
               </div>
@@ -70,35 +75,47 @@
         </h3>
       </li>
     </ul>
+    <div class="submit">
+      <div class="box1">
+        <van-checkbox v-model="checked" checked-color="#5fd9da">全选</van-checkbox>
+      </div>
+      <div class="box2">
+        <p class="carttotal">
+          总计：
+          <span>¥{{totalPrice.toFixed(2)}}</span>
+        </p>
+        <p class="fee">
+          运费&nbsp;
+          <span>¥0.00</span>&nbsp;&nbsp;减免&nbsp;
+          <span>¥0.00</span>
+        </p>
+      </div>
+      <div class="box3">结算()</div>
+    </div>
   </div>
 </template>
 <script>
+import { mapState, mapGetters, mapMutations } from "vuex";
 export default {
   data() {
     return {
       checked: true,
-      num: 1,
-      menu: [
-        {
-          img:
-            "//static.xidibuy.com/biz/app_label/0b10e69c5df2b48ec85738f02944c5ca.png",
-          price: "¥159.00",
-          text: "清洁大礼包6件套"
-        },
-        {
-          img:
-            "//static.xidibuy.com/biz/app_label/0b10e69c5df2b48ec85738f02944c5ca.png",
-          price: "¥399.01",
-          text: "德国原产DHT重型铸铝合金Lotan涂层不粘奶锅小汤锅18cm"
-        },
-        {
-          img:
-            "//static.xidibuy.com/biz/app_label/0b10e69c5df2b48ec85738f02944c5ca.png",
-          price: "¥369.00",
-          text: "英国丹侬DUNOON骨瓷水杯杯子Cairngorm杯型"
-        }
-      ]
+      num: 1
     };
+  },
+  computed: {
+    ...mapState({
+      menu(state) {
+        return state.cart.menu;
+      }
+    }),
+    ...mapGetters(["totalPrice"])
+  },
+  methods: {
+    ...mapMutations({
+      removeCart: "removeCart",
+      changQty: "changQty"
+    })
   }
 };
 </script>
@@ -299,6 +316,7 @@ body {
   padding: 0 0px 0 10px;
   box-sizing: border-box;
   overflow: hidden;
+  margin-bottom: 150px;
 
   .product_item {
     width: 45%;
@@ -324,6 +342,49 @@ body {
     .product-country {
       font-size: 12px;
     }
+  }
+}
+.submit {
+  width: 100%;
+  height: 60px;
+  background: #ffffffde;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 60px;
+  z-index: 1210;
+  .box1 {
+    height: 100%;
+    width: 120px;
+    float: left;
+    padding: 30px 0 0 15px;
+  }
+  .box2 {
+    height: 100%;
+    width: 145px;
+    float: left;
+    // background: floralwhite;
+    .carttotal {
+      font-size: 16px;
+      margin-top: 15px;
+      span {
+        color: #00bebf;
+      }
+    }
+    .fee {
+      color: #888;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+  }
+  .box3 {
+    height: 100%;
+    width: 120px;
+    float: left;
+    background: #4ed6d1;
+    text-align: center;
+    line-height: 60px;
+    color: #ffffff;
   }
 }
 </style>
