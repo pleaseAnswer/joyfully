@@ -8,27 +8,7 @@
       <el-tabs type="border-card" tabPosition="left">
       <el-tab-pane label="饮食厨房">
         <ul class="">
-          <li class="list" @click="goto('/Classifylist')">
-            <img src="https://4-image.xidibuy.com/shop/shop.b898da88e7cd463f50914c5d8b2828358bbb67b48ac1bf540b9ea2f179c2bb0b.jpeg/1500x1500/240/webp" alt="">
-            <p>锅具</p>
-          </li>
-          <li class="list" @click="goto('/Classifylist')">
-            <img src="https://4-image.xidibuy.com/shop/shop.b898da88e7cd463f50914c5d8b2828358bbb67b48ac1bf540b9ea2f179c2bb0b.jpeg/1500x1500/240/webp" alt="">
-            <p>锅具</p>
-          </li>
-          <li class="list" @click="goto('/Classifylist')">
-            <img src="https://4-image.xidibuy.com/shop/shop.b898da88e7cd463f50914c5d8b2828358bbb67b48ac1bf540b9ea2f179c2bb0b.jpeg/1500x1500/240/webp" alt="">
-            <p>锅具</p>
-          </li>
-                    <li class="list" @click="goto('/Classifylist')">
-            <img src="https://4-image.xidibuy.com/shop/shop.b898da88e7cd463f50914c5d8b2828358bbb67b48ac1bf540b9ea2f179c2bb0b.jpeg/1500x1500/240/webp" alt="">
-            <p>锅具</p>
-          </li>
-          <li class="list" @click="goto('/Classifylist')">
-            <img src="https://4-image.xidibuy.com/shop/shop.b898da88e7cd463f50914c5d8b2828358bbb67b48ac1bf540b9ea2f179c2bb0b.jpeg/1500x1500/240/webp" alt="">
-            <p>锅具</p>
-          </li>
-          <li class="list" @click="goto('/Classifylist')">
+          <li class="list" v-for="item in 9" :key="item">
             <img src="https://4-image.xidibuy.com/shop/shop.b898da88e7cd463f50914c5d8b2828358bbb67b48ac1bf540b9ea2f179c2bb0b.jpeg/1500x1500/240/webp" alt="">
             <p>锅具</p>
           </li>
@@ -55,11 +35,19 @@ export default {
       
     };
   },
-  methods:{
-    goto(id){
-      this.$router.push({name:'Classifylist',params:{id}})
-    }
-  }
+  // methods:{
+  //   goto(path){
+  //     this.$router.push(path)
+  //   }
+  // },async created(){
+  //    let {data} = await this.$axios.get('https://8-image.xidibuy.com/shop/shop.8c0602c6ef7be9d74f806593d320d6aa0a9b93739a306e2b3500842dd515aa3d.jpeg/1500x1500/240/webp');
+  
+  //   window.console.log(data)
+  
+  // }
+
+
+
 
   
 

@@ -15,37 +15,7 @@
             <li>新品</li>
             <li>价格<i class="el-icon-arrow-up"></i><i class="el-icon-arrow-down"></i></li>
          </div>
-            <div class="goods"> 
-              <img src="https://7-image.xidibuy.com/shop/shop.11e90879427effdb3a75267cde81258df683c9bf7cd8cc7f3500842dd515aa3d.jpeg/800x800/360/webp" alt="">
-              <a href="">日本原产sajitoki佐治陶器万古烧陶土锅砂锅炖锅汤锅煮锅9号</a>
-              <p class="text01">¥258.69</p>
-              <p class="text02">日本</p>
-            </div>
-            <div class="goods"> 
-              <img src="https://7-image.xidibuy.com/shop/shop.11e90879427effdb3a75267cde81258df683c9bf7cd8cc7f3500842dd515aa3d.jpeg/800x800/360/webp" alt="">
-              <a href="">日本原产sajitoki佐治陶器万古烧陶土锅砂锅炖锅汤锅煮锅9号</a>
-              <p class="text01">¥258.69</p>
-              <p class="text02">日本</p>
-            </div>
-            <div class="goods"> 
-              <img src="https://7-image.xidibuy.com/shop/shop.11e90879427effdb3a75267cde81258df683c9bf7cd8cc7f3500842dd515aa3d.jpeg/800x800/360/webp" alt="">
-              <a href="">日本原产sajitoki佐治陶器万古烧陶土锅砂锅炖锅汤锅煮锅9号</a>
-              <p class="text01">¥258.69</p>
-              <p class="text02">日本</p>
-            </div>
-            <div class="goods"> 
-              <img src="https://7-image.xidibuy.com/shop/shop.11e90879427effdb3a75267cde81258df683c9bf7cd8cc7f3500842dd515aa3d.jpeg/800x800/360/webp" alt="">
-              <a href="">日本原产sajitoki佐治陶器万古烧陶土锅砂锅炖锅汤锅煮锅9号</a>
-              <p class="text01">¥258.69</p>
-              <p class="text02">日本</p>
-            </div>
-            <div class="goods"> 
-              <img src="https://7-image.xidibuy.com/shop/shop.11e90879427effdb3a75267cde81258df683c9bf7cd8cc7f3500842dd515aa3d.jpeg/800x800/360/webp" alt="">
-              <a href="">日本原产sajitoki佐治陶器万古烧陶土锅砂锅炖锅汤锅煮锅9号</a>
-              <p class="text01">¥258.69</p>
-              <p class="text02">日本</p>
-            </div>
-            <div class="goods"> 
+            <div v-for="item in 6" :key="item" class="goods" > 
               <img src="https://7-image.xidibuy.com/shop/shop.11e90879427effdb3a75267cde81258df683c9bf7cd8cc7f3500842dd515aa3d.jpeg/800x800/360/webp" alt="">
               <a href="">日本原产sajitoki佐治陶器万古烧陶土锅砂锅炖锅汤锅煮锅9号</a>
               <p class="text01">¥258.69</p>
@@ -55,7 +25,7 @@
 
 
 
-        <el-tab-pane label="消息中心">
+        <el-tab-pane label="卡包">
          <div class="show">
             <li>综合</li>
             <li>销量</li>
