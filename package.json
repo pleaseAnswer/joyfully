@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "npm run serve"
   },
   "dependencies": {
     "@vant/touch-emulator": "^1.1.0",
@@ -26,6 +27,10 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.13.0",
+<<<<<<< HEAD
+=======
+    "sass-loader": "^8.0.0",
+>>>>>>> b8b342a9d338c6cdf5e7f92ca3bd10485e7b7484
     "vue-router": "^3.1.3",
     "vue-template-compiler": "^2.6.10",
     "vuex": "^3.1.2"
@@ -39,7 +44,10 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-console": "off",
+      "no-unused-vars": "warn"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

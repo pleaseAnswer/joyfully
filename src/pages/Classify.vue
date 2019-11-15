@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div>
     <div>
       <!-- 输入框 -->
@@ -22,11 +23,15 @@
       </el-tabs>
     </div>
   </div>
+=======
+  <div>分类</div>
+>>>>>>> b8b342a9d338c6cdf5e7f92ca3bd10485e7b7484
 </template>
 
 
 
 <script>
+<<<<<<< HEAD
 export default {
   data() {
     return {
@@ -77,4 +82,9 @@ export default {
     padding-top: 0.83333rem;
   }
 }
+=======
+export default {};
+</script>
+<style>
+>>>>>>> b8b342a9d338c6cdf5e7f92ca3bd10485e7b7484
 </style>
