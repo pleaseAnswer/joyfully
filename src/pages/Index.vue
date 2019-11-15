@@ -10,124 +10,133 @@
         <a href="">逛世界</a>
       </div>
     </header>
-    <div class="lunbo_wrap">
-      <div class="lunbo">
-        <van-swipe :autoplay="3000" indicator-color="white" style="height:188px;width:100%;background:rgba(200,155,40)">
-          <div v-if="!lunbo_img.data" v-load="true"></div>
-          <van-swipe-item v-else v-for="item in lunbo_img.data.data" :key="item._id">
-            <img :src="item.img" alt="" style="height:188px;width:375px;">
-          </van-swipe-item>
-        </van-swipe>
-        <div class="home_info clearfix">
-          <ul>
-            <li v-for="item in lunbo_sub" :key="item">{{item}}
-              <span>/</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <main>
-      <div class="nav_wrap">
-        <ul class="nav">
-          <li>
-            <span class="i_wrap">特</span>
-            <span>16国特品</span>
-          </li>
-          <li>
-            <span class="i_wrap"><i class="el-icon-collection"></i></span>
-            <span>专题</span>
-          </li>
-          <li>
-            <span class="i_wrap"><i class="el-icon-notebook-2"></i></span>
-            <span>文章</span>
-          </li>
-          <li>
-            <span class="i_wrap"><i class="el-icon-shopping-bag-2"></i></span>
-            <span>关于喜地</span>
-          </li>
-        </ul>
-      </div>
-      <div class="santu">
-        <div class="santu_left"><img :src="santu_img[0].img" alt=""></div>
-        <div class="santu_right">
-          <div class="santu_top">
-            <img :src="santu_img[1].img" alt="">
-          </div>
-          <div class="santu_bottom">
-            <img :src="santu_img[2].img" alt="">
-          </div>
-        </div>
-      </div>
-      <div v-if="!single_list.data" v-load="true"></div>
-      <template v-else>
-        <div class="img_wrap" v-for="item in single_list.data.data" :key="item._id">
-          <div class="single_img">
-            <img :src="item.single_img" alt="">
-          </div>
-          <div class="list_wrapper">
-            <ul class="list">
-              <li v-for="goods in item.data" :key="goods.img">
-                <figure>
-                  <img :src="goods.img" alt="">
-                  <figcaption>
-                    <p class="text">{{goods.text}}</p>
-                    <p class="price">{{goods.price}}</p>
-                  </figcaption>
-                </figure>
-              </li>
-              <li class="see_more">
-                <img src="../image/see_more.jpg" alt="">
+    <!-- <template v-if="!bottom_list.data" v-loading="true"></template> -->
+    <!-- <template v-else> -->
+      <div class="lunbo_wrap">
+        <div class="lunbo">
+          <van-swipe :autoplay="3000" indicator-color="white" style="height:188px;width:100%;background:rgba(200,155,40)">
+            <template v-if="lunbo_img.data">
+              <van-swipe-item v-for="item in lunbo_img.data.data" :key="item._id">
+                <img :src="item.img" alt="" style="height:188px;width:375px;">
+              </van-swipe-item>
+            </template>
+            <div v-else v-loading="true"></div>
+          </van-swipe>
+          <div class="home_info clearfix">
+            <ul>
+              <li v-for="item in lunbo_sub" :key="item">{{item}}
+                <span>/</span>
               </li>
             </ul>
           </div>
         </div>
-      </template>
-      <div v-if="!sub_list.data" v-load="true"></div>  
-      <template v-else>
-        <div class="sublist" v-for="item in sub_list.data.data" :key="item._id">
-          <h3>{{item.title}}</h3>
-          <ul class="list_wrapper">
-            <li v-for="goods in item.data" :key="goods.img" class="list_chi">
-              <figure>
-                <img :src="goods.img" alt="">
-                <figcaption>
-                  <h4>{{goods.title}}</h4>
-                  <p class="text">{{goods.subtitle}}</p>
-                  <p class="price">{{goods.price}}</p>
-                  <figure class="eval">
-                    <img :src="goods.evaimg" alt="">
-                    <figcaption class="eval_text">
-                      <p>{{goods.evatext}}</p>
+      </div>
+      <main>
+        <div class="nav_wrap">
+          <ul class="nav">
+            <li>
+              <span class="i_wrap">特</span>
+              <span>16国特品</span>
+            </li>
+            <li>
+              <span class="i_wrap"><i class="el-icon-collection"></i></span>
+              <span>专题</span>
+            </li>
+            <li>
+              <span class="i_wrap"><i class="el-icon-notebook-2"></i></span>
+              <span>文章</span>
+            </li>
+            <li>
+              <span class="i_wrap"><i class="el-icon-shopping-bag-2"></i></span>
+              <span>关于喜地</span>
+            </li>
+          </ul>
+        </div>
+        <template v-if="santu_img.length!=0">
+          <div class="santu">
+            <div class="santu_left"><img :src="santu_img[0].img" alt="" ref="lazy"></div>
+            <div class="santu_right">
+              <div class="santu_top">
+                <img :src="santu_img[1].img" alt="" ref="lazy">
+              </div>
+              <div class="santu_bottom">
+                <img :src="santu_img[2].img" alt="" ref="lazy">
+              </div>
+            </div>
+          </div>
+        </template>
+        <div v-else v-loading="true"></div>
+        <template v-if="single_list.data">
+          <div class="img_wrap" v-for="item in single_list.data.data" :key="item._id">
+            <div class="single_img">
+              <img src="../image/loadingx.gif" :data-src="item.single_img" alt="" ref="lazy">
+            </div>
+            <div class="list_wrapper">
+              <ul class="list">
+                <li v-for="goods in item.data" :key="goods.img">
+                  <figure>
+                    <img src="../image/loadingx.gif" :data-src="goods.img" alt="" ref="lazy">
+                    <figcaption>
+                      <p class="text">{{goods.text}}</p>
+                      <p class="price">{{goods.price}}</p>
                     </figcaption>
                   </figure>
-                </figcaption>
-              </figure>
-            </li>
-          </ul>
-        </div>
-      </template>
-      <div v-if="!bottom_list.data" v-load="true"></div>  
-      <template else>
-        <div class="bottomlist clearfix" v-for="item in bottom_list.data.data" :key="item._id">
-          <h3>{{item.title}}</h3>
-          <ul class="bottom_wrapper clearfix">
-            <li v-for="goods in item.data" :key="goods.img" class="bottom_chi">
-              <figure>
-                <img :src="goods.img" alt="">
-                <figcaption>
-                  <p class="text">{{goods.text}}</p>
-                  <p class="price">
-                    <span class="price1">{{goods.price1}}</span>
-                    <span class="price2">{{goods.price2}}</span>
-                  </p>
-                </figcaption>
-              </figure>
-            </li>
-          </ul>
-        </div>
-      </template>
-    </main>
+                </li>
+                <li class="see_more">
+                  <img src="../image/see_more.jpg" alt="">
+                </li>
+              </ul>
+            </div>
+          </div>
+        </template>
+        <div v-else v-loading="true"></div>
+        <template v-if="sub_list.data">
+          <div class="sublist" v-for="item in sub_list.data.data" :key="item._id">
+            <h3>{{item.title}}</h3>
+            <ul class="list_wrapper">
+              <li v-for="goods in item.data" :key="goods.img" class="list_chi">
+                <figure>
+                  <img src="../image/loadingx.gif" :data-src="goods.img" alt="" ref="lazy">
+                  <figcaption>
+                    <h4>{{goods.title}}</h4>
+                    <p class="text">{{goods.subtitle}}</p>
+                    <p class="price">{{goods.price}}</p>
+                    <figure class="eval">
+                      <img src="../image/loadingx.gif" :data-src="goods.evaimg" alt="" ref="lazy">
+                      <figcaption class="eval_text">
+                        <p>{{goods.evatext}}</p>
+                      </figcaption>
+                    </figure>
+                  </figcaption>
+                </figure>
+              </li>
+            </ul>
+          </div>
+        </template>
+        <div v-else v-loading="true"></div>  
+        <template v-if="bottom_list.data">
+          <div class="bottomlist clearfix" v-for="item in bottom_list.data.data" :key="item._id">
+            <h3>{{item.title}}</h3>
+            <ul class="bottom_wrapper clearfix">
+              <li v-for="goods in item.data" :key="goods.img" class="bottom_chi">
+                <figure>
+                  <img src="../image/loadingx.gif" :data-src="goods.img" alt="" ref="lazy">
+                  <figcaption>
+                    <p class="text">{{goods.text}}</p>
+                    <p class="price">
+                      <span class="price1">{{goods.price1}}</span>
+                      <span class="price2">{{goods.price2}}</span>
+                    </p>
+                  </figcaption>
+                </figure>
+              </li>
+            </ul>
+          </div>
+        </template>
+        <div v-else v-loading="true"></div>  
+      </main>
+    <!-- </template> -->
+    
     <footer>
       <h4 class="check_more">查看更多<span>&gt;</span></h4>
       <div class="el-breadcrumb">
@@ -138,7 +147,7 @@
       </div>
       <p class="copy">@2019喜地电子商务有限公司&nbsp;&nbsp;授权所有</p>
     </footer>
-    <div class="goto_top" >
+    <div ref="gototop" class="goto_top hidden">
       <a href="#top">
         <i class="el-icon-arrow-up"></i>
       </a>
@@ -160,13 +169,15 @@ export default {
   },
   //在beforeMount()阶段发送网络请求拿到数据
   async created(){
+
     this.lunbo_img = await this.$axios.get('http://localhost:1910/home/sy_lunbo');
     // this.lunbo_img.data.data;
-    console.log(this.lunbo_img);
-    
+    // console.log(this.lunbo_img);
     
     let {data:{data}} = await this.$axios.get('http://localhost:1910/home/sy_santu');
     this.santu_img=data;
+    // console.log(this.santu_img);
+    
     
     this.single_list = await this.$axios.get('http://localhost:1910/home/sy_single_list');
     // single_list.data.data;
@@ -176,27 +187,51 @@ export default {
 
     this.bottom_list = await this.$axios.get('http://localhost:1910/home/sy_bottomlist');
     //bottom_list.data.data;  
-    this. setteim();
-    
-  },methods:{
-    
-    setteim(){
-      window.onload=()=>{
-        var goto_top = document.querySelector('.goto_top');
-        setInterval(()=>{
-          // console.log('---');
-          if(window.scrollY >= 1000) {
-            goto_top.classList.remove("hidden");
-          }else{
-            goto_top.classList.add("hidden");        
+
+
+  },
+  mounted(){
+    window.addEventListener('scroll',this.changeclass);
+    window.addEventListener('scroll',this.imgonload); 
+    window.addEventListener('scroll',this.scrollImg(this.imgonload))  
+    // this.imgonload(); 
+  },
+  methods:{  
+    changeclass(){
+        var goto_top = this.$refs.gototop;   
+        if(goto_top != undefined){
+          setInterval(()=>{
+            if(window.scrollY >= 800) {
+              goto_top.classList.remove("hidden");
+            }else{
+              goto_top.classList.add("hidden");        
+            }
+          },1000)
+        }   
+      },
+      imgonload(){
+        var imgs = this.$refs.lazy;
+        if(imgs!=undefined){
+          for(var i=0;i<imgs.length;i++){
+            if(imgs[i].offsetTop < window.scrollY+800){
+              imgs[i].src = imgs[i].dataset.src;
+            }
           }
-        },1000)
+        }
+      },
+    scrollImg(fn){
+      return function(){
+        let timer = null;
+        let self = this;
+        clearTimeout(timer);
+        setTimeout(()=>{
+          fn.apply(self)
+        },500)
       }
     }
-  }
- 
-  
-};
+    },
+    
+}
 </script>
 <style lang="scss" scoped>
 @charset "utf-8";

@@ -16,13 +16,31 @@ import {
   TabbarItem,
   SubmitBar,
   Checkbox,
-  CheckboxGroup,Field,Search
+  CheckboxGroup,
+  Field,Search,
+  Swipe,
+  SwipeItem,
+  GoodsAction,
+  GoodsActionIcon,
+  GoodsActionButton
 } from 'vant';
 
 
 
-Vue.use(base).use(Icon).use(Tabbar).use(TabbarItem).use(SubmitBar)
-.use(Checkbox).use(CheckboxGroup).use(Field).use(Search);
+Vue.use(base)
+.use(Icon)
+.use(Tabbar)
+.use(TabbarItem)
+.use(SubmitBar)
+.use(Checkbox)
+.use(CheckboxGroup)
+.use(Field)
+.use(Search)
+.use(Swipe)
+.use(SwipeItem) 
+.use(GoodsAction)
+.use(GoodsActionIcon)
+.use(GoodsActionButton);
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.prototype.$axios = axios;
