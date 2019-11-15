@@ -70,19 +70,19 @@ export default {
           // 校验成功发起ajax请求
           let { username, password } = this.loginForm;
 
-          let {data} = await this.$axios.get("http://localhost:1910/login", {
+          let { data } = await this.$axios.get("http://localhost:1910/login", {
             params: {
               username,
               password
             }
           });
-         
+
           if (data.status === 0) {
             this.errorMsg = "用户名或者密码错误";
           } else {
             //获取token
             let user = data.data;
-            this.$store.commit("login", user);
+            this.$store.commit("login", { user, username });
             let redirectUrl = this.$route.query.redirectUrl || "/mine";
             // alert("登录成功");
             this.$router.replace(redirectUrl);

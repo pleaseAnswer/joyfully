@@ -10,18 +10,19 @@ try {
 export default {
     state: {
         // 用户信息
-        user
+        user:'',
+        username:''
 
     },
     mutations: {
-        login(state, user) {
+        login(state, {user,username}) {
             state.user = user;
+            state.username = username;
 
             // 设置本地存储
-            localStorage.setItem('user', JSON.stringify(user))
+            localStorage.setItem('user', JSON.stringify({user,username}))
         },
         logout(state) {
-            state.user = {};
             state.user = '';
 
             // 清除本地存储信息

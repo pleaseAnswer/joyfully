@@ -4,7 +4,10 @@
     <div class="space">
       <div class="xiang" @click="goto('/login')">
         <div class="avator"></div>
-        <p>登录</p>
+        <p v-if="isLogin">{{username}}</p>
+        <template v-else>
+          <p>登录</p>
+        </template>
       </div>
     </div>
     <div class="java" @click="goto('/login')">
@@ -87,10 +90,11 @@
   </div>
 </template>
 <script>
-// import { mapMutations } from "vuex";
 export default {
   data() {
-    return {};
+    return {
+      username: ""
+    };
   },
   computed: {
     isLogin() {
@@ -106,19 +110,9 @@ export default {
       this.$router.push("/login");
     }
   },
-  // async created(){
-  //      let {data:{data:{country16}}} = await this.$axios.post('https://api.m.xidibuy.com/v2/country/index')
-  //     //  console.log(country16)
-  //     let datas = country16.map(item=>{
-  //          return item[6]
-  //      })
-  //     //  console.log(datas)
-  //    let a = datas.map(item=>{
-  //      return item.B
-  //    })
-  //   //  console.log(a)
-      
-  // }
+  created() {
+    this.username = this.$store.state.common.username;
+  }
 };
 </script>
 <style lang="scss" scoped>
