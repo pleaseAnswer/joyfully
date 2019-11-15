@@ -17,7 +17,7 @@
       label-width="100px"
       class="demo-ruleForm"
     >
-      <el-form-item label="用户名" prop="username" :error="errorMsg">
+      <el-form-item label="用户名" prop="username">
         <el-input v-model.number="loginForm.username"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password" :error="errorMsg">
@@ -70,22 +70,21 @@ export default {
           // 校验成功发起ajax请求
           let { username, password } = this.loginForm;
 
-          let { data } = await this.$axios.get("http://localhost:1910/login", {
+          let {data} = await this.$axios.get("http://localhost:1910/login", {
             params: {
               username,
               password
             }
           });
-          // console.log(data);
+         
           if (data.status === 0) {
             this.errorMsg = "用户名或者密码错误";
           } else {
             //获取token
-            let Authorization = data.data;
-            //保存到本地
-            localStorage.setItem("Authorization", Authorization);
+            let user = data.data;
+            this.$store.commit("login", user);
             let redirectUrl = this.$route.query.redirectUrl || "/mine";
-            alert("登录成功");
+            // alert("登录成功");
             this.$router.replace(redirectUrl);
           }
         } else {

@@ -71,7 +71,7 @@
         <van-icon name="arrow" color="#999" />
       </div>
     </div>
-    <div class="java" style=" margin-bottom:50px" @click="goto('/login')">
+    <div class="java" style=" margin-bottom:10px" @click="goto('/login')">
       <div class="left">
         <van-icon name="edit" size="20" style="margin-top:5px;" />
         <h3>意见反馈</h3>
@@ -80,19 +80,45 @@
         <van-icon name="arrow" color="#999" />
       </div>
     </div>
-    <div class="xian"></div>
+    <div class="tuichu" @click="logout" v-if="isLogin">退出账号</div>
+    <template v-else>
+      <div></div>
+    </template>
   </div>
 </template>
 <script>
+// import { mapMutations } from "vuex";
 export default {
   data() {
     return {};
   },
+  computed: {
+    isLogin() {
+      return Boolean(this.$store.state.common.user);
+    }
+  },
   methods: {
     goto(path) {
       this.$router.push(path);
+    },
+    logout() {
+      this.$store.commit("logout");
+      this.$router.push("/login");
     }
-  }
+  },
+  // async created(){
+  //      let {data:{data:{country16}}} = await this.$axios.post('https://api.m.xidibuy.com/v2/country/index')
+  //     //  console.log(country16)
+  //     let datas = country16.map(item=>{
+  //          return item[6]
+  //      })
+  //     //  console.log(datas)
+  //    let a = datas.map(item=>{
+  //      return item.B
+  //    })
+  //   //  console.log(a)
+      
+  // }
 };
 </script>
 <style lang="scss" scoped>
@@ -133,7 +159,7 @@ export default {
   width: 100%;
   height: 25px;
   // background: goldenrod;
-  margin: 20px 0 20px 0;
+  margin: 20px 0 10px 0;
   padding: 0 8px 0 8px;
   position: relative;
   .left {
@@ -155,5 +181,14 @@ export default {
 }
 .xian {
   border: 1px solid #ddd;
+}
+.tuichu {
+  width: 330px;
+  height: 50px;
+  background: #ff7765;
+  text-align: center;
+  line-height: 50px;
+  color: #ffffff;
+  margin: auto;
 }
 </style>

@@ -17,7 +17,7 @@ import Classifylist from '../pages/Classifylist.vue';
 
 
 const router = new VueRouter({
-    
+
     routes: [{
             name: 'index',
             path: '/index',
@@ -53,7 +53,10 @@ const router = new VueRouter({
         }, {
             name: 'mine',
             path: '/mine',
-            component: Mine
+            component: Mine,
+            meta: {
+                requiresAuth: true
+            }
 
         }, {
             name: 'reg',
@@ -68,6 +71,52 @@ const router = new VueRouter({
             redirect: '/index'
         }
     ]
+})
+//全局路由守卫
+//to:目标路由
+//from:当前路由
+//一定要调用next()方法才可进入目标路由
+router.beforeEach((to, from, next) => {
+    if (to.meta.requiresAuth) {
+
+        //获取token
+        let $store = router.app.$store
+        let Authorization = $store.state.common.user;
+        if (Authorization) {
+            //登录则放行
+            next();
+            //发送校验请求
+            router.app.$axios.get('http://localhost:1910/verify', {
+                headers: {
+                    Authorization
+                }
+            }).then(({
+                data
+            }) => {
+                // console.log('校验结果：', data)
+                if (data.status === 0) {
+                    $store.commit('logout'); //token过期，触发
+                    next({
+                        path: '/login',
+                        query: {
+                            redirectUrl: to.fullPath
+                        }
+                    })
+                }
+            })
+
+        } else {
+            //否则跳到登录页面
+            next({
+                path: '/login',
+                query: {
+                    redirectUrl: to.fullPath
+                }
+            })
+        }
+    } else {
+        next();
+    }
 })
 
 
