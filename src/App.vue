@@ -25,13 +25,6 @@ export default {
   name: "app",
   data() {
     return {
-<<<<<<< HEAD
-<<<<<<< HEAD
-      active:'index'
-    };
-=======
-=======
->>>>>>> b8b342a9d338c6cdf5e7f92ca3bd10485e7b7484
       info: "0",
       active: "index"
     };
@@ -40,10 +33,7 @@ export default {
     cartlength() {
       return this.$store.getters.cartlength;
     }
-<<<<<<< HEAD
->>>>>>> b8b342a9d338c6cdf5e7f92ca3bd10485e7b7484
-=======
->>>>>>> b8b342a9d338c6cdf5e7f92ca3bd10485e7b7484
+
   },
   components: {}
 };

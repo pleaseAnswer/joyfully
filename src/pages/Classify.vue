@@ -1,6 +1,5 @@
 <template>
-<<<<<<< HEAD
-<<<<<<< HEAD
+
   <div>
     <div>
       <!-- 输入框 -->
@@ -24,19 +23,12 @@
       </el-tabs>
     </div>
   </div>
-=======
-  <div>分类</div>
->>>>>>> b8b342a9d338c6cdf5e7f92ca3bd10485e7b7484
-=======
-  <div>分类</div>
->>>>>>> b8b342a9d338c6cdf5e7f92ca3bd10485e7b7484
+
 </template>
 
 
 
 <script>
-<<<<<<< HEAD
-<<<<<<< HEAD
 export default {
   data() {
     return {
@@ -51,11 +43,12 @@ export default {
   },
   async created() {
     let { data } = await this.$axios.get("http://localhost:1910/fenlei");
+    
     this.datalist = data[0].data;
     let datas = data[0].data.cats;
     window.console.log(datas);
     this.datalist = datas;
-    //  window.console.log(this.datalist)
+     window.console.log(this.datalist)
   }
 };
 </script>
@@ -87,14 +80,4 @@ export default {
     padding-top: 0.83333rem;
   }
 }
-=======
-export default {};
-</script>
-<style>
->>>>>>> b8b342a9d338c6cdf5e7f92ca3bd10485e7b7484
-=======
-export default {};
-</script>
-<style>
->>>>>>> b8b342a9d338c6cdf5e7f92ca3bd10485e7b7484
 </style>

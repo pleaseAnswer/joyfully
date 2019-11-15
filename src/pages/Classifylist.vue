@@ -65,6 +65,8 @@ export default {
     }
   },
   async created() {
+    console.log("----");
+    
     let {
       data: { data }
     } = await this.$axios.get(
