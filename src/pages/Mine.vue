@@ -92,6 +92,18 @@ export default {
     goto(path) {
       this.$router.push(path);
     }
+  },async created(){
+       let {data:{data:{country16}}} = await this.$axios.post('https://api.m.xidibuy.com/v2/country/index')
+      //  console.log(country16)
+      let datas = country16.map(item=>{
+           return item[6]
+       })
+      //  console.log(datas)
+     let a = datas.map(item=>{
+       return item.B
+     })
+    //  console.log(a)
+      
   }
 };
 </script>
