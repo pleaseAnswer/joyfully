@@ -33,6 +33,7 @@ export default {
     cartlength() {
       return this.$store.getters.cartlength;
     }
+
   },
   components: {}
 };
