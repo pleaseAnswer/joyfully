@@ -96,7 +96,7 @@
               <div
                 class="box_fixed"
                 id="boxFixed"
-                style=" width: 100%;height:45px;background:#f3f3f3; "
+                style=" width: 100%;height:45px;background:#f3f3f3;z-index:9999 "
                 :class="[rotate?'bb':'nn ',{'is_fixed' : isFixed}]"
               >
                 <div class="all">全部</div>
@@ -129,7 +129,7 @@
               <div
                 class="box_fixed allAll"
                 id="boxFixed"
-                style="z-index:999 ;border-bottom: 1px solid #ccc"
+                style="z-index:9999 ;border-bottom: 1px solid #ccc"
                 :class="[rotate?'bb':' nn',{'is_fixedt' : isFixed}]"
               >
                 <ul>
@@ -252,7 +252,7 @@ export default {
       this.style = "display:none;height:0px";
     },
     getLi() {
-      console.log("+++");
+      // console.log("+++");
 
       this.rotate = !this.rotate;
     },

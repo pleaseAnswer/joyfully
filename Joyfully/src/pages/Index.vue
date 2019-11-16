@@ -240,7 +240,7 @@ export default {
           } else {
             goto_top.classList.add("hidden");
           }
-        }, 1000);
+        }, 500);
       }
     },
     imgonload() {
@@ -260,7 +260,7 @@ export default {
         clearTimeout(timer);
         setTimeout(() => {
           fn.apply(self);
-        }, 500);
+        }, 200);
       };
     },
     goto(path) {

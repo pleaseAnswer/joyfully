@@ -87,12 +87,19 @@
     <template v-else>
       <div></div>
     </template>
+    <el-main class="main" :class="[sty?'':'nn']"></el-main>
+    <el-col class="chengxu" :class="[sty?'bb':'nn']">
+      <div class="xiao">确认退出登录？</div>
+      <div class="ok" @click="on">取消</div>
+      <div class="ok" @click="ok" style=" background: #00bebf; color:#ffffff">确定</div>
+    </el-col>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
+      sty: false,
       username: ""
     };
   },
@@ -106,8 +113,16 @@ export default {
       this.$router.push(path);
     },
     logout() {
+      this.sty = true;
+    },
+    ok() {
+      this.sty = false;
       this.$store.commit("logout");
-      this.$router.push("/login");
+      this.$router.push("/index");
+      // console.log(this.sty);
+    },
+    on() {
+      this.sty = false;
     }
   },
   created() {
@@ -184,5 +199,52 @@ export default {
   line-height: 50px;
   color: #ffffff;
   margin: auto;
+}
+.chengxu {
+  width: 353px;
+  height: 135px;
+  background: #fff;
+  position: fixed;
+  top: 300px;
+  z-index: 1320;
+  left: 10px;
+  display: none;
+  .xiao {
+    width: 308px;
+    height: 41px;
+    border-bottom: #eee 1px solid;
+    padding: 1.8rem;
+    font-size: 13px;
+    text-align: center;
+    line-height: 21px;
+  }
+  .ok {
+    width: 50%;
+    height: 50px;
+    color: #000;
+    font-size: 17px;
+    text-align: center;
+    line-height: 50px;
+    float: left;
+    background: #ddd;
+  }
+}
+.nn {
+  display: none;
+}
+.bb {
+  display: block;
+}
+.main {
+  width: 414px;
+  height: 20000px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: #000;
+  opacity: 0.5;
+  z-index: 1300;
 }
 </style>
