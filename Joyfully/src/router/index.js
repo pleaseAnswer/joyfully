@@ -20,81 +20,81 @@ import Classifylist from '../pages/Classifylist.vue';
 
 const router = new VueRouter({
 
-        routes: [{
-                name: 'index',
-                path: '/index',
-                component: Index
-            }, {
-                name: 'list',
-                path: '/list/:id',
-                component: List
-            }, {
-                name: 'detail',
-                path: '/detail',
-                component: Detail
-            },
-            {
-                name: 'nation',
-                path: '/nation',
-                component: Nation
-            },
-            {
-                name: 'classify',
-                path: '/classify',
-                component: Classify
-            },
-            {
-                name: 'classifylist',
-                path: '/classifylist',
-                component: Classifylist
-            }, {
-                name: 'cart',
-                path: '/cart',
-                component: Cart
+    routes: [{
+            name: 'index',
+            path: '/index',
+            component: Index
+        }, {
+            name: 'list',
+            path: '/list/:id',
+            component: List
+        }, {
+            name: 'detail',
+            path: '/detail/:id',
+            component: Detail
+        },
+        {
+            name: 'nation',
+            path: '/nation',
+            component: Nation
+        },
+        {
+            name: 'classify',
+            path: '/classify',
+            component: Classify
+        },
+        {
+            name: 'classifylist',
+            path: '/classifylist',
+            component: Classifylist
+        }, {
+            name: 'cart',
+            path: '/cart',
+            component: Cart
 
-            }, {
-                name: 'mine',
-                path: '/mine',
-                component: Mine,
-                // meta: {
-                //     requiresAuth: true
-                // }
+        }, {
+            name: 'mine',
+            path: '/mine',
+            component: Mine,
+            // meta: {
+            //     requiresAuth: true
+            // }
 
-            }, {
-                name: 'reg',
-                path: '/reg',
-                component: Reg
-            }, {
-                name: 'login',
-                path: '/login',
-                component: Login
-            },
-            {
-                name: 'load',
-                path: '/load',
-                component: Load
-            },
-            {
-                name: 'service',
-                path: '/service',
-                component: Service
-            },
-            {
-                path: '/',
-                redirect: '/index'
-            }
-        ]
-    })
-    //全局路由守卫
-    //to:目标路由
-    //from:当前路由
-    //一定要调用next()方法才可进入目标路由
+        }, {
+            name: 'reg',
+            path: '/reg',
+            component: Reg
+        }, {
+            name: 'login',
+            path: '/login',
+            component: Login
+        },
+        {
+            name: 'load',
+            path: '/load',
+            component: Load
+        },
+        {
+            name: 'service',
+            path: '/service',
+            component: Service
+        },
+        {
+            path: '/',
+            redirect: '/index'
+        }
+    ]
+})
+//全局路由守卫
+//to:目标路由
+//from:当前路由
+//一定要调用next()方法才可进入目标路由
 router.beforeEach((to, from, next) => {
     if (to.meta.requiresAuth) {
 
         //获取token
         let $store = router.app.$store
-        let Authorization = $store.state.common.user;
+        let Authorization = $store.state.common.user.Authorization;
         if (Authorization) {
             //登录则放行
             next();

@@ -2,7 +2,7 @@
   <div>
     <header>
       <div class="header_left">
-        <i class="el-icon-arrow-left"></i>
+        <i class="el-icon-arrow-left" @click="goto('/Classifylist')"></i>
       </div>
       <div class="header_middle">
         <p class="p_now">商品</p>
@@ -19,7 +19,7 @@
           <div class="goods_img">
             <img
               class="goods_detail"
-              src="https://1-image.xidibuy.com/shop/shop.cd55055aa050f1c0c1c44f5732aa91f91afe07a9b86b67313500842dd515aa3d.jpeg/1500x1500/750/webp"
+              :src="list.attrImg"
               alt
             />
             <img
@@ -29,11 +29,11 @@
             />
           </div>
           <figcaption>
-            <h4>德国原产小王子马克杯</h4>
+            <h4>{{list.name}}</h4>
             <p class="price">
-              <i>￥69.30</i>
-              <del>￥79.30</del>
-              <span class="contry">意大利</span>
+              <i>￥{{(list.price*0.8).toFixed(2)}}</i>
+              <del>￥{{list.price}}</del>
+              <span class="contry">{{list.countryName}}</span>
             </p>
           </figcaption>
         </figure>
@@ -42,7 +42,6 @@
       <div class="goods_choice">
         <p>
           已选：
-          <span class="goods_color">"银色"</span>、
           <span class="goods_num">1件</span>
           <i class="el-icon-arrow-right"></i>
         </p>
@@ -107,7 +106,7 @@
     </main>
     <van-goods-action style="z-index:3000">
       <van-goods-action-icon icon="chat-o" text="客服" @click="goto('/Service')" />
-      <van-goods-action-icon icon="cart-o" text="购物车" :info="cartlength" @click="goto('/cart')"/>
+      <van-goods-action-icon icon="cart-o" text="购物车" :info="cartlength" @click="goto('/cart')" />
       <van-goods-action-button type="warning" text="加入购物车" />
       <van-goods-action-button type="danger" text="立即购买" />
     </van-goods-action>
@@ -116,7 +115,9 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      list: []
+    };
   },
   methods: {
     goto(path) {
@@ -127,7 +128,34 @@ export default {
     cartlength() {
       return this.$store.getters.cartlength;
     }
-
+  },
+  async created() {
+    let { id } = this.$route.params;
+    // console.log(id);
+    let {
+      data: {
+        data: { lists }
+      }
+    } = await this.$axios.get("https://api.m.xidibuy.com/v2/aggregation/home", {
+      params: {
+        cid: 890,
+        title: "%E9%94%85%E5%85%B7",
+        from: "1",
+        order: "0",
+        filterId: "0",
+        page: "1",
+        token: ""
+      }
+    });
+    // console.log(lists);
+    let goods = lists.filter(item => {
+      if (id == item.id) {
+        return item;
+      }
+    });
+    // console.log(goods);
+    this.list = goods[0];
+    // console.log( this.list)
   }
 };
 </script>

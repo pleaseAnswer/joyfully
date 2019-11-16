@@ -34,7 +34,6 @@
 export default {
   data() {
     return {
-      
       tableData: [
         {
           name: "王小虎",
@@ -76,15 +75,11 @@ export default {
     };
   },
   methods: {
-   
     handleDelete(index, row) {
       console.log(index, row);
-    },
-    
-    },
-    
-  
-}
+    }
+  }
+};
 </script>
 <style lang="scss" scoped>
 </style>

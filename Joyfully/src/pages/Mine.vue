@@ -3,11 +3,15 @@
     <div class="header-title">我的喜地</div>
     <div class="space">
       <div class="xiang" @click="goto('/login')">
-        <div class="avator"></div>
-        <p v-if="isLogin">{{username}}</p>
+        <template v-if="isLogin">
+          <div class="avator1"></div>
+          <p>{{username}}</p>
+        </template>
         <template v-else>
+          <div class="avator"></div>
           <p>登录</p>
         </template>
+        +
       </div>
     </div>
     <div class="java" @click="goto('/login')">
@@ -90,7 +94,7 @@
     <el-main class="main" :class="[sty?'':'nn']"></el-main>
     <el-col class="chengxu" :class="[sty?'bb':'nn']">
       <div class="xiao">确认退出登录？</div>
-      <div class="ok" @click="on">取消</div>
+      <div class="ok" @click="cancel">取消</div>
       <div class="ok" @click="ok" style=" background: #00bebf; color:#ffffff">确定</div>
     </el-col>
   </div>
@@ -105,7 +109,7 @@ export default {
   },
   computed: {
     isLogin() {
-      return Boolean(this.$store.state.common.user);
+      return Boolean(this.$store.state.common.user.Authorization);
     }
   },
   methods: {
@@ -118,15 +122,14 @@ export default {
     ok() {
       this.sty = false;
       this.$store.commit("logout");
-      this.$router.push("/index");
-      // console.log(this.sty);
+      // this.$router.push("/index");
     },
-    on() {
+    cancel() {
       this.sty = false;
     }
   },
   created() {
-    this.username = this.$store.state.common.username;
+    this.username = this.$store.state.common.user.username;
   }
 };
 </script>
@@ -154,6 +157,14 @@ export default {
       width: 75px;
       height: 75px;
       background-image: url(../img/touxiang.png);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      border-radius: 50%;
+    }
+    .avator1 {
+      width: 75px;
+      height: 75px;
+      background-image: url(../img/07.jpg);
       background-repeat: no-repeat;
       background-size: 100% 100%;
       border-radius: 50%;
