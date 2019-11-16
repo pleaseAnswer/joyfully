@@ -51,7 +51,6 @@
         </div>
 
         <el-row>
-<<<<<<< HEAD
           <el-col
             v-for="item in  goods[13] "
             :key="item.id"
@@ -65,13 +64,7 @@
             <div style=" padding: 10px; height:239px; border: 0.2px #ccc solid " @click="goto('/detail')">
               <div style="width:167px;height:167px;margin-bottom: 10px;">
                 <img :src="item.coverImg" style="width:100%;height:100%" />
-=======
-          <el-col v-for="item in  goods[1] " :key="item.id" :xs="12" :sm="8" :md="6" :lg="4" :xl="3" >
-            <!-- 下次点击事件没有触发时就试试native -->
-            <div style=" padding: 10px; height:239px; border: 0.2px #ccc solid ">
-              <div style="width:187px;height:167px;margin-bottom: 10px;">
-                <img :src="item.coverImg" style="width:100%;height:100%"/>
->>>>>>> 023d36915b42e1882a0ddd2456bfa59d4944d9f5
+
               </div>
               <h2 style="margin-bottom: 10px;">{{item.name}}</h2>
               <p class="price">
@@ -275,27 +268,6 @@ export default {
   .bb {
     display: block;
   }
-  .tt {
-<<<<<<< HEAD
-    opacity: 0.5;
-    background: #000;
-  }
-  .price {
-    .pp {
-      color: #00bebf;
-    }
-    .ccc {
-      float: right;
-    }
-    del {
-      margin-left: 5px;
-      color: #c5c5c5;
-    }
-  }
-=======
-   
-    
-  }
   .price {
       .pp {
         color: #00bebf;
@@ -314,7 +286,5 @@ export default {
     opacity: 0.5;
     }
   
-
->>>>>>> 023d36915b42e1882a0ddd2456bfa59d4944d9f5
 }
 </style>
