@@ -1,7 +1,6 @@
 <template>
   <div>
     <router-view />
-
     <footer class="footer">
       <van-tabbar
         v-model="active"
@@ -33,11 +32,11 @@ export default {
     cartlength() {
       return this.$store.getters.cartlength;
     }
-
   },
   components: {}
 };
 </script>
 
 <style lang="scss" scoped>
+
 </style>

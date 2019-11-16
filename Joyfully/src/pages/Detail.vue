@@ -9,7 +9,7 @@
         <p>品牌</p>
         <p>评价</p>
       </div>
-      <div class="header_right">
+      <div class="header_right" @click="goto('/index')">
         <i class="el-icon-more"></i>
       </div>
     </header>
@@ -17,8 +17,16 @@
       <div class="goods_main">
         <figure>
           <div class="goods_img">
-            <img class="goods_detail" src="https://1-image.xidibuy.com/shop/shop.cd55055aa050f1c0c1c44f5732aa91f91afe07a9b86b67313500842dd515aa3d.jpeg/1500x1500/750/webp" alt="">
-            <img class="certified" src="https://static.xidibuy.com/m/static/global/images/1.0.0/new_icon_hchud.png" alt="">
+            <img
+              class="goods_detail"
+              src="https://1-image.xidibuy.com/shop/shop.cd55055aa050f1c0c1c44f5732aa91f91afe07a9b86b67313500842dd515aa3d.jpeg/1500x1500/750/webp"
+              alt
+            />
+            <img
+              class="certified"
+              src="https://static.xidibuy.com/m/static/global/images/1.0.0/new_icon_hchud.png"
+              alt
+            />
           </div>
           <figcaption>
             <h4>德国原产小王子马克杯</h4>
@@ -32,18 +40,23 @@
       </div>
       <div class="slide"></div>
       <div class="goods_choice">
-        <p>已选：
+        <p>
+          已选：
           <span class="goods_color">"银色"</span>、
           <span class="goods_num">1件</span>
           <i class="el-icon-arrow-right"></i>
         </p>
       </div>
       <div class="goods_tel">
-        <p class="goods_text">1、意大利原产；2、做工精细，时尚美观；3、材质好，尽显尊贵；4、简单精巧，使用方便；5、五十余年老品牌。1、意大利原产；2、做工精细，时尚美观；3、材质好，尽显尊贵；4、简单精巧，使用方便；5、五十余年老品牌。</p>
+        <p
+          class="goods_text"
+        >1、意大利原产；2、做工精细，时尚美观；3、材质好，尽显尊贵；4、简单精巧，使用方便；5、五十余年老品牌。1、意大利原产；2、做工精细，时尚美观；3、材质好，尽显尊贵；4、简单精巧，使用方便；5、五十余年老品牌。</p>
         <div class="goods_send">
           <span class="goods_from">
             <i class="el-icon-truck"></i>
-            每天<i class="goods_when">15:00</i>从<i class="goods_where">上海自贸区</i>发货
+            每天
+            <i class="goods_when">15:00</i>从
+            <i class="goods_where">上海自贸区</i>发货
           </span>
           <span class="goods_change clearfix">
             <i class="seven">7</i>七天无理由退货
@@ -52,8 +65,13 @@
       </div>
       <div class="slide"></div>
       <div class="goods_pinpai">
-        <img class="pinpai_img" src="https://9-image.xidibuy.com/common/common.e29e81bff967004a0d58ec889de5aca9b8b17bff1a7cdaabbf5aa4c4361a27fb.png/240/webp" alt="">
-        <div class="goods_zaixian">在售品牌商品(
+        <img
+          class="pinpai_img"
+          src="https://9-image.xidibuy.com/common/common.e29e81bff967004a0d58ec889de5aca9b8b17bff1a7cdaabbf5aa4c4361a27fb.png/240/webp"
+          alt
+        />
+        <div class="goods_zaixian">
+          在售品牌商品(
           <span class="zaixian_num">34</span>
           )
           <i class="el-icon-arrow-right"></i>
@@ -62,7 +80,11 @@
       <div class="slide"></div>
       <div class="goods_shop">
         <div class="shop_name">
-          <img class="shop_img" src="https://6-image.xidibuy.com/shop/shop.8c0602c6ef7be9d7305ce1d6988b30930ac9d19fd6c51cf83500842dd515aa3d.jpeg/550x550/240/webp" alt="">
+          <img
+            class="shop_img"
+            src="https://6-image.xidibuy.com/shop/shop.8c0602c6ef7be9d7305ce1d6988b30930ac9d19fd6c51cf83500842dd515aa3d.jpeg/550x550/240/webp"
+            alt
+          />
           <p class="shop_name_text">法意高端餐厨精品点</p>
         </div>
         <div class="coming_shop">
@@ -71,9 +93,11 @@
       </div>
       <div class="slide"></div>
       <div class="yonghu">
-        <div class="yonghu_pingjia">用户评价(
+        <div class="yonghu_pingjia">
+          用户评价(
           <span class="pingjia_num">42</span>
-        )</div>
+          )
+        </div>
         <div class="yonghu_pingfen">
           商品评分
           <span class="pingfen_num">4.9</span>
@@ -81,30 +105,45 @@
         </div>
       </div>
     </main>
-    <van-goods-action style="z-index:100">
-        <van-goods-action-icon icon="chat-o" text="客服" />
-        <van-goods-action-icon icon="cart-o" text="购物车" info="5" />
-        <van-goods-action-button type="warning" text="加入购物车" />
-        <van-goods-action-button type="danger" text="立即购买" />
+    <van-goods-action style="z-index:3000">
+      <van-goods-action-icon icon="chat-o" text="客服" @click="goto('/Service')" />
+      <van-goods-action-icon icon="cart-o" text="购物车" :info="cartlength" @click="goto('/cart')"/>
+      <van-goods-action-button type="warning" text="加入购物车" />
+      <van-goods-action-button type="danger" text="立即购买" />
     </van-goods-action>
   </div>
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    goto(path) {
+      this.$router.push(path);
+    }
+  },
+  computed: {
+    cartlength() {
+      return this.$store.getters.cartlength;
+    }
+
+  }
+};
 </script>
 <style lang="scss" scoped>
 @charset "utf-8";
-@function vw($px){
-    @return ($px / 375) * 100vw;
+@function vw($px) {
+  @return ($px / 375) * 100vw;
 }
-body{
+body {
   color: #333;
   background: #ccc;
 }
-.hidden{
+.hidden {
   display: none;
 }
-header{
+header {
   width: 100%;
   height: vw(48);
   display: flex;
@@ -112,60 +151,59 @@ header{
   align-items: center;
   position: fixed;
   z-index: 100;
-  box-shadow: 0 2px 3px rgba(0,0,0,.1);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
   background: #fff;
-  .p_now{
+  .p_now {
     border-bottom: 3px solid #00bebf;
   }
-  .header_left{
+  .header_left {
     padding-left: vw(12);
-    .el-icon-arrow-left{
+    .el-icon-arrow-left {
       font-size: vw(24);
       line-height: vw(24);
     }
   }
-  .header_middle{
+  .header_middle {
     // width: vw(144);
     height: vw(48);
     font-size: vw(18);
     line-height: vw(48);
     display: flex;
-    p{
+    p {
       padding: 0 vw(15);
     }
   }
-  .header_right{
+  .header_right {
     padding-right: vw(12);
-    .el-icon-more{
+    .el-icon-more {
       font-size: vw(24);
       line-height: vw(24);
     }
   }
-  
 }
-main{
+main {
   margin-bottom: vw(60);
-  .goods_main{
+  .goods_main {
     width: 100%;
     height: vw(475);
     padding-top: vw(48);
-    figure{
+    figure {
       width: 100%;
       height: vw(475);
       position: relative;
       margin: 0;
-      .goods_img{
+      .goods_img {
         width: vw(375);
         height: vw(375);
         position: absolute;
         top: 0;
         left: 0;
         border-bottom: 1px solid #ccc;
-        .goods_detail{
+        .goods_detail {
           width: 100%;
           height: 100%;
         }
-        .certified{
+        .certified {
           width: vw(90);
           height: vw(90);
           position: absolute;
@@ -173,14 +211,14 @@ main{
           left: vw(10);
         }
       }
-      figcaption{
+      figcaption {
         width: 100%;
         height: vw(100);
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
-        h4{
+        h4 {
           width: vw(345);
           height: vw(40);
           font-size: vw(16);
@@ -192,7 +230,7 @@ main{
           text-overflow: hidden;
           padding: vw(10) vw(15) 0;
         }
-        .price{
+        .price {
           width: vw(345);
           height: vw(32);
           font-size: 12px;
@@ -200,39 +238,39 @@ main{
           color: #888;
           padding-left: vw(15);
           padding-right: vw(15);
-          i{
+          i {
             font-size: vw(18);
             line-height: vw(32);
             color: #00bebf;
           }
-          del{
+          del {
             padding-left: vw(5);
             color: #c5c5c5;
             font-size: vw(14);
           }
-          .contry{
-            float:right;
+          .contry {
+            float: right;
           }
         }
-      }  
+      }
     }
   }
-  .slide{
+  .slide {
     width: 100%;
     height: vw(10);
     background: #eee;
   }
-  .goods_choice{
+  .goods_choice {
     width: vw(335);
     height: vw(48);
     margin-bottom: vw(20);
     padding: 0 vw(15) vw(10);
-    p{
+    p {
       font-size: vw(14);
       line-height: vw(48);
       position: relative;
       border-bottom: 1px solid #ccc;
-      .el-icon-arrow-right{
+      .el-icon-arrow-right {
         font-size: vw(25);
         color: #c5c5c5;
         position: absolute;
@@ -241,14 +279,14 @@ main{
       }
     }
   }
-  .goods_tel{
+  .goods_tel {
     width: vw(345);
     margin: 0 vw(15);
     color: #888;
     font-size: 12px;
     line-height: vw(28);
     position: relative;
-    .goods_text{
+    .goods_text {
       width: 100%;
       // position: absolute;
       // top: 0;
@@ -257,24 +295,24 @@ main{
       line-height: vw(20);
       padding: vw(10) 0 vw(20);
     }
-    .goods_send{
+    .goods_send {
       height: vw(28);
       padding: vw(10) 0 vw(20);
-      .goods_from{
+      .goods_from {
         width: vw(184);
         height: vw(28);
         float: left;
-        .el-icon-truck{
+        .el-icon-truck {
           font-size: vw(26);
         }
       }
-      .goods_change{
+      .goods_change {
         width: vw(84);
         height: vw(28);
         float: right;
         position: relative;
         padding-left: vw(26);
-        .seven{
+        .seven {
           width: vw(20);
           height: vw(20);
           display: inline-block;
@@ -289,19 +327,18 @@ main{
         }
       }
     }
-    
   }
-  .goods_pinpai{
+  .goods_pinpai {
     width: vw(345);
     height: vw(60);
     padding: vw(15);
-    .pinpai_img{
+    .pinpai_img {
       width: vw(88);
       height: vw(40);
       padding-top: vw(10);
       float: left;
     }
-    .goods_zaixian{
+    .goods_zaixian {
       width: vw(200);
       height: vw(40);
       padding-top: vw(10);
@@ -312,7 +349,7 @@ main{
       padding-right: vw(15);
       text-align: right;
       position: relative;
-      .el-icon-arrow-right{
+      .el-icon-arrow-right {
         display: inline-block;
         width: vw(25);
         height: vw(25);
@@ -320,22 +357,21 @@ main{
         right: 0;
         top: vw(24);
       }
-
     }
   }
-  .goods_shop{
+  .goods_shop {
     width: vw(345);
     height: vw(112);
     padding: vw(10) vw(15);
     font-size: vw(14);
-    .shop_name{
+    .shop_name {
       width: vw(280);
       height: vw(45);
       line-height: vw(45);
       padding: vw(5) 0 0 vw(65);
       margin-bottom: vw(10);
       position: relative;
-      .shop_img{
+      .shop_img {
         width: vw(50);
         height: vw(50);
         position: absolute;
@@ -343,7 +379,7 @@ main{
         left: 0;
       }
     }
-    .coming_shop{
+    .coming_shop {
       width: vw(345);
       height: vw(42);
       font-size: vw(14);
@@ -352,7 +388,7 @@ main{
       border: 1px solid #d5d5d5;
     }
   }
-  .yonghu{
+  .yonghu {
     width: vw(345);
     height: vw(60);
     font-size: vw(15);
@@ -360,10 +396,10 @@ main{
     padding-right: vw(15);
     padding-left: vw(15);
     border-bottom: 1px solid #f1f1f1;
-    .yonghu_pingjia{
+    .yonghu_pingjia {
       float: left;
     }
-    .yonghu_pingfen{
+    .yonghu_pingfen {
       width: vw(200);
       float: right;
       color: #777;
@@ -371,7 +407,7 @@ main{
       text-align: right;
       position: relative;
       color: #00bebf;
-      .el-icon-arrow-right{
+      .el-icon-arrow-right {
         display: inline-block;
         width: vw(25);
         height: vw(25);
@@ -383,5 +419,4 @@ main{
     }
   }
 }
-
 </style>

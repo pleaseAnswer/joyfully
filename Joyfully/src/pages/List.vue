@@ -1,7 +1,12 @@
 <template>
   <div class="app">
     <el-container>
-      <el-header style="height:48px" :class="[sty?'tt':' ']">
+
+
+      
+
+
+      <el-header style="height:48px" >
         <el-row>
           <el-col>
             <div class="grid-content bg-purple-dark">
@@ -15,11 +20,11 @@
       </el-header>
 
       <!-- nime -->
-      <el-main style="overflow: hidden;padding: 0;position: relative;" :class="[sty?'tt':' ']">
+      <el-main style="overflow: hidden;padding: 0;position: relative;background: #fff;" :class="[sty?'tt':' ']">
         <el-row>
           <el-col class="pic">
             <a href>
-              <img src="../images/cc.jpg" alt />
+              <img src="../images/wan.jpg" alt />
             </a>
           </el-col>
         </el-row>
@@ -46,23 +51,42 @@
         </div>
 
         <el-row>
-          <el-col v-for="item in  goods[13] " :key="item.id" :xs="12" :sm="8" :md="6" :lg="4" :xl="3" >
+<<<<<<< HEAD
+          <el-col
+            v-for="item in  goods[13] "
+            :key="item.id"
+            :xs="12"
+            :sm="8"
+            :md="6"
+            :lg="4"
+            :xl="3"
+          >
+            <!-- 下次点击事件没有触发时就试试native -->
+            <div style=" padding: 10px; height:239px; border: 0.2px #ccc solid " @click="goto('/detail')">
+              <div style="width:167px;height:167px;margin-bottom: 10px;">
+                <img :src="item.coverImg" style="width:100%;height:100%" />
+=======
+          <el-col v-for="item in  goods[1] " :key="item.id" :xs="12" :sm="8" :md="6" :lg="4" :xl="3" >
             <!-- 下次点击事件没有触发时就试试native -->
             <div style=" padding: 10px; height:239px; border: 0.2px #ccc solid ">
-              <div style="width:167px;height:167px;margin-bottom: 10px;">
+              <div style="width:187px;height:167px;margin-bottom: 10px;">
                 <img :src="item.coverImg" style="width:100%;height:100%"/>
+>>>>>>> 023d36915b42e1882a0ddd2456bfa59d4944d9f5
               </div>
-               <h2 style="margin-bottom: 10px;">{{item.name}}</h2>
+              <h2 style="margin-bottom: 10px;">{{item.name}}</h2>
               <p class="price">
-                  <span class="pp">￥{{item.salePrice}}</span>
-                  <del>￥{{item.price}}</del>
-                  <span class="ccc">{{item.countryName}}</span>
+                <span class="pp">￥{{item.salePrice}}</span>
+                <del>￥{{item.price}}</del>
+                <span class="ccc">{{item.countryName}}</span>
               </p>
             </div>
           </el-col>
         </el-row>
 
         <!-- footer -->
+       <el-main class="main"  :class="[sty?'':'nn']">
+      </el-main>
+
 
         <el-col class="none">没有更多商品</el-col>
         <el-breadcrumb separator="/">
@@ -85,6 +109,7 @@
         <div class="xiao">微信搜索“喜地优品”小程序，实现快捷购物</div>
         <div class="ok" @click="ok">确定</div>
       </el-col>
+     
     </el-container>
   </div>
 </template>
@@ -95,38 +120,36 @@ export default {
   data() {
     return {
       sty: false,
-      goods:[]
+      goods: []
     };
   },
- async created() {
+  async created() {
     let { id } = this.$route.params;
-     
+
     let {
       data: { data }
     } = await my.get("/guojiaguan");
 
     let datas = data[0].data.country16;
-    console.log(datas);
+    // console.log(datas);
     this.goodslist = datas;
     let da = datas.map(item => {
       return item[6].B;
     });
     this.goods = da;
-    console.log(da);
+    // console.log(da);
   },
-   
-   
   methods: {
     goto(path) {
       this.$router.push(path);
     },
     app() {
       this.sty = true;
-      console.log("+++");
+      // console.log("+++");
     },
     ok() {
       this.sty = false;
-      console.log(this.sty);
+      // console.log(this.sty);
     }
   }
 };
@@ -145,6 +168,7 @@ export default {
       left: 10px;
       line-height: 48px;
       color: #999;
+      background: #fff;
     }
     h2 {
       font-size: 18px;
@@ -163,7 +187,7 @@ export default {
     .icon_search {
       position: absolute;
       top: 10px;
-      right: -120px;
+      right: -100px;
     }
     .icon_cart_full {
       position: absolute;
@@ -252,8 +276,24 @@ export default {
     display: block;
   }
   .tt {
+<<<<<<< HEAD
     opacity: 0.5;
     background: #000;
+  }
+  .price {
+    .pp {
+      color: #00bebf;
+    }
+    .ccc {
+      float: right;
+    }
+    del {
+      margin-left: 5px;
+      color: #c5c5c5;
+    }
+  }
+=======
+   
     
   }
   .price {
@@ -266,9 +306,15 @@ export default {
       del {
         margin-left: 5px;
         color: #c5c5c5;
+       
       }
+    }
+    .main{
+        width:414px;height:20000px; position: fixed;top:0px;left:0px;right:0px;bottom:0px; background:#000;
+    opacity: 0.5;
     }
   
 
+>>>>>>> 023d36915b42e1882a0ddd2456bfa59d4944d9f5
 }
 </style>

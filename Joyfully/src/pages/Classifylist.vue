@@ -4,7 +4,7 @@
       <i class="el-icon-arrow-left" @click="goto('/Classify')"></i>
       <p>锅具</p>
       <i class="el-icon-search"></i>
-      <i class="el-icon-shopping-cart-full"></i>
+      <i class="el-icon-shopping-cart-full" @click="goto('/cart')"></i>
     </header>
     <nav>
       <el-tabs type="card">

@@ -31,14 +31,6 @@ let cart = ({
                 price2: 650.60,
                 text: "意大利原产DB HOME LINEN棉质床上四件套GRAZIA被罩200x230cm",
                 qty: 15
-            },
-            {
-                id: 5,
-                img: "https://8-image.xidibuy.com/shop/shop.3f7cbe75f951bcfc89fb7f42e70707757733cd8d9057143f3500842dd515aa3d.jpeg/800x800/360/webp",
-                price1: 693.60,
-                price2: 650.60,
-                text: "意大利原产DB HOME LINEN棉质床上四件套GRAZIA被罩200x230cm",
-                qty: 15
             }
         ]
     },
