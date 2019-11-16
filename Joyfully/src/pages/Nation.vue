@@ -81,11 +81,9 @@
                     v-for="item in countrys"
                     :key="item.countryName"
                     style="fint-size:14px;"
-                  >
-                  </el-tab-pane>
+                  ></el-tab-pane>
                   <!-- <span class="left"><i class="el-icon-arrow-left"></i></span>
                   <span class="right"><i class="el-icon-arrow-right"></i></span>-->
-                  
                 </el-tabs>
               </template>
 
@@ -372,7 +370,6 @@ export default {
       margin: 0 auto;
 
       a {
-        float: left;
         display: inline-block;
         text-decoration: none;
         color: #4a82b1;
@@ -543,20 +540,6 @@ export default {
     position: fixed;
     top: 150px;
     z-index: 999;
-  }
-  .left {
-    // width: 20px;
-    // height: 40px;
-    //  position: absolute;
-    // left:0px;
-    // top: 0px;
-  }
-  .right {
-    //  width: 34px;
-    // height: 40px;
-    // position: absolute;
-    // right:20px;
-    // top: 16px;
   }
 }
 </style>

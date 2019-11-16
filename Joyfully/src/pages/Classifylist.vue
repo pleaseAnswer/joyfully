@@ -1,10 +1,10 @@
 <template>
   <div>
     <header>
-      <i class="el-icon-arrow-left" @click="goto('/Classify')"></i>
+      <i class="el-icon-arrow-left" @click="goto2('/classify')"></i>
       <p>锅具</p>
       <i class="el-icon-search"></i>
-      <i class="el-icon-shopping-cart-full" @click="goto('/cart')"></i>
+      <i class="el-icon-shopping-cart-full" @click="goto2('/cart')"></i>
     </header>
     <nav>
       <el-tabs type="card">
@@ -20,7 +20,7 @@
             </li>
           </div>
           <!-- 全部 -->
-          <div v-for="item in datalist.lists" :key="item.id" class="goods">
+          <div v-for="item in datalist.lists" :key="item.id" class="goods" @click="goto(item.id)">
             <img :src="item.attrImg" alt />
             <a href>{{item.name}}</a>
             <p class="text01">{{item.price}}</p>
@@ -39,7 +39,7 @@
             </li>
           </div>
           <!-- 全部 -->
-          <div v-for="item in datalist.lists" :key="item.id" class="goods">
+          <div v-for="item in datalist.lists" :key="item.id" class="goods" @click="goto(item.id)">
             <img :src="item.attrImg" alt />
             <a href>{{item.name}}</a>
             <p class="text01">{{item.price}}</p>
@@ -60,31 +60,22 @@ export default {
   },
 
   methods: {
-    goto(path) {
+    goto(id) {
+      this.$router.push({ name: "detail", params: { id } });
+    },
+    goto2(path) {
       this.$router.push(path);
     }
   },
   async created() {
-    // console.log("----");
-    
     let {
       data: { data }
     } = await this.$axios.get(
       "https://api.m.xidibuy.com/v2/aggregation/home?cid=890&title=%E9%94%85%E5%85%B7&from=1&order=0&filterId=0&page=1&token="
     );
-
+    // console.log(data);
     this.datalist = data;
-    // window.console.log(this.datalist);
-    // let top=data.tabs
-    // this.tabs=top;
-    // window.console.log(top)
-
-    // let goods=data.lists
-    // this.lists=goods;
-    // window.console.log(goods)
-
-    // let{data1}=await this.$axios.get('https://analysis.xidibuy.com/piwik.php?action_name=%E5%96%9C%E5%9C%B0%E2%80%94%E7%BA%AF%E8%BF%9B%E5%8F%A3%E5%AE%B6%E5%B1%85%E7%94%9F%E6%B4%BB%E7%94%A8%E5%93%81%E8%B4%AD%E4%B9%B0%E5%B9%B3%E5%8F%B0&idsite=3&rec=1&r=245976&h=10&m=1&s=18&url=https%3A%2F%2Fm.xidibuy.com%2F&_id=86c9d150cbbd7088&_idts=1573563250&_idvc=16&_idn=0&_refts=0&_viewts=1573778847&send_image=1&cookie=1&res=375x667&cvar=%7B%225%22%3A%5B%22_pkc%22%2C%22%E5%88%86%E7%B1%BB%E5%90%8D%E7%A7%B0%22%5D%7D&gt_ms=589&pv_id=jEaM4s');
-    // window.console.log(data1);
+    
   }
 };
 </script>
