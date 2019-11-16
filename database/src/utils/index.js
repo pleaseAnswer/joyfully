@@ -1,16 +1,21 @@
+const token = require('./token');
 
-
-//解构默认值
-function formatData({status=1,data=[],msg='success'}={}){
-    if(status==0){
-        msg="fail";
+function formatData({
+    status = 1,
+    data = [],
+    msg = 'success'
+} = {}) {
+    if (status === 0) {
+        msg = 'fail'
     }
-    return{
+    return {
         status,
         data,
         msg
     }
 }
+
 module.exports = {
-    formatData
+    formatData,
+    token
 }
