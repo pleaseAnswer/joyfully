@@ -21,7 +21,7 @@
       </el-header>
       <el-main style="padding: 0; overflow: hidden;">
         <div class="Mine">
-          <img src="../images/service-tel.png" alt />
+          <img src="../img/service-tel.png" alt />
 
           <el-col style="position: relative;">
             <div>
@@ -31,7 +31,7 @@
           </el-col>
         </div>
         <div class="Mine">
-          <img src="../images/service-email.png" alt />
+          <img src="../img/service-email.png" alt />
           <el-col style="position: relative;">
             <div>
               <p class="oneP">客服邮箱</p>
@@ -40,7 +40,7 @@
           </el-col>
         </div>
         <div class="Mine">
-          <img src="../images/contactCustomer.png" alt />
+          <img src="../img/contactCustomer.png" alt />
           <el-col style="position: relative;">
             <div>
               <p class="oneP">喜地在线客服</p>

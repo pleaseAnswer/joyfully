@@ -1,12 +1,7 @@
 <template>
   <div class="app">
     <el-container>
-
-
-      
-
-
-      <el-header style="height:48px" >
+      <el-header style="height:48px">
         <el-row>
           <el-col>
             <div class="grid-content bg-purple-dark">
@@ -20,11 +15,14 @@
       </el-header>
 
       <!-- nime -->
-      <el-main style="overflow: hidden;padding: 0;position: relative;background: #fff;" :class="[sty?'tt':' ']">
+      <el-main
+        style="overflow: hidden;padding: 0;position: relative;background: #fff;"
+        :class="[sty?'tt':' ']"
+      >
         <el-row>
           <el-col class="pic">
             <a href>
-              <img src="../images/wan.jpg" alt />
+              <img src="../img/wan.jpg" alt />
             </a>
           </el-col>
         </el-row>
@@ -61,10 +59,12 @@
             :xl="3"
           >
             <!-- 下次点击事件没有触发时就试试native -->
-            <div style=" padding: 10px; height:239px; border: 0.2px #ccc solid " @click="goto('/detail')">
+            <div
+              style=" padding: 10px; height:239px; border: 0.2px #ccc solid "
+              @click="goto('/detail')"
+            >
               <div style="width:167px;height:167px;margin-bottom: 10px;">
                 <img :src="item.coverImg" style="width:100%;height:100%" />
-
               </div>
               <h2 style="margin-bottom: 10px;">{{item.name}}</h2>
               <p class="price">
@@ -77,9 +77,7 @@
         </el-row>
 
         <!-- footer -->
-       <el-main class="main"  :class="[sty?'':'nn']">
-      </el-main>
-
+        <el-main class="main" :class="[sty?'':'nn']"></el-main>
 
         <el-col class="none">没有更多商品</el-col>
         <el-breadcrumb separator="/">
@@ -102,7 +100,6 @@
         <div class="xiao">微信搜索“喜地优品”小程序，实现快捷购物</div>
         <div class="ok" @click="ok">确定</div>
       </el-col>
-     
     </el-container>
   </div>
 </template>
@@ -235,20 +232,20 @@ export default {
     right: 110px;
   }
   .chengxu {
-    width: 384px;
+    width: 353px;
     height: 127px;
     background: #fff;
     position: fixed;
     top: 300px;
     border: #eee 1px solid;
-    left: 15px;
+    left: 10px;
     display: none;
 
     .xiao {
-      width: 335px;
+      width: 308px;
       height: 21px;
       border-bottom: #eee 1px solid;
-      padding: 2rem;
+      padding: 1.8rem;
       font-size: 13px;
       text-align: center;
       line-height: 21px;
@@ -268,23 +265,29 @@ export default {
   .bb {
     display: block;
   }
+
   .price {
-      .pp {
-        color: #00bebf;
-      }
-      .ccc {
-        float: right;
-      }
-      del {
-        margin-left: 5px;
-        color: #c5c5c5;
-       
-      }
+    .pp {
+      color: #00bebf;
     }
-    .main{
-        width:414px;height:20000px; position: fixed;top:0px;left:0px;right:0px;bottom:0px; background:#000;
+    .ccc {
+      float: right;
+    }
+    del {
+      margin-left: 5px;
+      color: #c5c5c5;
+    }
+  }
+  .main {
+    width: 414px;
+    height: 20000px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: #000;
     opacity: 0.5;
-    }
-  
+  }
 }
 </style>

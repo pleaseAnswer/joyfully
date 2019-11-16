@@ -3,7 +3,7 @@
       <el-container>
        <el-main style=" padding: 0;overflow: hidden ">
          <div class="box">
-            <img src="../images/bg_don.png" alt="">  
+            <img src="../img/bg_don.png" alt="">  
          </div>  
          <div class="Box" style="position: relative; ">
           <el-row style="  width: 414px; height: 118px; position: absolute;top: -158px;background: #fff;"> 

@@ -24,7 +24,6 @@ export default {
         },
         logout(state) {
             state.user = '';
-
             // 清除本地存储信息
             localStorage.removeItem('user');
         }

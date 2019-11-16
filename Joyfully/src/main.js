@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-// import base from './assets/css/base.css'
+import base from './assets/css/base.css'
 //使用Element
 import ElementUI from 'element-ui';
 import icon from './css/icon.css'
@@ -30,6 +30,7 @@ import {
 
 
 Vue.use(Icon)
+    .use(base)
     .use(Tabbar)
     .use(TabbarItem)
     .use(SubmitBar)
