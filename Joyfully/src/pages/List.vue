@@ -46,17 +46,25 @@
         </div>
 
         <el-row>
-          <el-col v-for="item in  goods[13] " :key="item.id" :xs="12" :sm="8" :md="6" :lg="4" :xl="3" >
+          <el-col
+            v-for="item in  goods[13] "
+            :key="item.id"
+            :xs="12"
+            :sm="8"
+            :md="6"
+            :lg="4"
+            :xl="3"
+          >
             <!-- 下次点击事件没有触发时就试试native -->
-            <div style=" padding: 10px; height:239px; border: 0.2px #ccc solid ">
+            <div style=" padding: 10px; height:239px; border: 0.2px #ccc solid " @click="goto('/detail')">
               <div style="width:167px;height:167px;margin-bottom: 10px;">
-                <img :src="item.coverImg" style="width:100%;height:100%"/>
+                <img :src="item.coverImg" style="width:100%;height:100%" />
               </div>
-               <h2 style="margin-bottom: 10px;">{{item.name}}</h2>
+              <h2 style="margin-bottom: 10px;">{{item.name}}</h2>
               <p class="price">
-                  <span class="pp">￥{{item.salePrice}}</span>
-                  <del>￥{{item.price}}</del>
-                  <span class="ccc">{{item.countryName}}</span>
+                <span class="pp">￥{{item.salePrice}}</span>
+                <del>￥{{item.price}}</del>
+                <span class="ccc">{{item.countryName}}</span>
               </p>
             </div>
           </el-col>
@@ -95,38 +103,36 @@ export default {
   data() {
     return {
       sty: false,
-      goods:[]
+      goods: []
     };
   },
- async created() {
+  async created() {
     let { id } = this.$route.params;
-     
+
     let {
       data: { data }
     } = await my.get("/guojiaguan");
 
     let datas = data[0].data.country16;
-    console.log(datas);
+    // console.log(datas);
     this.goodslist = datas;
     let da = datas.map(item => {
       return item[6].B;
     });
     this.goods = da;
-    console.log(da);
+    // console.log(da);
   },
-   
-   
   methods: {
     goto(path) {
       this.$router.push(path);
     },
     app() {
       this.sty = true;
-      console.log("+++");
+      // console.log("+++");
     },
     ok() {
       this.sty = false;
-      console.log(this.sty);
+      // console.log(this.sty);
     }
   }
 };
@@ -163,7 +169,7 @@ export default {
     .icon_search {
       position: absolute;
       top: 10px;
-      right: -120px;
+      right: -100px;
     }
     .icon_cart_full {
       position: absolute;
@@ -254,21 +260,18 @@ export default {
   .tt {
     opacity: 0.5;
     background: #000;
-    
   }
   .price {
-      .pp {
-        color: #00bebf;
-      }
-      .ccc {
-        float: right;
-      }
-      del {
-        margin-left: 5px;
-        color: #c5c5c5;
-      }
+    .pp {
+      color: #00bebf;
     }
-  
-
+    .ccc {
+      float: right;
+    }
+    del {
+      margin-left: 5px;
+      color: #c5c5c5;
+    }
+  }
 }
 </style>

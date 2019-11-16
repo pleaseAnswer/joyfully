@@ -383,7 +383,7 @@ body {
   }
   .box3 {
     height: 100%;
-    width: 120px;
+    width: 94px;
     float: left;
     background: #4ed6d1;
     text-align: center;

@@ -120,7 +120,6 @@ export default {
             alert("注册成功");
             this.$router.replace("/login");
           }
-          alert("成功");
         } else {
           alert("注册失败");
           return false;

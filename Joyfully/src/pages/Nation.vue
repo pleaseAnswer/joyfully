@@ -228,13 +228,13 @@ export default {
     } = await my.get("/guojiaguan");
 
     let datas = data[0].data.country16;
-    console.log(datas);
+    // console.log(datas);
 
     this.goodslist = datas;
     let da = datas.map(item => {
       return item[6].B;
     });
-    console.log(da);
+    // console.log(da);
   }
 
 };
