@@ -65,7 +65,7 @@ export default {
     }
   },
   async created() {
-    console.log("----");
+    // console.log("----");
     
     let {
       data: { data }
@@ -74,7 +74,7 @@ export default {
     );
 
     this.datalist = data;
-    window.console.log(this.datalist);
+    // window.console.log(this.datalist);
     // let top=data.tabs
     // this.tabs=top;
     // window.console.log(top)
