@@ -70,56 +70,89 @@
           <el-row>
             <el-col :span="24" class="text" style=" position: relative;">
               <!-- one -->
-              <div
-                class="grid-content bg-purple-dark"
-                style="  width: 100%;height:45px;position: relative; float: left; "
-              >
-                <template>
-                  <el-tabs style=" padding: 0 20px;margin-right:22px;" :class="[rotate?'nn':' bb']">
-                    <el-tab-pane
-                      :label="item.countryName+'精选'"
-                      v-for="item in countrys"
-                      :key="item.countryName"
-                      style="fint-size:14px;"
-                    ></el-tab-pane>
-                  </el-tabs>
-                </template>
-              </div>
+
+              <template>
+                <el-tabs
+                  style=" padding: 0 20px;margin-right:22px;background: #fff;"
+                  :class="[rotate?'nn':'bb ',{'is_fixed' : isFixed}]"
+                >
+                  <el-tab-pane
+                    :label="item.countryName+'精选'"
+                    v-for="item in countrys"
+                    :key="item.countryName"
+                    style="fint-size:14px;"
+                  >
+                  </el-tab-pane>
+                  <!-- <span class="left"><i class="el-icon-arrow-left"></i></span>
+                  <span class="right"><i class="el-icon-arrow-right"></i></span>-->
+                  
+                </el-tabs>
+              </template>
+
+              <!-- footer -->
 
               <!-- tow -->
+
               <div
-                class="grid-content bg-purple-dark"
-                style=" width: 100%;height:45px;background:#f3f3f3;  position: absolute;"
-                :class="[rotate?'bb':'nn ']"
+                class="box_fixed"
+                id="boxFixed"
+                style=" width: 100%;height:45px;background:#f3f3f3; "
+                :class="[rotate?'bb':'nn ',{'is_fixed' : isFixed}]"
               >
                 <div class="all">全部</div>
               </div>
 
-             <!-- 箭头 -->
-              <div class="grid-content bg-purple-dark" style="height:44px;width:40px; position: absolute; right:0px;top:0px;z-index:9999" 
-              @click="getLi">
-                  <i class="icon icon_triangle_down" style="float: right;width:25px;height:24px;margin-top:15px;margin-right:10px;" :class="[rotate?'go':' cc']"></i>
+              <!-- 箭头 -->
+              <div
+                style="height:44px;width:40px; position: absolute; right:0px;top:0px;z-index:9999"
+                @click="getLi"
+              >
+                <i
+                  class="box_fixed icon icon_triangle_down"
+                  id="boxFixed"
+                  style="float: right;width:25px;height:24px;margin-top:15px;margin-right:10px;"
+                  :class="[rotate?'go':' cc nn',{'is_fixed' : isFixed}]"
+                ></i>
               </div>
-
-
-              <div class="allAll" style="z-index:999 ;border-bottom: 1px solid #ccc" :class="[rotate?'bb':' nn']">
-                <ul >
+              <div
+                style="height:44px;width:40px; position: absolute; right:0px;top:0px;z-index:9999"
+                @click="getLi"
+              >
+                <i
+                  class="box_fixed icon icon_triangle_down"
+                  id="boxFixed"
+                  style="float: right;width:25px;height:24px;margin-top:15px;margin-right:10px;"
+                  :class="[rotate?'go nn':' cc bb']"
+                ></i>
+              </div>
+              <!-- 小卡片 -->
+              <div
+                class="box_fixed allAll"
+                id="boxFixed"
+                style="z-index:999 ;border-bottom: 1px solid #ccc"
+                :class="[rotate?'bb':' nn',{'is_fixedt' : isFixed}]"
+              >
+                <ul>
                   <li v-for="item in countrys" :key="item.countryName">{{item.countryName}}精选</li>
                 </ul>
               </div>
-
-              
             </el-col>
+
             <!-- 有18个list -->
             <div class="List" v-for="item in  goodslist " :key="item.id">
               <h1
                 style=" height: 53px; width: 100%; line-height: 53px;margin-left:110px;"
               >— {{item.countryName}}精选 —</h1>
               <div>
-                <div class="List-img" style=" height: 142px;  margin-bottom: 10px;" v-for="item in list" :key="item.id" @click="gotoList(item.id)">
+                <div
+                  class="List-img"
+                  style=" height: 142px;  margin-bottom: 10px;"
+                  v-for="item in list"
+                  :key="item.id"
+                  @click="gotoList(item.id)"
+                >
                   <img :src="item.imgurl" />
                 </div>
-               
               </div>
 
               <el-row>
@@ -158,71 +191,102 @@
           </el-row>
         </div>
       </el-main>
+      <el-main class="main" :class="[rotate?'':'nn']"></el-main>
     </el-container>
   </div>
 </template>
 <script>
 import { my } from "../Api";
 import { guan } from "../Api";
- 
+
 export default {
   data() {
     return {
       scroll: "",
       style: "display:block;height:55px",
-      rotate:false,
+      rotate: false,
       countrys: [],
       goodNav: [],
       goodslist: [],
-      list: [{
-                name: "芬兰天然滑石",
-                id: "1",
-                imgurl: "https://image.xidibuy.com/tepin/tepin.8e383668cc0d04cfeca4597ea409efda0d70a9d49920626e0908ef4c15fe7ce1.jpeg/910x315/750/webp"
-            },
-            {
-                name: "日本漆器",
-                id: "2",
-                imgurl: "https://image.xidibuy.com/tepin/tepin.8e383668cc0d04cf606d4414e79b2629e3376fdfe649b1d8a237ea632cfc876d.jpeg/910x315/750/webp"
-            },
-            {
-                name: "清洁器",
-                id: "3",
-                imgurl: "https://image.xidibuy.com/tepin/tepin.8e383668cc0d04cf3b5ee4e28866a52e70af428d704fefb7bf5aa4c4361a27fb.jpeg/910x315/750/webp"
-            }
-        ]
-    
-      
+      isFixed: false,
+      offsetTop: 0,
+
+      list: [
+        {
+          name: "芬兰天然滑石",
+          id: "1",
+          imgurl:
+            "https://image.xidibuy.com/tepin/tepin.8e383668cc0d04cfeca4597ea409efda0d70a9d49920626e0908ef4c15fe7ce1.jpeg/910x315/750/webp"
+        },
+        {
+          name: "日本漆器",
+          id: "2",
+          imgurl:
+            "https://image.xidibuy.com/tepin/tepin.8e383668cc0d04cf606d4414e79b2629e3376fdfe649b1d8a237ea632cfc876d.jpeg/910x315/750/webp"
+        },
+        {
+          name: "清洁器",
+          id: "3",
+          imgurl:
+            "https://image.xidibuy.com/tepin/tepin.8e383668cc0d04cf3b5ee4e28866a52e70af428d704fefb7bf5aa4c4361a27fb.jpeg/910x315/750/webp"
+        }
+      ]
     };
   },
+  mounted() {
+    // 监听页面滚动
+    window.addEventListener("scroll", this.initHeight, true);
+    // this.$nextTick(() => {
+    //   // 获取id为testNavBar的元素距离顶部的距离
+    //   // this.offsetTop = document.querySelector("#boxFixed").offsetTop;
+    //   this.offsetTop = 800;
+    // });
+  },
+  beforeRouteLeave(to, from, next) {
+    window.removeEventListener("scroll", this.initHeight, true);
+    next();
+  },
+
   methods: {
     close() {
       this.style = "display:none;height:0px";
-      
     },
-    getLi(){
-      this.rotate=!this.rotate;
-    },
-    gotoList(id){
-      this.$router.push({name:'list',params:{id}})
-    },
-    async getData() {
-      
+    getLi() {
+      console.log("+++");
 
-      let {
-        data: {
-          data: { countryNav }
-        }
-      } = await guan.get();
-
-      this.countrys = countryNav;
-      // let cName=countryNav.map(item=>{
-      //   return item.countryName
-      // })
-      // console.log(cName);
+      this.rotate = !this.rotate;
+    },
+    gotoList(id) {
+      this.$router.push({ name: "list", params: { id } });
+    },
+    initHeight() {
+      // 获得页面滚动的距离
+      var scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      // 获取id为testNavBar的元素距离顶部的距离
+      // 比较他们的大小来确定是否添加fixedNavbar样式
+      this.offsetTop = 790;
+      if (scrollTop > this.offsetTop) {
+        this.isFixed = true;
+      } else {
+        this.isFixed = false;
+      }
     }
   },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
   async created() {
-    this.getData();
+    let {
+      data: {
+        data: { countryNav }
+      }
+    } = await guan.get();
+
+    this.countrys = countryNav;
+
     let {
       data: { data }
     } = await my.get("/guojiaguan");
@@ -236,7 +300,6 @@ export default {
     });
     console.log(da);
   }
-
 };
 </script>
 <style lang="scss" scoped>
@@ -264,7 +327,6 @@ export default {
         overflow: hidden;
         margin-left: 14px;
         margin-top: 16px;
-        
       }
     }
     .BoxTopIcon {
@@ -398,7 +460,7 @@ export default {
   .allAll {
     width: 100%;
     height: 359px;
-    
+    background: #fff;
 
     ul {
       li {
@@ -437,8 +499,7 @@ export default {
       }
     }
   }
- 
- 
+
   .foor {
     float: left;
     margin-left: 100px;
@@ -447,11 +508,55 @@ export default {
   .icon_triangle_right {
     margin-top: 10px;
   }
-  .cc{transform: rotate(180deg);transition: transform 0.3s;}  
-  .go{transform: rotate(0deg);transition: transform 0.3s;}
-  .nn{display: none;}
-  .bb{display: block;}
+  .cc {
+    transform: rotate(180deg);
+    transition: transform 0.3s;
+  }
+  .go {
+    transform: rotate(0deg);
+    transition: transform 0.3s;
+  }
+  .nn {
+    display: none;
+  }
+  .bb {
+    display: block;
+  }
+  .main {
+    width: 414px;
+    height: 20000px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: #000;
+    opacity: 0.5;
+  }
 
-
+  .is_fixed {
+    position: fixed;
+    top: 105px;
+    z-index: 999;
+  }
+  .is_fixedt {
+    position: fixed;
+    top: 150px;
+    z-index: 999;
+  }
+  .left {
+    // width: 20px;
+    // height: 40px;
+    //  position: absolute;
+    // left:0px;
+    // top: 0px;
+  }
+  .right {
+    //  width: 34px;
+    // height: 40px;
+    // position: absolute;
+    // right:20px;
+    // top: 16px;
+  }
 }
 </style>
