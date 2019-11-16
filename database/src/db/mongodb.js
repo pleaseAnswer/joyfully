@@ -5,6 +5,10 @@ const {dbUrl,dbName}=require('../config.json');
 
 //执行async函数，得到的（返回值）是promise对象
 async function connect(){
+<<<<<<< HEAD
+    // console.log("Connected successfully to server");
+=======
+>>>>>>> 0faff52453d8ab71e72422e0a52d038ef3725906
     const client=await MongoClient.connect(dbUrl,{ useUnifiedTopology: true });
     const db=client.db(dbName);
     return {client,db}
