@@ -46,9 +46,9 @@ export default {
     
     this.datalist = data[0].data;
     let datas = data[0].data.cats;
-    window.console.log(datas);
+    // window.console.log(datas);
     this.datalist = datas;
-     window.console.log(this.datalist)
+    //  window.console.log(this.datalist)
   }
 };
 </script>
