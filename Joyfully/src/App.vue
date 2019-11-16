@@ -7,7 +7,7 @@
         v-model="active"
         active-color="#4ed6d1"
         inactive-color="#000"
-        style=" position: fixed;left: 0;bottom: 0;z-index:1200"
+        style="position: fixed;left: 0;bottom: 0;z-index:1200 ;width:375px"
       >
         <van-tabbar-item icon="wap-home-o" to="/index">首页</van-tabbar-item>
         <van-tabbar-item icon="flag-o" to="/nation">国家馆</van-tabbar-item>
