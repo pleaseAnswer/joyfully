@@ -2,7 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
-import login from '../components/login.vue';
+// import login from '../components/login.vue';
 import mangeList from '../components/mangeList.vue';
 import goodsList from '../components/goodsList.vue';
 import addGoods from '../components/addGoods.vue';
@@ -14,10 +14,6 @@ import orderList from '../components/orderList.vue';
 
 const router = new VueRouter({
     routes:[{
-        name:'login',
-        path:'/login',
-        component:login
-    },{
         name:'mangeList',
         path:'/mangeList',
         component:mangeList
