@@ -76,29 +76,32 @@
     <footer class="goodslist-footer">
       <div class="goodslist-page">
         <i class="el-icon-arrow-left" ref="refprev" @click="prev"></i>
-        <span v-for="item in pagenum" :key="item" class="pagenum" @click="changitem(item)" ref="refpage">
-          {{item}}
-        </span>
+        <span
+          v-for="item in pagenum"
+          :key="item"
+          class="pagenum"
+          @click="changitem(item)"
+          ref="refpage"
+        >{{item}}</span>
         <i class="el-icon-arrow-right" ref="refnext" @click="next"></i>
-      </div> 
+      </div>
     </footer>
-    
 
     <!-- 弹框 -->
-    <div class="box" :class="[sty?'':'nn']">
+    <div class="box" :class="[sty?'':'nn',tran?'time':'']">
       <el-form label-width="90px" style="margin-top:30px">
         <el-form-item label="商品名称">
-          <el-input></el-input>
+          <el-input v-model="name"></el-input>
         </el-form-item>
         <el-form-item label="商品副标题">
-          <el-input></el-input>
+          <el-input v-model="namett"></el-input>
         </el-form-item>
         <div style="height:70px;width:1000px">
           <el-form-item label="商品价格" style=" float: left; ">
-            <el-input placeholder style="width:200px; float: left; "></el-input>
+            <el-input placeholder style="width:200px; float: left; " v-model="price"></el-input>
           </el-form-item>
           <el-form-item label="销售价格" style=" float: left; ">
-            <el-input placeholder style="width:200px; float: left; "></el-input>
+            <el-input placeholder style="width:200px; float: left; " v-model="pricett"></el-input>
           </el-form-item>
           <el-select v-model="value" placeholder="请选择国家名称" style="margin-left:70px">
             <el-option
@@ -126,7 +129,7 @@
         </div>
 
         <el-form-item label="商品描述 :">
-          <el-input type="textarea"></el-input>
+          <el-input type="textarea" v-model="input"></el-input>
         </el-form-item>
       </el-form>
 
@@ -136,23 +139,40 @@
         style="  background: #00bebf;
        padding:12px 12px; border: 1px solid #00bebf;"
       >确定</el-button>
+      <!-- true -->
+      <el-button @click="absent" style="  padding:12px 12px;">取消</el-button>
     </div>
     <!-- 遮罩 -->
-    <el-main class="main" :class="[sty?'':'nn']"></el-main>
+    <el-main class="main" :class="[sty?'':'nn',tran?'time':'']"></el-main>
+
+
+
+    <el-col class="chengxu" :class="[chuxian?'bb':'nn']">
+      <div class="xiao">确定要取消添加吗？</div>
+      <div class="ok" @click="ok">是</div>
+      <div class="ok" @click="on">否</div>
+    </el-col>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
+    
       imageUrl: "",
-
-      sty: false, 
-
+      name: "",
+      namett: "",
+      price: "",
+      pricett: "",
+      input: "",
+      sty: false,
       tablelist: [],
-      pagesize:6,
-      pagenum:'',
-      currentPage:1,
+      pagesize: 6,
+      pagenum: "",
+      currentPage: 1,
+      chuxian:false,
+      tran:false,
+
       tableData: [
         {
           name: "王小虎",
@@ -241,39 +261,64 @@ export default {
       ]
     };
   },
-  created(){
+  created() {
     this.changitem(this.currentPage);
     this.getpagenum();
   },
-  mounted(){
+  mounted() {
     this.changitem(this.currentPage);
-    if(this.$refs.refprev!=undefined && this.$refs.refnext!=undefined){
-      if(this.currentPage == 1 && this.pagenum == 1){
+    if (this.$refs.refprev != undefined && this.$refs.refnext != undefined) {
+      if (this.currentPage == 1 && this.pagenum == 1) {
         this.$refs.refnext.classList.add("disableskip");
         this.$refs.refprev.classList.add("disableskip");
       }
     }
   },
-  updated(){
-    if(this.$refs.refprev!=undefined && this.$refs.refnext!=undefined && this.pagenum != 1){
-      if(this.currentPage == 1){
+  updated() {
+    if (
+      this.$refs.refprev != undefined &&
+      this.$refs.refnext != undefined &&
+      this.pagenum != 1
+    ) {
+      if (this.currentPage == 1) {
         this.$refs.refnext.classList.remove("disableskip");
         this.$refs.refprev.classList.add("disableskip");
-      }else if(this.currentPage == this.pagenum){
+      } else if (this.currentPage == this.pagenum) {
         this.$refs.refprev.classList.remove("disableskip");
         this.$refs.refnext.classList.add("disableskip");
-      }else{
+      } else {
         this.$refs.refnext.classList.remove("disableskip");
         this.$refs.refprev.classList.remove("disableskip");
       }
     }
   },
   methods: {
+    absent() {
+      this.chuxian = true;
+    },
+    ok(){
+      this.chuxian = false;
+       this.input='',
+      this.name='',
+      this.price='',
+      this.pricett='',
+      this.namett=''
+      this.tran=true;
+       this.sty=false
+    },
+    on(){
+        this.chuxian=false
+    },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
     },
 
     tan() {
+        this.input='',
+      this.name='',
+      this.price='',
+      this.pricett='',
+      this.namett=''
       this.sty = false;
     },
     beforeAvatarUpload(file) {
@@ -303,54 +348,65 @@ export default {
     handleDelete(index, row) {
       console.log(index, row);
     },
-    async changitem(val){ 
+    async changitem(val) {
       this.currentPage = val;
       var skip = (this.currentPage - 1) * this.pagesize;
       var limit = this.pagesize;
-      var {data} = await this.axios.get(`http://localhost:1910/userlist/show?skip=${skip}&limit=${limit}`);
-      this.tableData=data;
+      var { data } = await this.axios.get(
+        `http://localhost:1910/userlist/show?skip=${skip}&limit=${limit}`
+      );
+      this.tableData = data;
       this.total = data.length;
-      if(this.$refs.refpage!=undefined){
-        this.$refs.refpage.map(ele=>{
+      if (this.$refs.refpage != undefined) {
+        this.$refs.refpage.map(ele => {
           ele.classList.remove("activepage");
-        })
-        this.$refs.refpage[val-1].classList.add("activepage")
+        });
+        this.$refs.refpage[val - 1].classList.add("activepage");
       }
     },
-    async getpagenum(){
-        var {data} = await this.axios.get("http://localhost:1910/userlist/show");
-        this.pagenum = parseInt((data.length-1) / this.pagesize) + 1;
-      },
-    prev(){
-      if(this.$refs.refprev!=undefined && this.$refs.refnext!=undefined && this.pagenum != 1){
-        if(this.currentPage != 1){
+    async getpagenum() {
+      var { data } = await this.axios.get(
+        "http://localhost:1910/userlist/show"
+      );
+      this.pagenum = parseInt((data.length - 1) / this.pagesize) + 1;
+    },
+    prev() {
+      if (
+        this.$refs.refprev != undefined &&
+        this.$refs.refnext != undefined &&
+        this.pagenum != 1
+      ) {
+        if (this.currentPage != 1) {
           this.$refs.refprev.classList.remove("disableskip");
           this.currentPage = this.currentPage - 1;
-          if(this.$refs.refpage!=undefined){
-            this.$refs.refpage.map(ele=>{
+          if (this.$refs.refpage != undefined) {
+            this.$refs.refpage.map(ele => {
               ele.classList.remove("activepage");
-            })
+            });
             this.changitem(this.currentPage);
           }
         }
       }
     },
-    next(){
-      if(this.$refs.refprev!=undefined && this.$refs.refnext!=undefined && this.pagenum != 1){
-        if(this.currentPage != this.pagenum){
+    next() {
+      if (
+        this.$refs.refprev != undefined &&
+        this.$refs.refnext != undefined &&
+        this.pagenum != 1
+      ) {
+        if (this.currentPage != this.pagenum) {
           this.$refs.refnext.classList.remove("disableskip");
           this.currentPage = this.currentPage + 1;
-          if(this.$refs.refpage!=undefined){
-            this.$refs.refpage.map(ele=>{
+          if (this.$refs.refpage != undefined) {
+            this.$refs.refpage.map(ele => {
               ele.classList.remove("activepage");
-            })
+            });
             this.changitem(this.currentPage);
           }
         }
       }
     }
-  },
-
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -380,7 +436,7 @@ export default {
   border: #00bebf, 1px solid;
   position: absolute;
   top: 100px;
-  z-index: 9999;
+  z-index: 2000;
   left: 300px;
 }
 .main {
@@ -400,6 +456,9 @@ export default {
 }
 .bb {
   display: block;
+}
+time{
+  transition: transform 0.2s;
 }
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;
@@ -426,27 +485,59 @@ export default {
   display: block;
 }
 
-.goodslist-footer{
+.goodslist-footer {
   width: 100%;
   height: 40px;
   position: fixed;
   bottom: 20px;
   left: 0;
-  .goodslist-page{
+  .goodslist-page {
     text-align: center;
     i {
       padding: 0 5px;
     }
-    .pagenum{
+    .pagenum {
       padding: 0 5px;
       cursor: pointer;
     }
   }
-  .activepage{
+  .activepage {
     color: #00bebf;
   }
-  .disableskip{
+  .disableskip {
     cursor: not-allowed;
   }
+
 }
+.chengxu {
+    width: 368px;
+    height: 127px;
+    background: #fff;
+    position: fixed;
+    top: 300px;
+    border: #eee 1px solid;
+    left: 600px;
+    z-index:9990;
+      background: hsl(188, 67%, 83%);
+
+    .xiao {
+      width: 308px;
+      height: 21px;
+      border-bottom: #eee 1px solid;
+      padding: 1.8rem;
+      font-size: 13px;
+      text-align: center;
+      line-height: 21px;
+      float: left;
+    }
+    .ok {
+      width: 183px;
+      height: 50px;
+      color: #0c4e4e;
+      font-size: 17px;
+      text-align: center;
+      line-height: 50px;
+      float: left;
+    }
+  }
 </style>

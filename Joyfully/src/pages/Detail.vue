@@ -347,7 +347,7 @@ main {
       height: vw(28);
       padding: vw(10) 0 vw(20);
       .goods_from {
-        width: vw(184);
+        width: vw(188);
         height: vw(28);
         float: left;
         .el-icon-truck {

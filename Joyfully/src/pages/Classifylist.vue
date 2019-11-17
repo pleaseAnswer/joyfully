@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="overflow: hidden;">
     <header>
       <i class="el-icon-arrow-left" @click="goto2('/classify')"></i>
       <p>锅具</p>
@@ -74,7 +74,6 @@ export default {
     );
     // console.log(data);
     this.datalist = data;
-    
   }
 };
 </script>
