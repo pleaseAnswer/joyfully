@@ -1,0 +1,5 @@
+{
+    "PORT":1910,
+    "dbUrl":"mongodb://10.3.136.27:27017",
+    "dbName":"Joyfully"
+}
