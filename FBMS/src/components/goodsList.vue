@@ -7,125 +7,263 @@
       </el-breadcrumb-item>
       <el-breadcrumb-item>活动列表</el-breadcrumb-item>
     </el-breadcrumb>
+
     <el-button
       type="primary"
       class="el-icon-circle-plus-outline"
       style="  background: #00bebf;
        padding:10px 9px; border: 1px solid #00bebf;"
+      @click="add"
     >添加</el-button>
+
     <el-button
       type="info"
       class="el-icon-delete"
-      style="  background: #00bebf;
-       padding:10px 9px; border: 1px solid #00bebf;"
+      @click="removeitem"
+      style="
+       padding:10px 9px;"
     >删除</el-button>
-    <div style="float: right; width:100%:height:100%" >
-      <el-input v-model="input" placeholder="请输入内容" style="width:200px; float: left; ">
-      </el-input>
-      <el-button type="primary" icon="el-icon-search" style=" float: left; margin-left: 5px;
-  ">搜索</el-button>
-
+    <div style="float: right; width:100%:height:100%">
+      <el-input placeholder="请输入内容" style="width:200px; float: left; "></el-input>
+      <el-button
+        type="primary"
+        icon="el-icon-search"
+        style=" float: left; margin-left: 5px; background: #00bebf;
+       border: 1px solid #00bebf;"
+      >搜索</el-button>
     </div>
-    
-    <el-table 
-      ref="multipleTable"
-      :data="tableData"
-      tooltip-effect="dark"
-      style="width: 100% 
+    <div>
+      <el-table
+        ref="multipleTable"
+        :data="tableData"
+        tooltip-effect="dark"
+        style="width: 100% 
     margin-top: 30px;"
-      @selection-change="handleSelectionChange"
-    >
-      <el-table-column type="selection" width="55"></el-table-column>
+        @selection-change="handleSelectionChange"
+      >
+        <el-table-column type="selection" width="55"></el-table-column>
+        <el-table-column prop="countryName" label="商品名称" width="120"></el-table-column>
+        <el-table-column prop="countryName" label="国家" width="120"></el-table-column>
+        <el-table-column label="添加时间" width="120">
+          <template slot-scope="scope">{{ scope.row.date }}</template>
+        </el-table-column>
+        <el-table-column prop="salePrice" label="价格（原价）" width="120"></el-table-column>
+        <el-table-column prop="price" label="价格（现价）" width="120"></el-table-column>
+        <el-table-column prop="price" label="库存" width="120"></el-table-column>
 
-      <el-table-column prop="name" label="姓名" width="120"></el-table-column>
-
-      <el-table-column label="添加时间" width="120">
-        <template slot-scope="scope">{{ scope.row.date }}</template>
-      </el-table-column>
-
-      <el-table-column prop="classify" label="分类" width="120"></el-table-column>
-      <el-table-column prop="price" label="价格（原价）" width="120"></el-table-column>
-      <el-table-column prop="price" label="价格（现价）" width="120"></el-table-column>
-      <el-table-column prop="price" label="库存" width="120"></el-table-column>
-      <el-table-column prop="price" label="状态" width="120"></el-table-column>
-
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button 
-           style=" margin-left: 0px;"
-            type="primary"
-            icon="el-icon-edit"
-            @click="handleEdit(scope.$index, scope.row)"
-          ></el-button>
-          <el-button 
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
-            icon="el-icon-delete"
-          ></el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button
+              style=" margin-left: 0px;background: #00bebf;
+       border: 1px solid #00bebf;"
+              type="primary"
+              icon="el-icon-edit"
+              @click="handleEdit(scope.$index, scope.row)"
+            ></el-button>
+            <el-button
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)"
+              icon="el-icon-delete"
+            ></el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
 
     <!-- 分页 -->
-    <el-pagination
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :current-page="currentPage4"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="400"
-    ></el-pagination>
+
+    <div class="userlist-page">
+      <i class="el-icon-arrow-left"></i>
+      <span class="pagenum" @click="changitem(item)">1234</span>
+      <i class="el-icon-arrow-right"></i>
+    </div>
+
+    <!-- 弹框 -->
+    <div class="box" :class="[sty?'':'nn']">
+      <el-form label-width="90px" style="margin-top:30px">
+        <el-form-item label="商品名称">
+          <el-input></el-input>
+        </el-form-item>
+        <el-form-item label="商品副标题">
+          <el-input></el-input>
+        </el-form-item>
+        <div style="height:70px;width:1000px">
+          <el-form-item label="商品价格" style=" float: left; ">
+            <el-input placeholder style="width:200px; float: left; "></el-input>
+          </el-form-item>
+          <el-form-item label="销售价格" style=" float: left; ">
+            <el-input placeholder style="width:200px; float: left; "></el-input>
+          </el-form-item>
+          <el-select v-model="value" placeholder="请选择国家名称" style="margin-left:70px">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </div>
+
+        <div>
+          <el-form-item label="商品图片">
+            <el-upload
+              class="avatar-uploader"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload"
+            >
+              <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+        </div>
+
+        <el-form-item label="商品描述 :">
+          <el-input type="textarea"></el-input>
+        </el-form-item>
+      </el-form>
+
+      <el-button
+        @click="tan"
+        type="primary"
+        style="  background: #00bebf;
+       padding:12px 12px; border: 1px solid #00bebf;"
+      >确定</el-button>
+    </div>
+
+    <!-- 遮罩 -->
+    <el-main class="main" :class="[sty?'':'nn']"></el-main>
   </div>
 </template>
 <script>
+// import { floralwhite } from "color-name";
+
 export default {
   data() {
     return {
-      currentPage4: 4,
+      imageUrl: "",
+      sty: false,
+      pagennumber: "",
+      currentPage: 1, //一页
+      pagesize: 6, //6条一页
+      tablelist: [],
+
       tableData: [
         {
           name: "王小虎",
           date: "2016-05-03",
-          classify: "锅具",
-          price: "日本"
-        },
-        {
-          name: "王小虎",
-          date: "2016-05-02",
-          address: "日本"
-        },
-        {
-          name: "王小虎",
-          date: "2016-05-04",
-          address: "日本"
-        },
-        {
-          name: "王小虎",
-          date: "2016-05-01",
-          address: "日本"
-        },
-        {
-          name: "王小虎",
-          date: "2016-05-08",
-          address: "日本"
-        },
-        {
-          name: "王小虎",
-          date: "2016-05-06",
-          address: "日本"
-        },
-        {
-          name: "王小虎",
-          date: "2016-05-07",
           address: "日本"
         }
       ],
-      multipleSelection: []
+      value: "",
+      options: [
+        {
+          value: "选项1",
+          label: "16国特品"
+        },
+        {
+          value: "选项2",
+          label: "德国"
+        },
+        {
+          value: "选项3",
+          label: "日本"
+        },
+        {
+          value: "选项4",
+          label: "韩国"
+        },
+        {
+          value: "选项6",
+          label: "英国"
+        },
+        {
+          value: "选项7",
+          label: "意大利"
+        },
+        {
+          value: "选项8",
+          label: "法国"
+        },
+        {
+          value: "选项9",
+          label: "西班牙"
+        },
+        {
+          value: "选项10",
+          label: "希腊"
+        },
+        {
+          value: "选项11",
+          label: "新西兰"
+        },
+        {
+          value: "选项12",
+          label: "瑞典"
+        },
+        {
+          value: "选项13",
+          label: "丹麦"
+        },
+        {
+          value: "选项14",
+          label: "芬兰"
+        },
+        {
+          value: "选项15",
+          label: "比利时"
+        },
+        {
+          value: "选项16",
+          label: "美国"
+        },
+        {
+          value: "选项17",
+          label: "奥地利"
+        },
+        {
+          value: "选项18",
+          label: "巴西"
+        },
+        {
+          value: "选项19",
+          label: "瑞士"
+        },
+        {
+          value: "选项20",
+          label: "澳大利亚"
+        }
+      ]
     };
   },
 
   methods: {
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw);
+    },
+
+    tan() {
+      this.sty = false;
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === "image/jpeg";
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error("上传头像图片只能是 JPG 格式!");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传头像图片大小不能超过 2MB!");
+      }
+      return isJPG && isLt2M;
+    },
+    add() {
+      this.sty = true;
+    },
+    removeitem() {
+      alert("确定要删除所有商品吗？");
+    },
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
@@ -134,13 +272,21 @@ export default {
     },
     handleDelete(index, row) {
       console.log(index, row);
-    },
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
-    },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
     }
+  },
+  async changitem(val) {
+    this.currentPage = val;
+    // currentPage        skip
+    // 1                    0
+    // 2                    10
+    // 3                    20
+    // 语句：find().skip(index).litmit(size) 先跳过一页，再限制十个数量
+    var skip = (this.currentPage - 1) * this.pagesize; //10条一页
+    var limit = this.pagesize;
+    var {data}=awaitthis.axios.get(`http://localhost:1910/goodslist/show?skip=${skip}&limit=${limit}`)
+  },
+  created() {
+    this.changitem(this.currentPage);
   }
 };
 </script>
@@ -151,20 +297,69 @@ export default {
   border-bottom: 3px, solid #ccc;
   margin-left: 40px;
   line-height: 52px;
- 
 }
 .el-table_1_column_4 {
   width: 120px;
- 
 }
 .el-button {
   margin-left: 40px;
   .el-icon-circle-plus-outlin {
     background: #00bebf;
   }
- 
 }
-.el-table th .cell{
+.el-table th .cell {
   margin-left: 20px;
+}
+.box {
+  width: 900px;
+  height: 800px;
+  background: #ccc;
+  border: #00bebf, 1px solid;
+  position: absolute;
+  top: 100px;
+  z-index: 9999;
+  left: 300px;
+}
+.main {
+  width: 2000px;
+  height: 20000px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: #000;
+  opacity: 0.5;
+  z-index: 1400;
+}
+.nn {
+  display: none;
+}
+.bb {
+  display: block;
+}
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  background: #fff;
+}
+.avatar {
+  width: 100px;
+  height: 100px;
+  display: block;
 }
 </style>
