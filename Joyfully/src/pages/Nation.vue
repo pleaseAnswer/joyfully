@@ -58,7 +58,7 @@
               :span="8"
               v-for="item in countrys"
               :key="item.countryName"
-              @click="goto('/list')"
+              @click.native="goto('/list')"
             >
               <div
                 class="grid-content bg-purple"
