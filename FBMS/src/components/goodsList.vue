@@ -43,14 +43,9 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="countryName" label="商品名称" width="120"></el-table-column>
-        <el-table-column prop="countryName" label="国家" width="120"></el-table-column>
-        <el-table-column label="添加时间" width="120">
-          <template slot-scope="scope">{{ scope.row.date }}</template>
-        </el-table-column>
-        <el-table-column prop="salePrice" label="价格（原价）" width="120"></el-table-column>
-        <el-table-column prop="price" label="价格（现价）" width="120"></el-table-column>
-        <el-table-column prop="price" label="库存" width="120"></el-table-column>
+        <el-table-column prop="text" label="商品名称" width="400"></el-table-column>
+        <el-table-column prop="price" label="价格（现价）" width="200"></el-table-column>
+        <el-table-column prop="kucun" label="库存" width="120"></el-table-column>
 
         <el-table-column label="操作">
           <template slot-scope="scope">
@@ -63,7 +58,7 @@
             ></el-button>
             <el-button
               type="danger"
-              @click="handleDelete(scope.$index, scope.row)"
+              @click="handleDelete(scope.$index)"
               icon="el-icon-delete"
             ></el-button>
           </template>
@@ -344,15 +339,19 @@ export default {
     handleEdit(index, row) {
       console.log(index, row);
     },
-    handleDelete(index, row) {
-      console.log(index, row);
+    async handleDelete(index) {
+      if(this.tableData.length!=0){
+        let id = this.tableData[index].id;
+        let status = await this.axios.delete(`http://localhost:1910/goodslist/${id}`);
+      }
+      this.tableData.splice(index,1);
     },
     async changitem(val) {
       this.currentPage = val;
       var skip = (this.currentPage - 1) * this.pagesize;
       var limit = this.pagesize;
       var { data } = await this.axios.get(
-        `http://localhost:1910/userlist/show?skip=${skip}&limit=${limit}`
+        `http://localhost:1910/goodslist/show?skip=${skip}&limit=${limit}`
       );
       this.tableData = data;
       this.total = data.length;
@@ -365,7 +364,7 @@ export default {
     },
     async getpagenum() {
       var { data } = await this.axios.get(
-        "http://localhost:1910/userlist/show"
+        "http://localhost:1910/goodslist/show"
       );
       this.pagenum = parseInt((data.length - 1) / this.pagesize) + 1;
     },
@@ -405,6 +404,7 @@ export default {
         }
       }
     }
+
   }
 };
 </script>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const { MongoClient, ObjectId } = require('mongodb');
 
 //连接MongoDB数据库--connect
@@ -8,6 +9,29 @@ async function connect() {
     const client = await MongoClient.connect(dbUrl, { useUnifiedTopology: true });
     const db = client.db(dbName);
     return { client, db }
+=======
+const {
+    MongoClient,
+    ObjectId
+} = require('mongodb');
+
+//连接MongoDB数据库--connect
+const {
+    dbUrl,
+    dbName
+} = require('../config.json');
+
+//执行async函数，得到的（返回值）是promise对象
+async function connect() {
+    const client = await MongoClient.connect(dbUrl, {
+        useUnifiedTopology: true
+    });
+    const db = client.db(dbName);
+    return {
+        client,
+        db
+    }
+>>>>>>> d0f887b05f4df69c5541a415b57bcc0f54ec4a70
 }
 
 /**
@@ -17,7 +41,14 @@ async function connect() {
  * @return {Object}                  返回写入的结果
  */
 async function create(colName, data) {
+<<<<<<< HEAD
     const { db, client } = await connect();
+=======
+    const {
+        db,
+        client
+    } = await connect();
+>>>>>>> d0f887b05f4df69c5541a415b57bcc0f54ec4a70
 
     let collection = db.collection(colName);
 
@@ -40,14 +71,26 @@ async function create(colName, data) {
  * @param {object} query     查询条件
  */
 async function remove(colName, query) {
+<<<<<<< HEAD
     const { db, client } = await connect();
+=======
+    const {
+        db,
+        client
+    } = await connect();
+>>>>>>> d0f887b05f4df69c5541a415b57bcc0f54ec4a70
     let collection = db.collection(colName);
 
     //处理id查询
     //{_id:'xxxxx'} -> {_id:ObjectId('xxxxx')}
-    // if(query._id && typeof query._id == 'string'){
-    //     query._id = ObjectId(query._id);
-    // }
+    if (query._id && typeof query._id == 'string') {
+        query._id = ObjectId(query._id);
+    }
+
+    let result = await collection.deleteMany({
+        id: Number(query.id)
+    });
+
 
     let result = await collection.deleteMany({ id: Number(query.id) });
 
@@ -63,8 +106,15 @@ async function remove(colName, query) {
  * @param {Object} data     更新字段数据
  */
 async function update(colName, query, data) {
+<<<<<<< HEAD
 
     const { db, client } = await connect();
+=======
+    const {
+        db,
+        client
+    } = await connect();
+>>>>>>> d0f887b05f4df69c5541a415b57bcc0f54ec4a70
     let collection = db.collection(colName);
 
     //处理id查询
@@ -74,7 +124,13 @@ async function update(colName, query, data) {
     }
 
     //具体操作查看中文网
+<<<<<<< HEAD
     let result = await collection.updateMany(query, { $set: data })
+=======
+    let result = await collection.updateMany(query, {
+        $set: data
+    })
+>>>>>>> d0f887b05f4df69c5541a415b57bcc0f54ec4a70
 
     client.close();
     return result;
@@ -88,8 +144,21 @@ async function update(colName, query, data) {
  */
 async function find(colName, query = {}, options = {}) {
     //fields:用于过滤某些字段
+<<<<<<< HEAD
     let { fields: attr, skip, limit, sort } = options;
     const { db, client } = await connect();
+=======
+    let {
+        fields: attr,
+        skip,
+        limit,
+        sort
+    } = options;
+    const {
+        db,
+        client
+    } = await connect();
+>>>>>>> d0f887b05f4df69c5541a415b57bcc0f54ec4a70
     // console.log(skip,limit);
 
     //集合或文档操作
@@ -102,7 +171,13 @@ async function find(colName, query = {}, options = {}) {
     }
 
     //promise对象--.toArray()才能拿到结果
+<<<<<<< HEAD
     let result = await collection.find(query, { attr });
+=======
+    let result = await collection.find(query, {
+        attr
+    });
+>>>>>>> d0f887b05f4df69c5541a415b57bcc0f54ec4a70
 
     //跳过数量
     if (skip) {

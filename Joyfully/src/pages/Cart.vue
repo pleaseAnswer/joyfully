@@ -13,7 +13,7 @@
             <van-checkbox v-model="checked" checked-color="#5fd9da"></van-checkbox>
           </div>
           <div class="shoptitle">zecchin旗舰店</div>
-          <div class="icon">></div>
+          <div class="icon" @click="goto('/classifylist')">></div>
         </div>
         <div class="cart-box" v-for="item in menu" :key="item.txet">
           <div class="limitReduce">限时降</div>
@@ -137,8 +137,16 @@ export default {
   methods: {
     ...mapMutations({
       removeCart: "removeCart",
-      changQty: "changQty"
-    })
+      changQty: "changQty",
+      getgoods: "getgoods"
+    }),
+    goto(path) {
+      this.$router.push(path);
+    }
+  },
+  created() {
+    //调用刷新页面
+    this.getgoods();
   }
 };
 </script>
