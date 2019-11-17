@@ -3,11 +3,10 @@
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>
-        <a href="/">活动管理</a>
+        <a href="/">商品管理</a>
       </el-breadcrumb-item>
-      <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+      <el-breadcrumb-item>商品列表</el-breadcrumb-item>
     </el-breadcrumb>
-
     <el-button
       type="primary"
       class="el-icon-circle-plus-outline"
