@@ -283,7 +283,9 @@ export default {
     // 语句：find().skip(index).litmit(size) 先跳过一页，再限制十个数量
     var skip = (this.currentPage - 1) * this.pagesize; //10条一页
     var limit = this.pagesize;
-    var {data}=awaitthis.axios.get(`http://localhost:1910/goodslist/show?skip=${skip}&limit=${limit}`)
+    var { data } = await this.axios.get(
+      `http://localhost:1910/goodslist/show?skip=${skip}&limit=${limit}`
+    );
   },
   created() {
     this.changitem(this.currentPage);
