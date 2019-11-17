@@ -73,7 +73,6 @@
     </div>
 
     <!-- 分页 -->
-
     <footer class="goodslist-footer">
       <div class="goodslist-page">
         <i class="el-icon-arrow-left" ref="refprev" @click="prev"></i>
@@ -351,6 +350,7 @@ export default {
       }
     }
   },
+
 };
 </script>
 <style lang="scss" scoped>
