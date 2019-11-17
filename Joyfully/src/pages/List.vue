@@ -5,7 +5,7 @@
         <el-row>
           <el-col>
             <div class="grid-content bg-purple-dark">
-              <i class="icon icon_back" @click="goto('/nation')"></i>
+              <i class="icon icon_back"></i>
               <h2>芬兰天然滑石</h2>
               <i class="icon icon_search"></i>
               <i class="icon icon_cart_full"></i>

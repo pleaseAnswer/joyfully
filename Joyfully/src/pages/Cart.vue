@@ -28,9 +28,9 @@
               <div class="cart-goods-name">
                 <h3>{{item.text}}</h3>
                 <div class="price">
-                  ￥ {{item.price1}}
+                  ￥ {{(item.price*0.8).toFixed(2)}}
                   <br />
-                  <del>￥ {{item.price2}}</del>
+                  <del>￥ {{item.price}}</del>
                 </div>
               </div>
               <div class="cart-counter">

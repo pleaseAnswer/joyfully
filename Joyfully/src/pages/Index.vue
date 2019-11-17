@@ -64,7 +64,7 @@
         </ul>
       </div>
       <template v-if="santu_img.length!=0">
-        <div class="santu" @click="goto('/detail')">
+        <div class="santu" @click="goto('/classify')">
           <div class="santu_left">
             <img :src="santu_img[0].img" alt ref="lazy" />
           </div>
@@ -84,7 +84,7 @@
           class="img_wrap"
           v-for="item in single_list.data.data"
           :key="item._id"
-          @click="goto('/detail')"
+          @click="goto('/classify')"
         >
           <div class="single_img">
             <img src="../img/loadingx.gif" :data-src="item.single_img" alt ref="lazy" />
