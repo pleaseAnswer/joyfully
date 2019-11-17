@@ -243,6 +243,7 @@ export default {
   },
   created(){
     this.changitem(this.currentPage);
+    this.getpagenum();
   },
   mounted(){
     this.changitem(this.currentPage);
@@ -306,22 +307,20 @@ export default {
       this.currentPage = val;
       var skip = (this.currentPage - 1) * this.pagesize;
       var limit = this.pagesize;
-      var {data} = await this.axios.get(`http://localhost:1910/userlist/show?skip=${skip}&limit=${limit}`);      
-      // console.log(val);
-      // console.log(skip);
-
-      // console.log(data);
+      var {data} = await this.axios.get(`http://localhost:1910/userlist/show?skip=${skip}&limit=${limit}`);
       this.tableData=data;
       this.total = data.length;
-      this.pagenum = parseInt(data.length / this.pagesize) + this.currentPage;
       if(this.$refs.refpage!=undefined){
         this.$refs.refpage.map(ele=>{
           ele.classList.remove("activepage");
         })
         this.$refs.refpage[val-1].classList.add("activepage")
       }
-      
     },
+    async getpagenum(){
+        var {data} = await this.axios.get("http://localhost:1910/userlist/show");
+        this.pagenum = parseInt((data.length-1) / this.pagesize) + 1;
+      },
     prev(){
       if(this.$refs.refprev!=undefined && this.$refs.refnext!=undefined && this.pagenum != 1){
         if(this.currentPage != 1){
