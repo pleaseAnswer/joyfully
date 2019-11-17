@@ -1,5 +1,5 @@
 <template>
-  <div id="box">
+  <div id="box" style="overflow: hidden;">
     <header class="header">
       <h2 class="header-title">购物车</h2>
       <span class="header-right right-coupon">优惠券</span>
@@ -52,26 +52,12 @@
     </div>
     <h1 class="product-title">— 为您推荐 —</h1>
     <ul class="data-vaildnum">
-      <li class="product_item">
-        <img
-          src="https://5-image.xidibuy.com/shop/shop.7afca799c93e8376fe289a359c75e800e30949942bc7ada2358afc5948f29150.jpeg/800x800/360/webp"
-          alt
-        />
-        <p class="product_name">韩国原产SYSMAX MYROOM可折叠读书架阅读架支撑架</p>
+      <li class="product_item" v-for="item in data" :key="item.text">
+        <img :src="item.img" />
+        <p class="product_name">{{item.text}}</p>
         <h3 class="product_price">
-          <span class="data-v-5acc1dac">¥179.01</span>
-          <span class="product-country">韩国</span>
-        </h3>
-      </li>
-      <li class="product_item">
-        <img
-          src="https://5-image.xidibuy.com/shop/shop.7afca799c93e8376fe289a359c75e800e30949942bc7ada2358afc5948f29150.jpeg/800x800/360/webp"
-          alt
-        />
-        <p class="product_name">韩国原产SYSMAX MYROOM可折叠读书架阅读架支撑架</p>
-        <h3 class="product_price">
-          <span class="data-v-5acc1dac">¥179.01</span>
-          <span class="product-country">韩国</span>
+          <span class="data-v-5acc1dac">{{item.price1}}</span>
+          <span class="product-country">{{item.guo}}</span>
         </h3>
       </li>
     </ul>
@@ -100,7 +86,44 @@ export default {
   data() {
     return {
       checked: true,
-      num: 1
+      num: 1,
+      data: [
+        {
+          img:
+            "https://7-image.xidibuy.com/shop/shop.13008e1edc63727bfe4192c60c0b9fd00382f4c6fd345c153500842dd515aa3d.jpeg/1500x1500/360/webp",
+          price1: "¥757.79",
+          text: "英国URBANWOOL羊毛被子被芯 300g/㎡",
+          guo: "英国"
+        },
+        {
+          img:
+            "https://2-image.xidibuy.com/shop/shop.e7c5a4cb815e24ae5ca04ffa23e3b388c3e2c4a7286603883500842dd515aa3d.jpeg/360/webp",
+          price1: "¥812.94",
+          text: "澳大利亚原产Ecorenew儿童天丝被儿童被子婴幼儿被芯",
+          guo: "德国"
+        },
+        {
+          img:
+            "https://8-image.xidibuy.com/shop/shop.3f7cbe75f951bcfc89fb7f42e70707757733cd8d9057143f3500842dd515aa3d.jpeg/800x800/360/webp",
+          price1: "¥693.60",
+          text: "意大利原产DB HOME LINEN棉质床上四件套GRAZIA被罩200x230cm",
+          guo: "日本"
+        },
+        {
+          img:
+            "https://4-image.xidibuy.com/shop/shop.1db17832d7b7d99b7225eef35d4055451a3eb9e2950afb6a3500842dd515aa3d.jpeg/800x800/360/webp",
+          price1: "¥101.43",
+          text: "法国原产Tradi linge密织全棉床品四件套",
+          guo: "美国"
+        },
+        {
+          img:
+            "https://3-image.xidibuy.com/shop/shop.6c9dd560ee613cb83d804fed73da845a1ba8ac84ed43cef33500842dd515aa3d.jpeg/1500x1500/360/webp",
+          price1: "¥289.00",
+          text: "英国原产DEVON DUVETS羊毛枕枕头枕芯75CMX50CM",
+          guo: "英国"
+        }
+      ]
     };
   },
   computed: {
@@ -121,8 +144,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 @charset "utf-8";
-@function vw($px){
-    @return ($px / 375) * 100vw;
+@function vw($px) {
+  @return ($px / 375) * 100vw;
 }
 html,
 body {
@@ -337,6 +360,11 @@ body {
       color: #222222;
       margin-top: 5px;
       margin-bottom: 5px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      text-overflow: hidden;
     }
     .data-v-5acc1dac {
       color: #00bebf;
@@ -355,7 +383,7 @@ body {
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 60px;
+  bottom: 49px;
   z-index: 1210;
   .box1 {
     height: 100%;

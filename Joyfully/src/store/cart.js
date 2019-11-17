@@ -8,7 +8,7 @@ let cart = ({
         },
         totalPrice(state) {
             return state.menu.reduce(
-                (prev, item) => prev + item.price * item.qty, 0
+                (prev, item) => prev + item.price * 0.8 * item.qty, 0
             )
         }
     },

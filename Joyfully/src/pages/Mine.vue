@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="overflow: hidden;">
     <div class="header-title">我的喜地</div>
     <div class="space">
       <div class="xiang" @click="goto('/login')">
@@ -11,7 +11,6 @@
           <div class="avator"></div>
           <p>登录</p>
         </template>
-        +
       </div>
     </div>
     <div class="java" @click="goto('/login')">

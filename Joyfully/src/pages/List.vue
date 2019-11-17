@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="app" style="overflow: hidden;">
     <el-container>
       <el-header style="height:48px">
         <el-row>
