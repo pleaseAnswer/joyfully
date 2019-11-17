@@ -54,7 +54,12 @@
 
         <div class="mineNavAll">
           <el-row>
-            <el-col :span="8" v-for="item in countrys" :key="item.countryName">
+            <el-col
+              :span="8"
+              v-for="item in countrys"
+              :key="item.countryName"
+              @click="goto('/list')"
+            >
               <div
                 class="grid-content bg-purple"
                 style="width: 131px; height: 97px;position: relative; border: 3px solid #F0F0F0;"
@@ -147,7 +152,7 @@
                   style=" height: 142px;  margin-bottom: 10px;"
                   v-for="item in list"
                   :key="item.id"
-                  @click="gotoList(item.id)"
+                  @click="goto('/list')"
                 >
                   <img :src="item.imgurl" />
                 </div>
@@ -254,8 +259,8 @@ export default {
 
       this.rotate = !this.rotate;
     },
-    gotoList(id) {
-      this.$router.push({ name: "list", params: { id } });
+    goto(path) {
+      this.$router.push(path);
     },
     initHeight() {
       // 获得页面滚动的距离
