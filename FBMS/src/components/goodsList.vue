@@ -3,11 +3,10 @@
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>
-        <a href="/">活动管理</a>
+        <a href="/">商品管理</a>
       </el-breadcrumb-item>
-      <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+      <el-breadcrumb-item>商品列表</el-breadcrumb-item>
     </el-breadcrumb>
-
     <el-button
       type="primary"
       class="el-icon-circle-plus-outline"
@@ -21,7 +20,9 @@
       class="el-icon-delete"
       @click="removeitem"
       style="
-       padding:10px 9px;"
+       padding:10px 9px; 
+       background: #ff5e5f; 
+       border: 1px solid #ff5e5f;"
     >删除</el-button>
     <div style="float: right; width:100%:height:100%">
       <el-input placeholder="请输入内容" style="width:200px; float: left; "></el-input>
@@ -42,14 +43,9 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="countryName" label="商品名称" width="120"></el-table-column>
-        <el-table-column prop="countryName" label="国家" width="120"></el-table-column>
-        <el-table-column label="添加时间" width="120">
-          <template slot-scope="scope">{{ scope.row.date }}</template>
-        </el-table-column>
-        <el-table-column prop="salePrice" label="价格（原价）" width="120"></el-table-column>
-        <el-table-column prop="price" label="价格（现价）" width="120"></el-table-column>
-        <el-table-column prop="price" label="库存" width="120"></el-table-column>
+        <el-table-column prop="text" label="商品名称" width="400"></el-table-column>
+        <el-table-column prop="price" label="价格（现价）" width="200"></el-table-column>
+        <el-table-column prop="kucun" label="库存" width="120"></el-table-column>
 
         <el-table-column label="操作">
           <template slot-scope="scope">
@@ -62,7 +58,7 @@
             ></el-button>
             <el-button
               type="danger"
-              @click="handleDelete(scope.$index, scope.row)"
+              @click="handleDelete(scope.$index)"
               icon="el-icon-delete"
             ></el-button>
           </template>
@@ -71,28 +67,35 @@
     </div>
 
     <!-- 分页 -->
-
-    <div class="userlist-page">
-      <i class="el-icon-arrow-left"></i>
-      <span class="pagenum" @click="changitem(item)">1234</span>
-      <i class="el-icon-arrow-right"></i>
-    </div>
+    <footer class="goodslist-footer">
+      <div class="goodslist-page">
+        <i class="el-icon-arrow-left" ref="refprev" @click="prev"></i>
+        <span
+          v-for="item in pagenum"
+          :key="item"
+          class="pagenum"
+          @click="changitem(item)"
+          ref="refpage"
+        >{{item}}</span>
+        <i class="el-icon-arrow-right" ref="refnext" @click="next"></i>
+      </div>
+    </footer>
 
     <!-- 弹框 -->
-    <div class="box" :class="[sty?'':'nn']">
+    <div class="box" :class="[sty?'':'nn',tran?'time':'']">
       <el-form label-width="90px" style="margin-top:30px">
         <el-form-item label="商品名称">
-          <el-input></el-input>
+          <el-input v-model="name"></el-input>
         </el-form-item>
         <el-form-item label="商品副标题">
-          <el-input></el-input>
+          <el-input v-model="namett"></el-input>
         </el-form-item>
         <div style="height:70px;width:1000px">
           <el-form-item label="商品价格" style=" float: left; ">
-            <el-input placeholder style="width:200px; float: left; "></el-input>
+            <el-input placeholder style="width:200px; float: left; " v-model="price"></el-input>
           </el-form-item>
           <el-form-item label="销售价格" style=" float: left; ">
-            <el-input placeholder style="width:200px; float: left; "></el-input>
+            <el-input placeholder style="width:200px; float: left; " v-model="pricett"></el-input>
           </el-form-item>
           <el-select v-model="value" placeholder="请选择国家名称" style="margin-left:70px">
             <el-option
@@ -120,7 +123,7 @@
         </div>
 
         <el-form-item label="商品描述 :">
-          <el-input type="textarea"></el-input>
+          <el-input type="textarea" v-model="input"></el-input>
         </el-form-item>
       </el-form>
 
@@ -130,24 +133,39 @@
         style="  background: #00bebf;
        padding:12px 12px; border: 1px solid #00bebf;"
       >确定</el-button>
+      <!-- true -->
+      <el-button @click="absent" style="  padding:12px 12px;">取消</el-button>
     </div>
-
     <!-- 遮罩 -->
-    <el-main class="main" :class="[sty?'':'nn']"></el-main>
+    <el-main class="main" :class="[sty?'':'nn',tran?'time':'']"></el-main>
+
+
+
+    <el-col class="chengxu" :class="[chuxian?'bb':'nn']">
+      <div class="xiao">确定要取消添加吗？</div>
+      <div class="ok" @click="ok">是</div>
+      <div class="ok" @click="on">否</div>
+    </el-col>
   </div>
 </template>
 <script>
-// import { floralwhite } from "color-name";
-
 export default {
   data() {
     return {
+    
       imageUrl: "",
+      name: "",
+      namett: "",
+      price: "",
+      pricett: "",
+      input: "",
       sty: false,
-      pagennumber: "",
-      currentPage: 1, //一页
-      pagesize: 6, //6条一页
       tablelist: [],
+      pagesize: 6,
+      pagenum: "",
+      currentPage: 1,
+      chuxian:false,
+      tran:false,
 
       tableData: [
         {
@@ -237,13 +255,64 @@ export default {
       ]
     };
   },
-
+  created() {
+    this.changitem(this.currentPage);
+    this.getpagenum();
+  },
+  mounted() {
+    this.changitem(this.currentPage);
+    if (this.$refs.refprev != undefined && this.$refs.refnext != undefined) {
+      if (this.currentPage == 1 && this.pagenum == 1) {
+        this.$refs.refnext.classList.add("disableskip");
+        this.$refs.refprev.classList.add("disableskip");
+      }
+    }
+  },
+  updated() {
+    if (
+      this.$refs.refprev != undefined &&
+      this.$refs.refnext != undefined &&
+      this.pagenum != 1
+    ) {
+      if (this.currentPage == 1) {
+        this.$refs.refnext.classList.remove("disableskip");
+        this.$refs.refprev.classList.add("disableskip");
+      } else if (this.currentPage == this.pagenum) {
+        this.$refs.refprev.classList.remove("disableskip");
+        this.$refs.refnext.classList.add("disableskip");
+      } else {
+        this.$refs.refnext.classList.remove("disableskip");
+        this.$refs.refprev.classList.remove("disableskip");
+      }
+    }
+  },
   methods: {
+    absent() {
+      this.chuxian = true;
+    },
+    ok(){
+      this.chuxian = false;
+       this.input='',
+      this.name='',
+      this.price='',
+      this.pricett='',
+      this.namett=''
+      this.tran=true;
+       this.sty=false
+    },
+    on(){
+        this.chuxian=false
+    },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
     },
 
     tan() {
+        this.input='',
+      this.name='',
+      this.price='',
+      this.pricett='',
+      this.namett=''
       this.sty = false;
     },
     beforeAvatarUpload(file) {
@@ -270,25 +339,72 @@ export default {
     handleEdit(index, row) {
       console.log(index, row);
     },
-    handleDelete(index, row) {
-      console.log(index, row);
+    async handleDelete(index) {
+      if(this.tableData.length!=0){
+        let id = this.tableData[index].id;
+        let status = await this.axios.delete(`http://localhost:1910/goodslist/${id}`);
+      }
+      this.tableData.splice(index,1);
+    },
+    async changitem(val) {
+      this.currentPage = val;
+      var skip = (this.currentPage - 1) * this.pagesize;
+      var limit = this.pagesize;
+      var { data } = await this.axios.get(
+        `http://localhost:1910/goodslist/show?skip=${skip}&limit=${limit}`
+      );
+      this.tableData = data;
+      this.total = data.length;
+      if (this.$refs.refpage != undefined) {
+        this.$refs.refpage.map(ele => {
+          ele.classList.remove("activepage");
+        });
+        this.$refs.refpage[val - 1].classList.add("activepage");
+      }
+    },
+    async getpagenum() {
+      var { data } = await this.axios.get(
+        "http://localhost:1910/goodslist/show"
+      );
+      this.pagenum = parseInt((data.length - 1) / this.pagesize) + 1;
+    },
+    prev() {
+      if (
+        this.$refs.refprev != undefined &&
+        this.$refs.refnext != undefined &&
+        this.pagenum != 1
+      ) {
+        if (this.currentPage != 1) {
+          this.$refs.refprev.classList.remove("disableskip");
+          this.currentPage = this.currentPage - 1;
+          if (this.$refs.refpage != undefined) {
+            this.$refs.refpage.map(ele => {
+              ele.classList.remove("activepage");
+            });
+            this.changitem(this.currentPage);
+          }
+        }
+      }
+    },
+    next() {
+      if (
+        this.$refs.refprev != undefined &&
+        this.$refs.refnext != undefined &&
+        this.pagenum != 1
+      ) {
+        if (this.currentPage != this.pagenum) {
+          this.$refs.refnext.classList.remove("disableskip");
+          this.currentPage = this.currentPage + 1;
+          if (this.$refs.refpage != undefined) {
+            this.$refs.refpage.map(ele => {
+              ele.classList.remove("activepage");
+            });
+            this.changitem(this.currentPage);
+          }
+        }
+      }
     }
-  },
-  async changitem(val) {
-    this.currentPage = val;
-    // currentPage        skip
-    // 1                    0
-    // 2                    10
-    // 3                    20
-    // 语句：find().skip(index).litmit(size) 先跳过一页，再限制十个数量
-    var skip = (this.currentPage - 1) * this.pagesize; //10条一页
-    var limit = this.pagesize;
-    var { data } = await this.axios.get(
-      `http://localhost:1910/goodslist/show?skip=${skip}&limit=${limit}`
-    );
-  },
-  created() {
-    this.changitem(this.currentPage);
+
   }
 };
 </script>
@@ -319,7 +435,7 @@ export default {
   border: #00bebf, 1px solid;
   position: absolute;
   top: 100px;
-  z-index: 9999;
+  z-index: 2000;
   left: 300px;
 }
 .main {
@@ -339,6 +455,9 @@ export default {
 }
 .bb {
   display: block;
+}
+time{
+  transition: transform 0.2s;
 }
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;
@@ -364,4 +483,60 @@ export default {
   height: 100px;
   display: block;
 }
+
+.goodslist-footer {
+  width: 100%;
+  height: 40px;
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  .goodslist-page {
+    text-align: center;
+    i {
+      padding: 0 5px;
+    }
+    .pagenum {
+      padding: 0 5px;
+      cursor: pointer;
+    }
+  }
+  .activepage {
+    color: #00bebf;
+  }
+  .disableskip {
+    cursor: not-allowed;
+  }
+
+}
+.chengxu {
+    width: 368px;
+    height: 127px;
+    background: #fff;
+    position: fixed;
+    top: 300px;
+    border: #eee 1px solid;
+    left: 600px;
+    z-index:9990;
+      background: hsl(188, 67%, 83%);
+
+    .xiao {
+      width: 308px;
+      height: 21px;
+      border-bottom: #eee 1px solid;
+      padding: 1.8rem;
+      font-size: 13px;
+      text-align: center;
+      line-height: 21px;
+      float: left;
+    }
+    .ok {
+      width: 183px;
+      height: 50px;
+      color: #0c4e4e;
+      font-size: 17px;
+      text-align: center;
+      line-height: 50px;
+      float: left;
+    }
+  }
 </style>
