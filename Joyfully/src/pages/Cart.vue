@@ -12,7 +12,7 @@
           <div class="cart-check">
             <van-checkbox v-model="checked" checked-color="#5fd9da"></van-checkbox>
           </div>
-          <div class="shoptitle">意大利zecchin旗舰店</div>
+          <div class="shoptitle">zecchin旗舰店</div>
           <div class="icon">></div>
         </div>
         <div class="cart-box" v-for="item in menu" :key="item.txet">

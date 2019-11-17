@@ -50,15 +50,15 @@ const router = new VueRouter({
         }, {
             name: 'cart',
             path: '/cart',
-            component: Cart
+            component: Cart,
+            meta: {
+                requiresAuth: true
+            }
 
         }, {
             name: 'mine',
             path: '/mine',
             component: Mine,
-            // meta: {
-            //     requiresAuth: true
-            // }
 
         }, {
             name: 'reg',
