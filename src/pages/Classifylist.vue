@@ -19,7 +19,7 @@
               <i class="el-icon-arrow-down"></i>
             </li>
           </div>
-          <!-- 全部 -->
+          <!--  -->
           <div v-for="item in datalist.lists" :key="item.id" class="goods">
             <img :src="item.attrImg" alt />
             <a href>{{item.name}}</a>
@@ -38,7 +38,7 @@
               <i class="el-icon-arrow-down"></i>
             </li>
           </div>
-          <!-- 全部 -->
+          <!-- 列表 -->
           <div v-for="item in datalist.lists" :key="item.id" class="goods">
             <img :src="item.attrImg" alt />
             <a href>{{item.name}}</a>
@@ -65,9 +65,8 @@ export default {
     }
   },
   async created() {
-    console.log("----");
-    
     let {
+      if()
       data: { data }
     } = await this.$axios.get(
       "https://api.m.xidibuy.com/v2/aggregation/home?cid=890&title=%E9%94%85%E5%85%B7&from=1&order=0&filterId=0&page=1&token="

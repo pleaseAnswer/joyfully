@@ -6,14 +6,11 @@
       <van-search placeholder="去喜地，逛世界" v-model="value" />
     </div>
     <div>
-      <el-tabs type="border-card" tabPosition="left">
-        <el-tab-pane :label="item.name" v-for="item in datalist" :key="item.name">
-          <ul class>
-            <li
-              class="list"
-              v-for="item1 in item.children"
-              :key="item1.name"
-              @click="goto('/Classifylist')"
+      <el-tabs type="border-card" tabPosition="left" >
+        <el-tab-pane :label="item.name" v-for="item in datalist" :key="item.name" >
+          <!-- 列表 -->
+          <ul>
+            <li class="list" v-for="item1 in item.children" :key="item1.name" @click="goto('/Classifylist')"
             >
               <img :src="item1.image" />
               <p>{{item1.name}}</p>
@@ -59,7 +56,7 @@ export default {
   position: fixed;
   left: 0;
   bottom: 0;
-  top: 3.16667rem;
+  top: 54px;
 }
 
 // 列表
@@ -70,14 +67,16 @@ export default {
   text-align: center;
   padding-right: 12px;
   box-sizing: border-box;
-  padding-bottom: 0.83333rem;
+  padding-bottom: 12px;
   img {
     width: 100%;
     height: 100%;
   }
   p {
-    font-size: 0.83333rem;
-    padding-top: 0.83333rem;
+    font-size: 14px;
+    padding-top: 12px;
+    color:#909399;
   }
 }
+
 </style>
