@@ -19,13 +19,13 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column prop="id" label="ID" width="120"></el-table-column>
-      <el-table-column prop="img" label="图片" width="120"></el-table-column>
+      <!-- <el-table-column prop="img" label="图片" width="120"></el-table-column> -->
       <el-table-column prop="price" label="价格" width="120"></el-table-column>
       <el-table-column prop="text" label="标题" show-overflow-tooltip></el-table-column>
       <el-table-column prop="qty" label="数量" show-overflow-tooltip></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <el-button size="mini" type="danger" @click="handleDelete(scope.$index)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -41,6 +41,7 @@
   </div>
 </template>
 <script>
+import {mapState,mapGetters,mapMutations, mapActions} from 'vuex';
 export default {
   data() {
     return {
@@ -48,7 +49,7 @@ export default {
       multipleSelection: [],
       pagesize:6,
       pagenum:'',
-      currentPage:1
+      currentPage:1,
     };
   },
   created(){
@@ -82,8 +83,15 @@ export default {
      handleSelectionChange(val) {
       this.multipleSelection = val;
     },
-    handleDelete(index, row) {
-      console.log(index, row);
+    async handleDelete(index) {
+      if(this.tableData.length!=0){
+        let id = this.tableData[index].id;
+        console.log(id);
+        
+        let status = await this.axios.delete(`http://localhost:1910/orderlist/${id}`);
+        console.log(index, status);
+      }
+      this.tableData.splice(index,1);
     },
     async changitem(val){ 
       this.currentPage = val;
@@ -97,6 +105,7 @@ export default {
         })
         this.$refs.refpage[val-1].classList.add("activepage")
       }
+      this.$forceUpdate();
     },
     async getpagenum(){
       var {data} = await this.axios.get("http://localhost:1910/orderlist/show");
@@ -129,7 +138,10 @@ export default {
           }
         }
       }
-    }
+    },
+    ...mapMutations({
+      removeItem:'removeFromCart'
+    }),
   }
 };
 </script>

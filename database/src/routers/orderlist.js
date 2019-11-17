@@ -3,6 +3,7 @@ const express=require('express');
 const Router=express.Router();
 
 const {find,remove}=require('../db/mongodb');
+const {formatData}=require('../utils');
 
 
 //展示数据在列表
@@ -22,8 +23,10 @@ Router.get('/show',async (req,res)=>{
 // 删除用户
 Router.delete('/:id',async (req,res)=>{
   let {id} = req.params;
+  console.log(id);
+  
   // 查询数据库
-  let result = await remove(colName,{_id:id});
+  let result = await remove('cart',{id});
 
   if(result.deletedCount>0){
       res.send(formatData())
