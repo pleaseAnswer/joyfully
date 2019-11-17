@@ -1,3 +1,4 @@
+import axios from 'axios';
 let cart = ({
     state: {
         menu: []
@@ -14,7 +15,9 @@ let cart = ({
     },
     mutations: {
         //删除单个商品
-        removeCart(state, id) {
+        async removeCart(state, id) {
+
+            await axios.delete(`http://localhost:1910/cart/${id}`);
             state.menu = state.menu.filter(item => item.id != id)
         },
         //修改数量
@@ -28,6 +31,12 @@ let cart = ({
         //添加到购物车
         addCart(state, goods) {
             state.menu.unshift(goods)
+        },
+        async getgoods(state) {
+            let {
+                data
+            } = await axios.get('http://localhost:1910/cart');
+            state.menu = data;
         }
     }
 })
