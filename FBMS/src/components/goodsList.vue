@@ -21,13 +21,9 @@
       class="el-icon-delete"
       @click="removeitem"
       style="
-<<<<<<< HEAD
-       padding:10px 9px;"
-=======
        padding:10px 9px; 
        background: #ff5e5f; 
        border: 1px solid #ff5e5f;"
->>>>>>> pleaseAnswer
     >删除</el-button>
     <div style="float: right; width:100%:height:100%">
       <el-input placeholder="请输入内容" style="width:200px; float: left; "></el-input>
@@ -37,109 +33,6 @@
         style=" float: left; margin-left: 5px; background: #00bebf;
        border: 1px solid #00bebf;"
       >搜索</el-button>
-<<<<<<< HEAD
-    </div>
-    <div>
-      <el-table
-        ref="multipleTable"
-        :data="tableData"
-        tooltip-effect="dark"
-        style="width: 100% 
-    margin-top: 30px;"
-        @selection-change="handleSelectionChange"
-      >
-        <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="countryName" label="商品名称" width="120"></el-table-column>
-        <el-table-column prop="countryName" label="国家" width="120"></el-table-column>
-        <el-table-column label="添加时间" width="120">
-          <template slot-scope="scope">{{ scope.row.date }}</template>
-        </el-table-column>
-        <el-table-column prop="salePrice" label="价格（原价）" width="120"></el-table-column>
-        <el-table-column prop="price" label="价格（现价）" width="120"></el-table-column>
-        <el-table-column prop="price" label="库存" width="120"></el-table-column>
-
-        <el-table-column label="操作">
-          <template slot-scope="scope">
-            <el-button
-              style=" margin-left: 0px;background: #00bebf;
-       border: 1px solid #00bebf;"
-              type="primary"
-              icon="el-icon-edit"
-              @click="handleEdit(scope.$index, scope.row)"
-            ></el-button>
-            <el-button
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)"
-              icon="el-icon-delete"
-            ></el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
-
-    <!-- 分页 -->
-
-    <div class="userlist-page">
-      <i class="el-icon-arrow-left"></i>
-      <span class="pagenum" @click="changitem(item)">1234</span>
-      <i class="el-icon-arrow-right"></i>
-    </div>
-
-    <!-- 弹框 -->
-    <div class="box" :class="[sty?'':'nn']">
-      <el-form label-width="90px" style="margin-top:30px">
-        <el-form-item label="商品名称">
-          <el-input></el-input>
-        </el-form-item>
-        <el-form-item label="商品副标题">
-          <el-input></el-input>
-        </el-form-item>
-        <div style="height:70px;width:1000px">
-          <el-form-item label="商品价格" style=" float: left; ">
-            <el-input placeholder style="width:200px; float: left; "></el-input>
-          </el-form-item>
-          <el-form-item label="销售价格" style=" float: left; ">
-            <el-input placeholder style="width:200px; float: left; "></el-input>
-          </el-form-item>
-          <el-select v-model="value" placeholder="请选择国家名称" style="margin-left:70px">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-        </div>
-
-        <div>
-          <el-form-item label="商品图片">
-            <el-upload
-              class="avatar-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-            >
-              <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-          </el-form-item>
-        </div>
-
-        <el-form-item label="商品描述 :">
-          <el-input type="textarea"></el-input>
-        </el-form-item>
-      </el-form>
-
-      <el-button
-        @click="tan"
-        type="primary"
-        style="  background: #00bebf;
-       padding:12px 12px; border: 1px solid #00bebf;"
-      >确定</el-button>
-    </div>
-
-=======
     </div>
     <div>
       <el-table
@@ -244,8 +137,6 @@
        padding:12px 12px; border: 1px solid #00bebf;"
       >确定</el-button>
     </div>
-
->>>>>>> pleaseAnswer
     <!-- 遮罩 -->
     <el-main class="main" :class="[sty?'':'nn']"></el-main>
   </div>
@@ -257,20 +148,11 @@ export default {
   data() {
     return {
       imageUrl: "",
-      sty: false,
-<<<<<<< HEAD
-      pagennumber: "",
-      currentPage: 1, //一页
-      pagesize: 6, //6条一页
-      tablelist: [],
-
-=======
-      
+      sty: false, 
       tablelist: [],
       pagesize:6,
       pagenum:'',
       currentPage:1,
->>>>>>> pleaseAnswer
       tableData: [
         {
           name: "王小虎",
@@ -419,24 +301,6 @@ export default {
     },
     handleDelete(index, row) {
       console.log(index, row);
-<<<<<<< HEAD
-    }
-  },
-  async changitem(val) {
-    this.currentPage = val;
-    // currentPage        skip
-    // 1                    0
-    // 2                    10
-    // 3                    20
-    // 语句：find().skip(index).litmit(size) 先跳过一页，再限制十个数量
-    var skip = (this.currentPage - 1) * this.pagesize; //10条一页
-    var limit = this.pagesize;
-    var {data}=awaitthis.axios.get(`http://localhost:1910/goodslist/show?skip=${skip}&limit=${limit}`)
-  },
-  created() {
-    this.changitem(this.currentPage);
-  }
-=======
     },
     async changitem(val){ 
       this.currentPage = val;
@@ -487,8 +351,6 @@ export default {
       }
     }
   },
-  
->>>>>>> pleaseAnswer
 };
 </script>
 <style lang="scss" scoped>
@@ -563,8 +425,7 @@ export default {
   height: 100px;
   display: block;
 }
-<<<<<<< HEAD
-=======
+
 .goodslist-footer{
   width: 100%;
   height: 40px;
@@ -588,5 +449,4 @@ export default {
     cursor: not-allowed;
   }
 }
->>>>>>> pleaseAnswer
 </style>
