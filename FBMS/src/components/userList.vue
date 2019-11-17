@@ -51,8 +51,6 @@
     },
     mounted(){
       this.changitem(this.currentPage);
-      
-      
       if(this.$refs.refprev!=undefined && this.$refs.refnext!=undefined){
         if(this.currentPage == 1 && this.pagenum == 1){
           this.$refs.refnext.classList.add("disableskip");
