@@ -75,6 +75,9 @@ export default {
     };
   },
   methods: {
+     handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
     handleDelete(index, row) {
       console.log(index, row);
     }
