@@ -14,8 +14,8 @@ let loginRouter = require('./login');
 let regRouter = require('./reg');
 let userlistRouter = require('./userlist');
 let goodslistRouter = require('./goodslist');
-let mangelistRouter = require('./mangelist');
 let orderlistRouter = require('./orderlist');
+let mangelistRouter = require('./mangelist');
 
 // 跨域解决方案CORS
 Router.use((req, res, next) => {
@@ -50,8 +50,8 @@ Router.use('/login', loginRouter);
 Router.use('/reg', regRouter);
 Router.use('/userlist', userlistRouter);
 Router.use('/goodslist', goodslistRouter);
-Router.use('/mangelist', mangelistRouter);
 Router.use('/orderlist', orderlistRouter);
+Router.use('/mangelist', mangelistRouter);
 
 //检验token
 Router.get('/verify', (req, res) => {

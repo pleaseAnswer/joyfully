@@ -9,23 +9,21 @@
         <el-breadcrumb-item>管理员管理</el-breadcrumb-item>
       </el-breadcrumb>
     </header>
-    <div class="managelist-button">
-        <el-button style="color:#00bebf"><i class="el-icon-circle-plus-outline" style="font-size:20px"></i></el-button>
-        <el-button><i class="el-icon-delete-solid" style="color:#ff5e5f; font-size:20px"></i></el-button>
-    </div>
     <!-- 表格内容 -->
-    <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="date" label="日期" width="200px"></el-table-column>
-      <el-table-column prop="name" label="用户名" width="200px"></el-table-column>
-      <el-table-column prop="administrator" label="操作者"></el-table-column>
-      <el-table-column label="操作" >
-        <el-button style="background:#00bebf; margin-right:20px">
-          <i class="el-icon-edit" style="color:#fff;" @click="goto('/addUser')"></i>
-        </el-button>
-        <el-button style="background:#ff5e5f;">
-          <i class="el-icon-delete-solid" style="color:#fff;"></i>
-        </el-button>
+    <el-table :data="tableData" style="width: 100%; padding-left:25px;">
+      <el-table-column label="" width="100px">
+        <el-button
+          style=" margin-left: 0px;
+          background: #00bebf;
+          border: 1px solid #00bebf;"
+          type="primary"
+          icon="el-icon-user"
+        ></el-button>
       </el-table-column>
+      <el-table-column prop="id" label="ID" width="200px"></el-table-column>
+      <el-table-column prop="bumen" label="部门" width="200px"></el-table-column>
+      <el-table-column prop="name" label="管理员" width="200px"></el-table-column>
+      <el-table-column prop="master" label="操作者"></el-table-column>
     </el-table>
     <footer class="mangelist-footer">
       <div class="mangelist-page">
@@ -86,7 +84,7 @@ export default {
       this.currentPage = val;
       var skip = (this.currentPage - 1) * this.pagesize;
       var limit = this.pagesize;
-      var {data} = await this.axios.get(`http://localhost:1910/userlist/show?skip=${skip}&limit=${limit}`);
+      var {data} = await this.axios.get(`http://localhost:1910/mangelist/show?skip=${skip}&limit=${limit}`);
       this.tableData=data;
       if(this.$refs.refpage!=undefined){
         this.$refs.refpage.map(ele=>{
@@ -96,7 +94,7 @@ export default {
       }
     },
     async getpagenum(){
-      var {data} = await this.axios.get("http://localhost:1910/userlist/show");
+      var {data} = await this.axios.get("http://localhost:1910/mangelist/show");
       this.pagenum = parseInt((data.length-1) / this.pagesize) + 1;
     },
     prev(){
@@ -142,10 +140,6 @@ export default {
     line-height: 40px;
     // background: #963;
   }
-}
-.managelist-button{
-  padding: 25px 0 10px 15px;
-  text-align: left;
 }
 .mangelist-footer{
   width: 100%;

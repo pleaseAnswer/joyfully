@@ -2,15 +2,21 @@ const express=require('express');
 
 const Router=express.Router();
 
-const {create}=require('../db/mongodb');
+const {find}=require('../db/mongodb');
 
-const {formatData}=require('../utils');
 
 //展示数据在列表
 Router.get('/show',async (req,res)=>{
-   
-  //添加到数据库
-  let  result = await create('user',req.params);
-  res.send(formatData({data:result}));
+    let {skip,limit} = req.query;
+    let result = "";
+    skip=Number(skip);
+    limit=Number(limit);
+    if(skip>0){
+        result = await find('mangelist',{},{skip,limit});
+      }else{
+        result = await find('mangelist',{},{limit});
+      }
+    //查询数据库
+    res.send(result);
 })
 module.exports=Router;
