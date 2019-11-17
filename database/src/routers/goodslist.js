@@ -2,7 +2,8 @@ const express=require('express');
 
 const Router=express.Router();
 
-const {find}=require('../db/mongodb');
+const {find,remove}=require('../db/mongodb');
+const {formatData}=require('../utils');
 
 
 //展示数据在列表
@@ -12,11 +13,25 @@ Router.get('/show',async (req,res)=>{
     skip=Number(skip);
     limit=Number(limit);
     if(skip>0){
-        result = await find('user',{},{skip,limit});
+        result = await find('goodslist',{},{skip,limit});
       }else{
-        result = await find('user',{},{limit});
+        result = await find('goodslist',{},{limit});
       }
     //查询数据库
     res.send(result);
+})
+// 删除商品
+Router.delete('/:id',async (req,res)=>{
+  let {id} = req.params;
+  console.log(id);
+  
+  // 查询数据库
+  let result = await remove('goodslist',{id});
+
+  if(result.deletedCount>0){
+      res.send(formatData())
+  }else{
+      res.send(formatData({status:0}))
+  }
 })
 module.exports=Router;
