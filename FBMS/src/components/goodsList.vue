@@ -72,11 +72,7 @@
 
     <!-- 分页 -->
 
-    <div class="userlist-page">
-      <i class="el-icon-arrow-left"></i>
-      <span class="pagenum" @click="changitem(item)">1234</span>
-      <i class="el-icon-arrow-right"></i>
-    </div>
+    
 
     <!-- 弹框 -->
     <div class="box" :class="[sty?'':'nn']">
@@ -137,16 +133,12 @@
   </div>
 </template>
 <script>
-// import { floralwhite } from "color-name";
-
 export default {
   data() {
     return {
       imageUrl: "",
       sty: false,
-      pagennumber: "",
-      currentPage: 1, //一页
-      pagesize: 6, //6条一页
+      
       tablelist: [],
 
       tableData: [
@@ -274,20 +266,7 @@ export default {
       console.log(index, row);
     }
   },
-  async changitem(val) {
-    this.currentPage = val;
-    // currentPage        skip
-    // 1                    0
-    // 2                    10
-    // 3                    20
-    // 语句：find().skip(index).litmit(size) 先跳过一页，再限制十个数量
-    var skip = (this.currentPage - 1) * this.pagesize; //10条一页
-    var limit = this.pagesize;
-    var {data}=awaitthis.axios.get(`http://localhost:1910/goodslist/show?skip=${skip}&limit=${limit}`)
-  },
-  created() {
-    this.changitem(this.currentPage);
-  }
+  
 };
 </script>
 <style lang="scss" scoped>
