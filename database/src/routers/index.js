@@ -13,6 +13,7 @@ let guojiaguanRouter = require('./guojiaguan');
 let loginRouter = require('./login');
 let regRouter = require('./reg');
 let userlistRouter = require('./userlist');
+let cartRouter = require('./cart');
 
 // 跨域解决方案CORS
 Router.use((req, res, next) => {
@@ -46,6 +47,7 @@ Router.use('/guojiaguan', guojiaguanRouter);
 Router.use('/login', loginRouter);
 Router.use('/reg', regRouter);
 Router.use('/userlist', userlistRouter);
+Router.use('/cart', cartRouter);
 
 //检验token
 Router.get('/verify', (req, res) => {

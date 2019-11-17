@@ -11,6 +11,9 @@ import '@vant/touch-emulator';
 import 'vant/lib/index.css';
 //使用axios
 import axios from 'axios';
+
+Vue.prototype.$store = store;
+
 import {
     Icon,
     Tabbar,

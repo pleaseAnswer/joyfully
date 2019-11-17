@@ -137,8 +137,13 @@ export default {
   methods: {
     ...mapMutations({
       removeCart: "removeCart",
-      changQty: "changQty"
+      changQty: "changQty",
+      getgoods: "getgoods"
     })
+  },
+  created() {
+    //调用刷新页面
+    this.getgoods();
   }
 };
 </script>

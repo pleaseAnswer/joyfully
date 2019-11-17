@@ -16,7 +16,7 @@ import Service from '../pages/Service.vue'
 import Classifylist from '../pages/Classifylist.vue';
 
 
-
+let vm = new Vue()
 
 const router = new VueRouter({
 
@@ -94,7 +94,7 @@ router.beforeEach((to, from, next) => {
 
         //获取token
         let $store = router.app.$store
-        let Authorization = $store.state.common.user.Authorization;
+        let Authorization = Vue.prototype.$store.state.common.user.Authorization;
         if (Authorization) {
             //登录则放行
             next();

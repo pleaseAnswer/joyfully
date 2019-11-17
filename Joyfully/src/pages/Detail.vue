@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{this.$store.state.menu}}
     <header>
       <div class="header_left">
         <i class="el-icon-arrow-left" @click="goto('/Classifylist')"></i>
@@ -119,7 +120,7 @@ export default {
     goto(path) {
       this.$router.push(path);
     },
-    addCart() {
+    async addCart() {
       //结构相应数据
       let { id, attrImg: img, price, name: text } = this.list;
       //获取数据库
@@ -138,11 +139,22 @@ export default {
           text,
           qty: 1
         };
-        this.$store.commit("addCart", goods);
+        let { data } = await this.$axios.post(
+          "http://localhost:1910/cart",
+          goods
+        );
+        // console.log(data);
+        if (data.status === 1) {
+          this.$store.commit("addCart", goods);
+          this.$store.commit("getgoods");
+        } else {
+          alert("加入购物车失败");
+        }
       }
     },
     buy() {
       this.addCart();
+      this.$store.commit("getgoods");
       this.$router.push("/cart");
     }
   },
@@ -175,7 +187,7 @@ export default {
       }
     });
     this.list = goods[0];
-    // console.log(this.list);
+
   }
 };
 </script>
