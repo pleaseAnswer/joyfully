@@ -5,7 +5,7 @@
         <el-row>
           <el-col>
             <div class="grid-content bg-purple-dark">
-              <i class="icon icon_back"></i>
+              <i class="icon icon_back" @click="goto('/nation')"></i>
               <h2>芬兰天然滑石</h2>
               <i class="icon icon_search"></i>
               <i class="icon icon_cart_full"></i>
@@ -61,7 +61,7 @@
             <!-- 下次点击事件没有触发时就试试native -->
             <div
               style=" padding: 10px; height:239px; border: 0.2px #ccc solid "
-              @click="goto('/detail')"
+              @click="goto('/classifylist')"
             >
               <div style="width:167px;height:167px;margin-bottom: 10px;">
                 <img :src="item.coverImg" style="width:100%;height:100%" />
@@ -91,7 +91,7 @@
           <el-breadcrumb-item :to="{ path: '/Service' }">联系客服</el-breadcrumb-item>
         </el-breadcrumb>
         <el-col class="none">
-          <p class="p" style="color: #c5c5c5;">© 2019 喜地电子商务有限公司 版权所有</p>
+          <p class="p" style="color: #c5c5c5;">? 2019 喜地电子商务有限公司 版权所有</p>
         </el-col>
         <el-col class="none"></el-col>
         <el-col class="none"></el-col>

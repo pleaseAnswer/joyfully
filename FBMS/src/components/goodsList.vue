@@ -21,7 +21,9 @@
       class="el-icon-delete"
       @click="removeitem"
       style="
-       padding:10px 9px;"
+       padding:10px 9px; 
+       background: #ff5e5f; 
+       border: 1px solid #ff5e5f;"
     >删除</el-button>
     <div style="float: right; width:100%:height:100%">
       <el-input placeholder="请输入内容" style="width:200px; float: left; "></el-input>
@@ -72,6 +74,15 @@
 
     <!-- 分页 -->
 
+    <footer class="goodslist-footer">
+      <div class="goodslist-page">
+        <i class="el-icon-arrow-left" ref="refprev" @click="prev"></i>
+        <span v-for="item in pagenum" :key="item" class="pagenum" @click="changitem(item)" ref="refpage">
+          {{item}}
+        </span>
+        <i class="el-icon-arrow-right" ref="refnext" @click="next"></i>
+      </div> 
+    </footer>
     
 
     <!-- 弹框 -->
@@ -127,7 +138,6 @@
        padding:12px 12px; border: 1px solid #00bebf;"
       >确定</el-button>
     </div>
-
     <!-- 遮罩 -->
     <el-main class="main" :class="[sty?'':'nn']"></el-main>
   </div>
@@ -137,10 +147,13 @@ export default {
   data() {
     return {
       imageUrl: "",
-      sty: false,
-      
-      tablelist: [],
 
+      sty: false, 
+
+      tablelist: [],
+      pagesize:6,
+      pagenum:'',
+      currentPage:1,
       tableData: [
         {
           name: "王小虎",
@@ -229,7 +242,33 @@ export default {
       ]
     };
   },
-
+  created(){
+    this.changitem(this.currentPage);
+    this.getpagenum();
+  },
+  mounted(){
+    this.changitem(this.currentPage);
+    if(this.$refs.refprev!=undefined && this.$refs.refnext!=undefined){
+      if(this.currentPage == 1 && this.pagenum == 1){
+        this.$refs.refnext.classList.add("disableskip");
+        this.$refs.refprev.classList.add("disableskip");
+      }
+    }
+  },
+  updated(){
+    if(this.$refs.refprev!=undefined && this.$refs.refnext!=undefined && this.pagenum != 1){
+      if(this.currentPage == 1){
+        this.$refs.refnext.classList.remove("disableskip");
+        this.$refs.refprev.classList.add("disableskip");
+      }else if(this.currentPage == this.pagenum){
+        this.$refs.refprev.classList.remove("disableskip");
+        this.$refs.refnext.classList.add("disableskip");
+      }else{
+        this.$refs.refnext.classList.remove("disableskip");
+        this.$refs.refprev.classList.remove("disableskip");
+      }
+    }
+  },
   methods: {
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
@@ -264,9 +303,54 @@ export default {
     },
     handleDelete(index, row) {
       console.log(index, row);
+    },
+    async changitem(val){ 
+      this.currentPage = val;
+      var skip = (this.currentPage - 1) * this.pagesize;
+      var limit = this.pagesize;
+      var {data} = await this.axios.get(`http://localhost:1910/userlist/show?skip=${skip}&limit=${limit}`);
+      this.tableData=data;
+      this.total = data.length;
+      if(this.$refs.refpage!=undefined){
+        this.$refs.refpage.map(ele=>{
+          ele.classList.remove("activepage");
+        })
+        this.$refs.refpage[val-1].classList.add("activepage")
+      }
+    },
+    async getpagenum(){
+        var {data} = await this.axios.get("http://localhost:1910/userlist/show");
+        this.pagenum = parseInt((data.length-1) / this.pagesize) + 1;
+      },
+    prev(){
+      if(this.$refs.refprev!=undefined && this.$refs.refnext!=undefined && this.pagenum != 1){
+        if(this.currentPage != 1){
+          this.$refs.refprev.classList.remove("disableskip");
+          this.currentPage = this.currentPage - 1;
+          if(this.$refs.refpage!=undefined){
+            this.$refs.refpage.map(ele=>{
+              ele.classList.remove("activepage");
+            })
+            this.changitem(this.currentPage);
+          }
+        }
+      }
+    },
+    next(){
+      if(this.$refs.refprev!=undefined && this.$refs.refnext!=undefined && this.pagenum != 1){
+        if(this.currentPage != this.pagenum){
+          this.$refs.refnext.classList.remove("disableskip");
+          this.currentPage = this.currentPage + 1;
+          if(this.$refs.refpage!=undefined){
+            this.$refs.refpage.map(ele=>{
+              ele.classList.remove("activepage");
+            })
+            this.changitem(this.currentPage);
+          }
+        }
+      }
     }
   },
-  
 };
 </script>
 <style lang="scss" scoped>
@@ -340,5 +424,29 @@ export default {
   width: 100px;
   height: 100px;
   display: block;
+}
+
+.goodslist-footer{
+  width: 100%;
+  height: 40px;
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  .goodslist-page{
+    text-align: center;
+    i {
+      padding: 0 5px;
+    }
+    .pagenum{
+      padding: 0 5px;
+      cursor: pointer;
+    }
+  }
+  .activepage{
+    color: #00bebf;
+  }
+  .disableskip{
+    cursor: not-allowed;
+  }
 }
 </style>
