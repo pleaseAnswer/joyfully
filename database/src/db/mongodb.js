@@ -89,6 +89,8 @@ async function find(colName,query={},options={}){
     //fields:用于过滤某些字段
     let {fields:attr,skip,limit,sort} = options;
     const {db,client}=await connect();
+    // console.log(skip,limit);
+    
     //集合或文档操作
     // 获取集合
     let collection = db.collection(colName);

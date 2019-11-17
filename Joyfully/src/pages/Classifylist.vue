@@ -38,7 +38,6 @@
               <i class="el-icon-arrow-down"></i>
             </li>
           </div>
-          <!-- 全部 -->
           <div v-for="item in datalist.lists" :key="item.id" class="goods" @click="goto(item.id)">
             <img :src="item.attrImg" alt />
             <a href>{{item.name}}</a>

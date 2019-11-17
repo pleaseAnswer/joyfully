@@ -12,26 +12,27 @@
                 <el-button style="color:#00bebf" @click="goto('/addUser')"><i class="el-icon-circle-plus-outline" style="font-size:20px"></i></el-button>
                 <el-button><i class="el-icon-delete-solid" style="color:#ff5e5f; font-size:20px"></i></el-button>
             </div>
-            <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
+            <template v-if="tableData.length!=0">
+              <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
                 <el-table-column type="selection" width="55"></el-table-column>
                 <el-table-column label="用户名" prop="username" width="400"></el-table-column>
                 <el-table-column label="密码" prop="password" width="400"> </el-table-column>
                 <el-table-column label="操作" show-overflow-tooltip>
-                    <el-button style="background:#00bebf; margin-right:20px"><i class="el-icon-edit" style="color:#fff;" @click="goto('/editUser')"></i></el-button>
-                    <el-button style="background:#ff5e5f;"><i class="el-icon-delete-solid" style="color:#fff;"></i></el-button>
+                  <el-button style="background:#00bebf; margin-right:20px"><i class="el-icon-edit" style="color:#fff;" @click="goto('/editUser')"></i></el-button>
+                  <el-button style="background:#ff5e5f;"><i class="el-icon-delete-solid" style="color:#fff;"></i></el-button>
                 </el-table-column>
-            </el-table>
+              </el-table>
+            </template>
+            
         </main>
         <footer class="userlist-footer">
-             <el-pagination
-                @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-                :current-page="currentPage4"
-                :page-sizes="[100, 200, 300, 400]"
-                :page-size="100"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="400">
-            </el-pagination>
+           <div class="userlist-page">
+             <i class="el-icon-arrow-left" ref="refprev" @click="prev"></i>
+             <span v-for="item in pagenum" :key="item" class="pagenum" @click="changitem(item)" ref="refpage">
+               {{item}}
+             </span>
+             <i class="el-icon-arrow-right" ref="refnext" @click="next"></i>
+            </div> 
         </footer>
     </div>
 </template>
@@ -39,24 +40,40 @@
   export default {
     data() {
       return {
-        tableData: [{
-          username: '王小虎',
-          password: '上海市普陀区金沙江路 1518 弄'
-        },{
-          username: '王小虎',
-          password: '上海市普陀区金沙江路 1518 弄'
-        },{
-          username: '王小虎',
-          password: '上海市普陀区金沙江路 1518 弄'
-        }],
-        currentPage1: 5,
-        currentPage2: 5,
-        currentPage3: 5,
-        currentPage4: 4,
-        multipleSelection: []
+        tableData: [],
+        pagesize:6,
+        pagenum:'',
+        currentPage:1
       }
     },
-
+    created(){
+      this.changitem(this.currentPage);
+    },
+    mounted(){
+      this.changitem(this.currentPage);
+      
+      
+      if(this.$refs.refprev!=undefined && this.$refs.refnext!=undefined){
+        if(this.currentPage == 1 && this.pagenum == 1){
+          this.$refs.refnext.classList.add("disableskip");
+          this.$refs.refprev.classList.add("disableskip");
+        }
+      }
+    },
+    updated(){
+      if(this.$refs.refprev!=undefined && this.$refs.refnext!=undefined && this.pagenum != 1){
+        if(this.currentPage == 1){
+          this.$refs.refnext.classList.remove("disableskip");
+          this.$refs.refprev.classList.add("disableskip");
+        }else if(this.currentPage == this.pagenum){
+          this.$refs.refprev.classList.remove("disableskip");
+          this.$refs.refnext.classList.add("disableskip");
+        }else{
+          this.$refs.refnext.classList.remove("disableskip");
+          this.$refs.refprev.classList.remove("disableskip");
+        }
+      }
+    },
     methods: {
       toggleSelection(rows) {
         if (rows) {
@@ -70,14 +87,57 @@
       handleSelectionChange(val) {
         this.multipleSelection = val;
       },
-       handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
-      handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
-      },
       goto(path){
-          this.$router.push(path);
+        this.$router.push(path);
+      },
+      async changitem(val){
+        
+        this.currentPage = val;
+        var skip = (this.currentPage - 1) * this.pagesize;
+        var limit = this.pagesize;
+        var {data} = await this.axios.get(`http://localhost:1910/userlist/show?skip=${skip}&limit=${limit}`);      
+        // console.log(val);
+        // console.log(skip);
+
+        // console.log(data);
+        this.tableData=data;
+        this.total = data.length;
+        this.pagenum = parseInt(data.length / this.pagesize) + this.currentPage;
+        if(this.$refs.refpage!=undefined){
+          this.$refs.refpage.map(ele=>{
+            ele.classList.remove("activepage");
+          })
+          this.$refs.refpage[val-1].classList.add("activepage")
+        }
+        
+      },
+      prev(){
+        if(this.$refs.refprev!=undefined && this.$refs.refnext!=undefined && this.pagenum != 1){
+          if(this.currentPage != 1){
+            this.$refs.refprev.classList.remove("disableskip");
+            this.currentPage = this.currentPage - 1;
+            if(this.$refs.refpage!=undefined){
+              this.$refs.refpage.map(ele=>{
+                ele.classList.remove("activepage");
+              })
+              this.changitem(this.currentPage);
+            }
+          }
+        }
+      },
+      next(){
+        if(this.$refs.refprev!=undefined && this.$refs.refnext!=undefined && this.pagenum != 1){
+          if(this.currentPage != this.pagenum){
+            this.$refs.refnext.classList.remove("disableskip");
+            this.currentPage = this.currentPage + 1;
+            if(this.$refs.refpage!=undefined){
+              this.$refs.refpage.map(ele=>{
+                ele.classList.remove("activepage");
+              })
+              this.changitem(this.currentPage);
+            }
+          }
+        }
       }
     }
   }
@@ -110,8 +170,21 @@
        position: fixed;
        bottom: 20px;
        left: 0;
-       .el-pagination{
-           text-align: center;
-       }
+      .userlist-page{
+        text-align: center;
+        i {
+          padding: 0 5px;
+        }
+        .pagenum{
+          padding: 0 5px;
+          cursor: pointer;
+        }
+      }
+      .activepage{
+        color: #00bebf;
+      }
+      .disableskip{
+        cursor: not-allowed;
+      }
    }
 </style>

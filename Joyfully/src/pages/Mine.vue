@@ -104,7 +104,7 @@ export default {
   data() {
     return {
       sty: false,
-      username: ""
+      username: this.$store.state.common.user.username
     };
   },
   computed: {
@@ -122,14 +122,10 @@ export default {
     ok() {
       this.sty = false;
       this.$store.commit("logout");
-      // this.$router.push("/index");
     },
     cancel() {
       this.sty = false;
     }
-  },
-  created() {
-    this.username = this.$store.state.common.user.username;
   }
 };
 </script>

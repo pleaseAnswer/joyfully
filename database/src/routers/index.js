@@ -12,6 +12,7 @@ let fenleiRouter = require('./fenlei');
 let guojiaguanRouter = require('./guojiaguan');
 let loginRouter = require('./login');
 let regRouter = require('./reg');
+let userlistRouter = require('./userlist');
 
 // 跨域解决方案CORS
 Router.use((req, res, next) => {
@@ -44,6 +45,7 @@ Router.use('/fenlei', fenleiRouter);
 Router.use('/guojiaguan', guojiaguanRouter);
 Router.use('/login', loginRouter);
 Router.use('/reg', regRouter);
+Router.use('/userlist', userlistRouter);
 
 //检验token
 Router.get('/verify', (req, res) => {

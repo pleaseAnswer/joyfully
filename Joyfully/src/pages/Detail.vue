@@ -17,11 +17,7 @@
       <div class="goods_main">
         <figure>
           <div class="goods_img">
-            <img
-              class="goods_detail"
-              :src="list.attrImg"
-              alt
-            />
+            <img class="goods_detail" :src="list.attrImg" alt />
             <img
               class="certified"
               src="https://static.xidibuy.com/m/static/global/images/1.0.0/new_icon_hchud.png"
@@ -107,8 +103,8 @@
     <van-goods-action style="z-index:3000">
       <van-goods-action-icon icon="chat-o" text="客服" @click="goto('/Service')" />
       <van-goods-action-icon icon="cart-o" text="购物车" :info="cartlength" @click="goto('/cart')" />
-      <van-goods-action-button type="warning" text="加入购物车" />
-      <van-goods-action-button type="danger" text="立即购买" />
+      <van-goods-action-button type="warning" text="加入购物车" @click="addCart" />
+      <van-goods-action-button type="danger" text="立即购买" @click="buy" />
     </van-goods-action>
   </div>
 </template>
@@ -122,6 +118,32 @@ export default {
   methods: {
     goto(path) {
       this.$router.push(path);
+    },
+    addCart() {
+      //结构相应数据
+      let { id, attrImg: img, price, name: text } = this.list;
+      //获取数据库
+      let { menu } = this.$store.state.cart;
+      //判断当前商品是否已经存在购物车
+      //已存在：数据+1
+      //否则：添加到购物车
+      let current = menu.filter(item => item.id === id)[0];
+      if (current) {
+        this.$store.commit("changQty", { id, qty: current.qty + 1 });
+      } else {
+        let goods = {
+          id,
+          img,
+          price,
+          text,
+          qty: 1
+        };
+        this.$store.commit("addCart", goods);
+      }
+    },
+    buy() {
+      this.addCart();
+      this.$router.push("/cart");
     }
   },
   computed: {
@@ -131,7 +153,6 @@ export default {
   },
   async created() {
     let { id } = this.$route.params;
-    // console.log(id);
     let {
       data: {
         data: { lists }
@@ -147,15 +168,14 @@ export default {
         token: ""
       }
     });
-    // console.log(lists);
+
     let goods = lists.filter(item => {
       if (id == item.id) {
         return item;
       }
     });
-    // console.log(goods);
     this.list = goods[0];
-    // console.log( this.list)
+    // console.log(this.list);
   }
 };
 </script>
