@@ -62,7 +62,6 @@ async function remove(colName, query) {
     
     //处理id查询
     //{_id:'xxxxx'} -> {_id:ObjectId('xxxxx')}
-<<<<<<< HEAD
     if (query._id && typeof query._id == 'string') {
         query._id = ObjectId(query._id);
     }
@@ -70,11 +69,7 @@ async function remove(colName, query) {
     let result = await collection.deleteMany({
         id: Number(query.id)
     });
-=======
-    // if(query._id && typeof query._id == 'string'){
-    //     query._id = ObjectId(query._id);
-    // }
->>>>>>> 5b2d186aca0592385a167f17211501fcc07dbbc0
+
 
     let result = await collection.deleteMany({id:Number(query.id)});
     
