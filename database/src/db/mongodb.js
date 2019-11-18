@@ -63,17 +63,6 @@ async function remove(colName, query) {
 
     let collection = db.collection(colName);
 
-    //处理id查询
-    //{_id:'xxxxx'} -> {_id:ObjectId('xxxxx')}
-    if (query._id && typeof query._id == 'string') {
-        query._id = ObjectId(query._id);
-    }
-
-    let result = await collection.deleteMany({
-        id: Number(query.id)
-    });
-
-
     let result = await collection.deleteMany({ id: Number(query.id) });
 
     client.close();
