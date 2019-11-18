@@ -233,6 +233,11 @@ export default {
       pricett: "",
       input: "",
       kucun: "",
+      rename: "",
+      reprice: "",
+      repricett: "",
+      reinput: "",
+      rekucun: "",
       pagesize: 5,
       pagenum: "",
       currentPage: 1,
@@ -354,6 +359,14 @@ export default {
     }
   },
   methods: {
+    reWrite(){
+      this.sty=false
+       this.rename="",
+      this.reprice= "",
+      this.repricett= "",
+      this.reinput= "",
+      this.rekucun= ""
+    },
     absent() {
       this.chuxian = true;
     },
