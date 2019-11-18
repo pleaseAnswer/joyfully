@@ -45,11 +45,18 @@
         <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column label="图片" width="50">
           <template slot-scope="props">
-            <img :src="props.row.img" alt="" style="width:40px;height:40px">
+            <img :src="props.row.img" alt style="width:40px;height:40px" />
           </template>
         </el-table-column>
-        <el-table-column prop="text" label="商品名称" width="500" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"></el-table-column>
+        <el-table-column
+          prop="text"
+          label="商品名称"
+          width="400"
+          style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"
+        ></el-table-column>
         <el-table-column prop="price" label="价格（现价）" width="200"></el-table-column>
+        <el-table-column prop="countryname" label="所在国家" width="120"></el-table-column>
+
         <el-table-column prop="kucun" label="库存" width="120"></el-table-column>
 
         <el-table-column label="操作">
@@ -61,11 +68,7 @@
               icon="el-icon-edit"
               @click="handleEdit(scope.$index, scope.row)"
             ></el-button>
-            <el-button
-              type="danger"
-              @click="handleDelete(scope.$index)"
-              icon="el-icon-delete"
-            ></el-button>
+            <el-button type="danger" @click="handleDelete(scope.$index)" icon="el-icon-delete"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -92,27 +95,32 @@
         <el-form-item label="商品名称">
           <el-input v-model="name"></el-input>
         </el-form-item>
-       
+
         <div style="height:70px;width:1000px">
           <el-form-item label="商品价格" style=" float: left; ">
-            <el-input placeholder style="width:200px; float: left; " v-model="price"></el-input>
+            <el-input placeholder style="width:100px; float: left; " v-model="price"></el-input>
           </el-form-item>
           <el-form-item label="销售价格" style=" float: left; ">
-            <el-input placeholder style="width:200px; float: left; " v-model="pricett"></el-input>
+            <el-input placeholder style="width:100px; float: left; " v-model="pricett"></el-input>
           </el-form-item>
-          <el-select v-model="value" placeholder="请选择国家名称" style="margin-left:70px">
+          <el-form-item label="库存" style=" float: left; ">
+            <el-input placeholder style="width:100px; float: left; " v-model="kucun"></el-input>
+          </el-form-item>
+          <el-select v-model="value" placeholder="请选择国家名称" style="margin-left:70px"  >
             <el-option
               v-for="item in options"
               :key="item.value"
               :label="item.label"
               :value="item.value"
+               @click="change"
+            
             ></el-option>
           </el-select>
         </div>
 
         <div>
           <el-form-item label="商品图片">
-             <el-upload
+            <el-upload
               class="avatar-uploader"
               action="https://jsonplaceholder.typicode.com/posts/"
               :show-file-list="false"
@@ -132,7 +140,7 @@
       </el-form>
 
       <el-button
-        @click="tan"
+        @click="change"
         type="primary"
         style="  background: #00bebf;
        padding:12px 12px; border: 1px solid #00bebf;"
@@ -142,8 +150,6 @@
     </div>
     <!-- 遮罩 -->
     <el-main class="main" :class="[sty?'':'nn',tran?'time':'']"></el-main>
-
-
 
     <el-col class="chengxu" :class="[chuxian?'bb':'nn']">
       <div class="xiao">确定要取消添加吗？</div>
@@ -156,29 +162,21 @@
 export default {
   data() {
     return {
-    
       imageUrl: "",
       name: "",
-      
       price: "",
       pricett: "",
       input: "",
-      sty: false,
-      tablelist: [],
+      kucun: "",
       pagesize: 5,
       pagenum: "",
       currentPage: 1,
-      chuxian:false,
-      tran:false,
-
-      tableData: [
-        {
-          name: "王小虎",
-          date: "2016-05-03",
-          address: "日本"
-        }
-      ],
+      chuxian: false,
+      tran: false,
+      sty: false,
+      tableData: [],
       value: "",
+    
       options: [
         {
           value: "选项1",
@@ -294,42 +292,63 @@ export default {
     absent() {
       this.chuxian = true;
     },
-    ok(){
+    ok() {
       this.chuxian = false;
-       this.input='',
-      this.name='',
-      this.price='',
-     
-      this.namett=''
-      this.tran=true;
-       this.sty=false
+      this.input = "",
+        this.name = "",
+        this.price = "",
+        this.namett = "";
+      this.tran = true;
+      this.sty = false;
     },
-    on(){
-        this.chuxian=false
+    on() {
+      this.chuxian = false;
     },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
     },
-
-     async tan() {
-        this.input='',
-      this.name='',
-      this.price='',
-      this.pricett='',
+    change(selVal){
+       this.lable = selVal.lable
+       console.log(selVal);
+       console.log(selVal.lable);
+       
+    },
+    async tan(selVal) {
+      this.sty = false
      
-      this.sty = false;
+       
+      let Data = {
+        id: Date.now(),
+         countryname:selVal.lable,
+        //  countryname:this.lable,
+        img: this.imageUrl,
+        price: this.price,
+        text: this.name,
+        kucun: this.kucun
+      };
+      console.log(Data);
+      
+     
+        this.tableData.push(Data);
+        await this.axios.post(`http://localhost:1910/goodslist/${Data.id}`, {
+          countryname: Data.value,
+          img: Data.imageUrl,
+          price: Data.price,
+          text: Data.name,
+          kucun: Data.kucun
+        });
+    
+        this.input = "",
+        this.name = "",
+        this.price = "",
+        this.pricett = ""
     },
     beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
       const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
-      }
       if (!isLt2M) {
         this.$message.error("上传头像图片大小不能超过 2MB!");
       }
-      return isJPG && isLt2M;
+      return isLt2M;
     },
     add() {
       this.sty = true;
@@ -344,11 +363,13 @@ export default {
       console.log(index, row);
     },
     async handleDelete(index) {
-      if(this.tableData.length!=0){
+      if (this.tableData.length != 0) {
         let id = this.tableData[index].id;
-        let status = await this.axios.delete(`http://localhost:1910/goodslist/${id}`);
+         await this.axios.delete(
+          `http://localhost:1910/goodslist/${id}`
+        );
       }
-      this.tableData.splice(index,1);
+      this.tableData.splice(index, 1);
     },
     async changitem(val) {
       this.currentPage = val;
@@ -408,7 +429,6 @@ export default {
         }
       }
     }
-
   }
 };
 </script>
@@ -432,7 +452,7 @@ export default {
 .el-table th .cell {
   margin-left: 20px;
 }
-.el-table .cell{
+.el-table .cell {
   color: #369;
 }
 .box {
@@ -463,7 +483,7 @@ export default {
 .bb {
   display: block;
 }
-time{
+time {
   transition: transform 0.2s;
 }
 .avatar-uploader .el-upload {
@@ -513,37 +533,36 @@ time{
   .disableskip {
     cursor: not-allowed;
   }
-
 }
 .chengxu {
-    width: 368px;
-    height: 127px;
-    background: #fff;
-    position: fixed;
-    top: 300px;
-    border: #eee 1px solid;
-    left: 600px;
-    z-index:9990;
-      background: hsl(188, 67%, 83%);
+  width: 368px;
+  height: 127px;
+  background: #fff;
+  position: fixed;
+  top: 300px;
+  border: #eee 1px solid;
+  left: 600px;
+  z-index: 9990;
+  background: hsl(188, 67%, 83%);
 
-    .xiao {
-      width: 308px;
-      height: 21px;
-      border-bottom: #eee 1px solid;
-      padding: 1.8rem;
-      font-size: 13px;
-      text-align: center;
-      line-height: 21px;
-      float: left;
-    }
-    .ok {
-      width: 183px;
-      height: 50px;
-      color: #0c4e4e;
-      font-size: 17px;
-      text-align: center;
-      line-height: 50px;
-      float: left;
-    }
+  .xiao {
+    width: 308px;
+    height: 21px;
+    border-bottom: #eee 1px solid;
+    padding: 1.8rem;
+    font-size: 13px;
+    text-align: center;
+    line-height: 21px;
+    float: left;
   }
+  .ok {
+    width: 183px;
+    height: 50px;
+    color: #0c4e4e;
+    font-size: 17px;
+    text-align: center;
+    line-height: 50px;
+    float: left;
+  }
+}
 </style>

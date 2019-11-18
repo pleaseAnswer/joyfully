@@ -162,16 +162,6 @@ export default {
       this.sty = true;
     },
 
-    // onSubmit() {
-    //   let Data={
-    //     username:this.username,
-    //     password:this.password,
-    //     id: Date.now(),
-
-    //   }
-    //   this.sty = false;
-    //   this.tableData.unshift(Data)
-    // },
     async onSubmit() {
       let Data = {
         username: this.username,
