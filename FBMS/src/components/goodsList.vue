@@ -43,7 +43,12 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="text" label="商品名称" width="400"></el-table-column>
+        <el-table-column label="图片" width="50">
+          <template slot-scope="props">
+            <img :src="props.row.img" alt="" style="width:40px;height:40px">
+          </template>
+        </el-table-column>
+        <el-table-column prop="text" label="商品名称" width="500" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"></el-table-column>
         <el-table-column prop="price" label="价格（现价）" width="200"></el-table-column>
         <el-table-column prop="kucun" label="库存" width="120"></el-table-column>
 
@@ -161,7 +166,7 @@ export default {
       input: "",
       sty: false,
       tablelist: [],
-      pagesize: 6,
+      pagesize: 5,
       pagenum: "",
       currentPage: 1,
       chuxian:false,
@@ -427,6 +432,9 @@ export default {
 }
 .el-table th .cell {
   margin-left: 20px;
+}
+.el-table .cell{
+  color: #369;
 }
 .box {
   width: 900px;
