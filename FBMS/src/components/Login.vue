@@ -10,7 +10,12 @@
             <el-input v-model="loginForm.username" placeholder="用户名"></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input type="password" placeholder="密码" v-model="loginForm.password"></el-input>
+            <el-input
+              type="password"
+              placeholder="密码"
+              v-model="loginForm.password"
+              @keyup.13.native="submitForm('loginForm')"
+            ></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('loginForm')" class="submit_btn">登陆</el-button>
@@ -63,11 +68,9 @@ export default {
           } else {
             //获取token
             let Authorization = data.data;
-            // this.$store.commit("login", { Authorization, username });
-            // let redirectUrl = this.$route.query.redirectUrl || "/mine";
-            // alert("登录成功");
-            // this.$router.replace(redirectUrl);
-            this.$router.replace("/mangeList");
+            this.$store.commit("login", { Authorization, username });
+            let redirectUrl = this.$route.query.redirectUrl || "/mine";
+            this.$router.replace(redirectUrl);
           }
         } else {
           this.$notify.error({

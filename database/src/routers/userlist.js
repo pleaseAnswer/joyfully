@@ -2,7 +2,8 @@ const express = require('express');
 
 const Router = express.Router();
 
-const { find, create } = require('../db/mongodb');
+const { find, create,ugremove } = require('../db/mongodb');
+const {formatData}=require('../utils');
 
 
 //展示数据在列表
@@ -28,6 +29,20 @@ Router.post("/:id", async(req, res) => {
 
 
     // 查询数据库,
-    let result = await create("user", { id, password, username });
+    let result = await create("user", { id:Number(id), password, username });
 })
+
+// 删除商品
+Router.delete('/:id',async (req,res)=>{
+    let {id} = req.params;
+    
+    // 查询数据库
+    let result = await ugremove('user',{_id:id});
+    
+    if(result.deletedCount>0){
+        res.send(formatData())
+    }else{
+        res.send(formatData({status:0}))
+    }
+  })
 module.exports = Router;

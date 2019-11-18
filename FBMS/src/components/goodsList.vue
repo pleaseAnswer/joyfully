@@ -63,12 +63,17 @@
           <template slot-scope="scope">
             <el-button
               style=" margin-left: 0px;background: #00bebf;
-       border: 1px solid #00bebf;"
+       border: 1px solid #00bebf;padding:6px 10px"
               type="primary"
               icon="el-icon-edit"
               @click="handleEdit(scope.$index, scope.row)"
             ></el-button>
-            <el-button type="danger" @click="handleDelete(scope.$index)" icon="el-icon-delete"></el-button>
+
+            <el-button
+              type="danger"
+              @click="handleDelete(scope.$index)"
+              icon="el-icon-delete" style="padding:6px 10px"
+            ></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -151,6 +156,67 @@
     <!-- 遮罩 -->
     <el-main class="main" :class="[sty?'':'nn',tran?'time':'']"></el-main>
 
+
+
+      <!-- 添加弹框 -->
+        <div class="box">
+      <el-form label-width="90px" style="margin-top:30px">
+        <el-form-item label="商品名称">
+          <el-input v-model="name"></el-input>
+        </el-form-item>
+        <el-form-item label="商品副标题">
+          <el-input v-model="namett"></el-input>
+        </el-form-item>
+        <div style="height:70px;width:1000px">
+          <el-form-item label="商品价格" style=" float: left; ">
+            <el-input placeholder style="width:200px; float: left; " v-model="price"></el-input>
+          </el-form-item>
+          <el-form-item label="销售价格" style=" float: left; ">
+            <el-input placeholder style="width:200px; float: left; " v-model="pricett"></el-input>
+          </el-form-item>
+          <el-select v-model="value" placeholder="请选择国家名称" style="margin-left:70px">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </div>
+
+        <div>
+          <el-form-item label="商品图片">
+            <el-upload
+              class="avatar-uploader"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload"
+            >
+              <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+        </div>
+
+        <el-form-item label="商品描述 :">
+          <el-input type="textarea" v-model="input"></el-input>
+        </el-form-item>
+      </el-form>
+
+      <el-button
+        @click="tan"
+        type="primary"
+        style="  background: #00bebf;
+       padding:12px 12px; border: 1px solid #00bebf;"
+      >修改</el-button>
+      <!-- true -->
+      <el-button @click="absent" style="  padding:12px 12px;">取消</el-button>
+    </div>
+
+
+
+>>>>>>> 6057e52d0393c0d3eac9c48cf46d5dfc138a7f83
     <el-col class="chengxu" :class="[chuxian?'bb':'nn']">
       <div class="xiao">确定要取消添加吗？</div>
       <div class="ok" @click="ok">是</div>
@@ -363,11 +429,12 @@ export default {
       console.log(index, row);
     },
     async handleDelete(index) {
-      if (this.tableData.length != 0) {
-        let id = this.tableData[index].id;
-         await this.axios.delete(
-          `http://localhost:1910/goodslist/${id}`
-        );
+
+
+      if(this.tableData.length!=0){
+        let id = this.tableData[index]._id;
+        let status = await this.axios.delete(`http://localhost:1910/goodslist/${id}`);
+
       }
       this.tableData.splice(index, 1);
     },

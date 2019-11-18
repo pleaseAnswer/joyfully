@@ -2,6 +2,7 @@ const express = require('express');
 
 const Router = express.Router();
 
+
 const { find, remove, create } = require('../db/mongodb');
 const { formatData } = require('../utils');
 
@@ -43,5 +44,7 @@ Router.post("/:id", async(req, res) => {
 
     // 查询数据库,
     let result = await create("goodslist", { id, countryname, img, price, text, kucun });
+
+
 })
 module.exports = Router;
