@@ -11,11 +11,11 @@
     </header>
     <main class="userlist-main">
       <div class="userlist-button">
-        <el-button style="color:#00bebf" @click="goto">
+        <el-button style="color:#00bebf;padding:5px 8px" @click="goto">
           <i class="el-icon-circle-plus-outline" style="font-size:20px"></i>
         </el-button>
-        <el-button>
-          <i class="el-icon-delete-solid" style="color:#ff5e5f; font-size:20px"></i>
+        <el-button style="padding:5px 8px">
+          <i class="el-icon-delete-solid" style="color:#ff5e5f; font-size:20px;"></i>
         </el-button>
       </div>
       <template v-if="tableData.length!=0">
@@ -23,19 +23,21 @@
           ref="multipleTable"
           :data="tableData"
           tooltip-effect="dark"
-          style="width: 100%"
+          style="width: 100%;"
           @selection-change="handleSelectionChange"
         >
-          <el-table-column type="selection" width="55"></el-table-column>
+          <el-table-column type="selection" width="55" style="padding: 5px 0;"></el-table-column>
           <el-table-column label="用户名" prop="username" width="400"></el-table-column>
           <el-table-column label="密码" prop="password" width="400"></el-table-column>
           <el-table-column label="操作" show-overflow-tooltip>
-            <el-button style="background:#00bebf; margin-right:20px">
-              <i class="el-icon-edit" style="color:#fff;" @click="goto"></i>
-            </el-button>
-            <el-button style="background:#ff5e5f;">
-              <i class="el-icon-delete-solid" style="color:#fff;"></i>
-            </el-button>
+            <template  slot-scope="scope">
+              <el-button style="background:#00bebf; margin-right:20px;padding:6px 10px">
+                <i class="el-icon-edit" style="color:#fff;" @click="goto"></i>
+              </el-button>
+              <el-button style="background:#ff5e5f;padding:6px 10px" @click="handleDelete(scope.$index)">
+                <i class="el-icon-delete-solid" style="color:#fff;"></i>
+              </el-button>
+            </template>
           </el-table-column>
         </el-table>
       </template>
@@ -188,7 +190,13 @@ export default {
         password: Data.password
       });      
     },
-
+    async handleDelete(index) {
+      if(this.tableData.length!=0){
+        let id = this.tableData[index]._id;
+        let status = await this.axios.delete(`http://localhost:1910/userlist/${id}`);
+      }
+      this.tableData.splice(index,1);
+    },
     async changitem(val) {
       this.currentPage = val;
       var skip = (this.currentPage - 1) * this.pagesize;
@@ -197,7 +205,7 @@ export default {
         `http://localhost:1910/userlist/show?skip=${skip}&limit=${limit}`
       );
       this.tableData = data;
-      console.log(this.tableData);
+      // console.log(this.tableData);
 
       if (this.$refs.refpage != undefined) {
         this.$refs.refpage.map(ele => {
@@ -266,7 +274,7 @@ export default {
   width: 100%;
   height: calc(100% - 40px);
   .userlist-button {
-    padding: 25px 0 10px 15px;
+    padding: 10px 0 0px 15px;
     text-align: left;
   }
   .el-table th .cell {
@@ -277,7 +285,7 @@ export default {
   width: 100%;
   height: 40px;
   position: fixed;
-  bottom: 20px;
+  bottom: 0px;
   left: 0;
   .userlist-page {
     text-align: center;
@@ -295,6 +303,9 @@ export default {
   .disableskip {
     cursor: not-allowed;
   }
+}
+.el-table__row{
+  height: 50px;
 }
 .box {
   width: 500px;
