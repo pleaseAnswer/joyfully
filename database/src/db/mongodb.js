@@ -19,6 +19,7 @@ async function connect() {
         client,
         db
     }
+
 }
 
 /**
@@ -28,10 +29,10 @@ async function connect() {
  * @return {Object}                  返回写入的结果
  */
 async function create(colName, data) {
-    const {
-        db,
-        client
-    } = await connect();
+
+    const { db, client } = await connect();
+
+
 
     let collection = db.collection(colName);
 
@@ -54,6 +55,7 @@ async function create(colName, data) {
  * @param {object} query     查询条件
  */
 async function remove(colName, query) {
+
     const {
         db,
         client
@@ -62,6 +64,7 @@ async function remove(colName, query) {
     let result = await collection.deleteMany({
         id: Number(query.id)
     });
+
 
     client.close();
 
@@ -81,6 +84,7 @@ async function update(colName, query, data) {
         db,
         client
     } = await connect();
+
     let collection = db.collection(colName);
     console.log(typeof query);
 
@@ -94,6 +98,7 @@ async function update(colName, query, data) {
     let result = await collection.updateMany(query, {
         $set: data
     })
+
 
     client.close();
     return result;
@@ -117,6 +122,7 @@ async function find(colName, query = {}, options = {}) {
         db,
         client
     } = await connect();
+
     // console.log(skip,limit);
 
     //集合或文档操作
@@ -129,9 +135,11 @@ async function find(colName, query = {}, options = {}) {
     }
 
     //promise对象--.toArray()才能拿到结果
+
     let result = await collection.find(query, {
         attr
     });
+
 
     //跳过数量
     if (skip) {

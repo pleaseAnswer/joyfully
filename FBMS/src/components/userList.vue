@@ -2,9 +2,11 @@
   <div>
     <header class="userlist-head">
       <el-breadcrumb separator="/">
-          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item><a href="/">用户管理</a></el-breadcrumb-item>
-          <el-breadcrumb-item>用户列表</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item>
+          <a href="/">用户管理</a>
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>用户列表</el-breadcrumb-item>
       </el-breadcrumb>
     </header>
     <main class="userlist-main">
@@ -41,10 +43,10 @@
 
     <div class="box" :class="[sty?'bb':'nn',tran?'time':'']">
       <el-form>
-        <el-form-item label="用户名" style="width:100%; padding-left:25px; margin-top:30px" >
+        <el-form-item label="用户名" style="width:100%; padding-left:25px; margin-top:30px">
           <el-input v-model="username" style="width:70%;"></el-input>
         </el-form-item>
-        <el-form-item label="密码" style="width:100%; padding-left:25px;" >
+        <el-form-item label="密码" style="width:100%; padding-left:25px;">
           <el-input type="password" v-model="password" style="width:70%; margin-left:12px;"></el-input>
         </el-form-item>
 
@@ -74,12 +76,11 @@
     </footer>
     <!-- 阴影 -->
     <el-main class="main" :class="[sty?'bb':'nn',tran?'time':'']"></el-main>
-     <el-col class="chengxu" :class="[chuxian?'bb':'nn']">
+    <el-col class="chengxu" :class="[chuxian?'bb':'nn']">
       <div class="xiao">确定要取消添加吗？</div>
       <div class="ok" @click="ok">是</div>
       <div class="ok" @click="on">否</div>
     </el-col>
-
   </div>
 </template>
 <script>
@@ -88,21 +89,20 @@ export default {
     return {
       sty: false,
       tableData: [],
-      pagesize: 6,
+      pagesize: 5,
       pagenum: "",
       currentPage: 1,
       username: "",
       password: "",
-      input:"",
-      tran:false,
-      chuxian:false,
-
+      input: "",
+      tran: false,
+      chuxian: false
     };
-
   },
   created() {
     this.changitem(this.currentPage);
     this.getpagenum();
+    // this.onSubmit()
   },
   mounted() {
     this.changitem(this.currentPage);
@@ -132,23 +132,18 @@ export default {
     }
   },
   methods: {
-    absent(){
-       this.chuxian = true;
-       
+    absent() {
+      this.chuxian = true;
     },
-     ok(){
+    ok() {
       this.chuxian = false;
-       this.input='',
-      this. username=''
-      this.password='' 
-       this.sty=false
-     
-      
+      (this.input = ""), (this.username = "");
+      this.password = "";
+      this.sty = false;
+      this.tran = true;
     },
-       on(){
-         this.chuxian=false
-        
-       
+    on() {
+      this.chuxian = false;
     },
     toggleSelection(rows) {
       if (rows) {
@@ -165,12 +160,35 @@ export default {
 
     goto() {
       this.sty = true;
-      console.log("+++");
-      console.log(this.sty);
     },
-    onSubmit() {
+
+    // onSubmit() {
+    //   let Data={
+    //     username:this.username,
+    //     password:this.password,
+    //     id: Date.now(),
+
+    //   }
+    //   this.sty = false;
+    //   this.tableData.unshift(Data)
+    // },
+    async onSubmit() {
+      let Data = {
+        username: this.username,
+        password: this.password,
+        id: Date.now()
+      };
+      this.username= "",
+      this.password= "",
+      this.input= "",
       this.sty = false;
+      this.tableData.push(Data);
+      await this.axios.post(`http://localhost:1910/userlist/${Data.id}`, {
+        username: Data.username,
+        password: Data.password
+      });      
     },
+
     async changitem(val) {
       this.currentPage = val;
       var skip = (this.currentPage - 1) * this.pagesize;
@@ -179,6 +197,8 @@ export default {
         `http://localhost:1910/userlist/show?skip=${skip}&limit=${limit}`
       );
       this.tableData = data;
+      console.log(this.tableData);
+
       if (this.$refs.refpage != undefined) {
         this.$refs.refpage.map(ele => {
           ele.classList.remove("activepage");
@@ -206,7 +226,6 @@ export default {
               ele.classList.remove("activepage");
             });
             this.changitem(this.currentPage);
-
           }
         }
       }
@@ -307,42 +326,38 @@ export default {
 .nn {
   display: none;
 }
-.right{
-   transition: transform 1s;
-   .time{
- 
-}
+.right {
+  transition: transform 1s;
 }
 .chengxu {
-    width: 368px;
-    height: 127px;
-    background: #fff;
-    position: fixed;
-    top: 300px;
-    border: #eee 1px solid;
-    left: 600px;
-    z-index:9990;
-      background: hsl(188, 67%, 83%);
+  width: 368px;
+  height: 127px;
+  background: #fff;
+  position: fixed;
+  top: 300px;
+  border: #eee 1px solid;
+  left: 600px;
+  z-index: 9990;
+  background: hsl(188, 67%, 83%);
 
-    .xiao {
-      width: 308px;
-      height: 21px;
-      border-bottom: #eee 1px solid;
-      padding: 1.8rem;
-      font-size: 13px;
-      text-align: center;
-      line-height: 21px;
-      float: left;
-    }
-    .ok {
-      width: 183px;
-      height: 50px;
-      color: #0c4e4e;
-      font-size: 17px;
-      text-align: center;
-      line-height: 50px;
-      float: left;
-    }
+  .xiao {
+    width: 308px;
+    height: 21px;
+    border-bottom: #eee 1px solid;
+    padding: 1.8rem;
+    font-size: 13px;
+    text-align: center;
+    line-height: 21px;
+    float: left;
   }
-
+  .ok {
+    width: 183px;
+    height: 50px;
+    color: #0c4e4e;
+    font-size: 17px;
+    text-align: center;
+    line-height: 50px;
+    float: left;
+  }
+}
 </style>

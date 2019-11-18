@@ -43,7 +43,12 @@
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column prop="text" label="商品名称" width="400"></el-table-column>
+        <el-table-column label="图片" width="50">
+          <template slot-scope="props">
+            <img :src="props.row.img" alt="" style="width:40px;height:40px">
+          </template>
+        </el-table-column>
+        <el-table-column prop="text" label="商品名称" width="500" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"></el-table-column>
         <el-table-column prop="price" label="价格（现价）" width="200"></el-table-column>
         <el-table-column prop="kucun" label="库存" width="120"></el-table-column>
 
@@ -140,6 +145,63 @@
     <el-main class="main" :class="[sty?'':'nn',tran?'time':'']"></el-main>
 
 
+      <!-- 添加弹框 -->
+        <div class="box">
+      <el-form label-width="90px" style="margin-top:30px">
+        <el-form-item label="商品名称">
+          <el-input v-model="name"></el-input>
+        </el-form-item>
+        <el-form-item label="商品副标题">
+          <el-input v-model="namett"></el-input>
+        </el-form-item>
+        <div style="height:70px;width:1000px">
+          <el-form-item label="商品价格" style=" float: left; ">
+            <el-input placeholder style="width:200px; float: left; " v-model="price"></el-input>
+          </el-form-item>
+          <el-form-item label="销售价格" style=" float: left; ">
+            <el-input placeholder style="width:200px; float: left; " v-model="pricett"></el-input>
+          </el-form-item>
+          <el-select v-model="value" placeholder="请选择国家名称" style="margin-left:70px">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </div>
+
+        <div>
+          <el-form-item label="商品图片">
+            <el-upload
+              class="avatar-uploader"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload"
+            >
+              <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+        </div>
+
+        <el-form-item label="商品描述 :">
+          <el-input type="textarea" v-model="input"></el-input>
+        </el-form-item>
+      </el-form>
+
+      <el-button
+        @click="tan"
+        type="primary"
+        style="  background: #00bebf;
+       padding:12px 12px; border: 1px solid #00bebf;"
+      >修改</el-button>
+      <!-- true -->
+      <el-button @click="absent" style="  padding:12px 12px;">取消</el-button>
+    </div>
+
+
 
     <el-col class="chengxu" :class="[chuxian?'bb':'nn']">
       <div class="xiao">确定要取消添加吗？</div>
@@ -161,7 +223,7 @@ export default {
       input: "",
       sty: false,
       tablelist: [],
-      pagesize: 6,
+      pagesize: 5,
       pagenum: "",
       currentPage: 1,
       chuxian:false,
@@ -427,6 +489,9 @@ export default {
 }
 .el-table th .cell {
   margin-left: 20px;
+}
+.el-table .cell{
+  color: #369;
 }
 .box {
   width: 900px;
