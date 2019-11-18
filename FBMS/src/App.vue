@@ -1,5 +1,5 @@
 <template>
-  <div style="width:100%" class="wrapper">
+  <div style="width:100%;" class="wrapper">
     <header>
       <div class="my-logo-wrapper">
         <img class="my-logo" src="./img/loadingx.gif" alt />
@@ -54,7 +54,6 @@ export default {
   data() {
     return {
       activeNames: ["1"]
-
     };
   },
   methods: {

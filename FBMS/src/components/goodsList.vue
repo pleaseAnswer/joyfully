@@ -144,8 +144,9 @@
         </el-form-item>
       </el-form>
 
+   
       <el-button
-        @click="change"
+        @click="tan"
         type="primary"
         style="  background: #00bebf;
        padding:12px 12px; border: 1px solid #00bebf;"
@@ -153,13 +154,14 @@
       <!-- true -->
       <el-button @click="absent" style="  padding:12px 12px;">取消</el-button>
     </div>
+      
     <!-- 遮罩 -->
-    <el-main class="main" :class="[sty?'':'nn',tran?'time':'']"></el-main>
+    <el-main class="main" :class="[sty?'':'nn',wride?'bb':'nn']"></el-main>
 
 
 
       <!-- 编辑弹框 -->
-      <div class="box" :class="[sty?'':'nn']">
+      <div class="box" :class="[wride?'bb':'nn']">
       <el-form label-width="90px" style="margin-top:30px">
         <el-form-item label="商品名称">
           <el-input v-model="rename"></el-input>
@@ -209,7 +211,7 @@
         type="primary"
         style="  background: #00bebf;
        padding:12px 12px; border: 1px solid #00bebf;"
-      >确定</el-button>
+      >修改</el-button>
       <!-- true -->
       <el-button @click="absent" style="  padding:12px 12px;">取消</el-button>
     </div>
@@ -220,7 +222,7 @@
 
 
     <el-col class="chengxu" :class="[chuxian?'bb':'nn']">
-      <div class="xiao">确定要取消修改吗？取消内容将被清空</div>
+      <div class="xiao">确定要取消吗？取消内容将被清空</div>
       <div class="ok" @click="ok">是</div>
       <div class="ok" @click="on">否</div>
     </el-col>
@@ -236,6 +238,11 @@ export default {
       pricett: "",
       input: "",
       kucun: "",
+      rename: "",
+      reprice: "",
+      repricett: "",
+      reinput: "",
+      rekucun: "",
       pagesize: 5,
       pagenum: "",
       currentPage: 1,
@@ -244,6 +251,7 @@ export default {
       sty: false,
       tableData: [],
       value: "",
+      wride:false,
     
       options: [
         {
@@ -357,28 +365,44 @@ export default {
     }
   },
   methods: {
+    reWrite(){
+        this.wride=false
+       this.rename= "",
+      this.reprice= "",
+      this.repricett= "",
+      this.reinput= "",
+      this.rekucun= ""
+      alert("修改成功") 
+    },
     absent() {
       this.chuxian = true;
     },
     ok() {
+       this.rename="",
+      this.reprice= "",
+      this.repricett= "",
+      this.reinput= "",
+      this.rekucun= ""
       this.chuxian = false;
-      this.input = "",
+       this.input = "",
         this.name = "",
         this.price = "",
-        this.namett = "";
+        this.kucun="",
+        this.pricett = ""
       this.tran = true;
       this.sty = false;
+      this.wride=false
     },
     on() {
       this.chuxian = false;
+      
     },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
     },
     change(selVal){
        this.lable = selVal.lable
-       console.log(selVal);
-       console.log(selVal.lable);
+      
        
     },
     async tan(selVal) {
@@ -386,24 +410,30 @@ export default {
       let Data = {
         id: Date.now(),
          countryname:selVal.lable,
-        //  countryname:this.lable,
         img: this.imageUrl,
         price: this.price,
         text: this.name,
         kucun: this.kucun
       };
-        this.tableData.push(Data);
+      if(Data.kucun!=""&&Data.text!=""&&Data.price!=""&&Data. countryname!=''&&Data. img!=''){
+          this.tableData.push(Data);
         await this.axios.post(`http://localhost:1910/goodslist/${Data.id}`, {
           countryname: Data.value,
           img: Data.imageUrl,
           price: Data.price,
           text: Data.name,
           kucun: Data.kucun
-        });
-        this.input = "",
+         }) ; 
+           this.input = "",
         this.name = "",
         this.price = "",
-        this.pricett = ""
+        this.pricett = "",
+        this.kucun=""
+       } else{
+          this.sty = true
+         alert("添加失败，请完善信息")
+       }
+      
     },
     beforeAvatarUpload(file) {
       const isLt2M = file.size / 1024 / 1024 < 2;
@@ -422,7 +452,7 @@ export default {
       this.multipleSelection = val;
     },
     handleEdit(index, row) {
-        this.sty=true
+        this.wride=true
     },
     async handleDelete(index) {
 
