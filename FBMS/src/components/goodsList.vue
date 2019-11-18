@@ -56,7 +56,7 @@
           <template slot-scope="scope">
             <el-button
               style=" margin-left: 0px;background: #00bebf;
-       border: 1px solid #00bebf;"
+       border: 1px solid #00bebf;padding:6px 10px"
               type="primary"
               icon="el-icon-edit"
               @click="handleEdit(scope.$index, scope.row)"
@@ -64,7 +64,7 @@
             <el-button
               type="danger"
               @click="handleDelete(scope.$index)"
-              icon="el-icon-delete"
+              icon="el-icon-delete" style="padding:6px 10px"
             ></el-button>
           </template>
         </el-table-column>
@@ -403,7 +403,7 @@ export default {
     },
     async handleDelete(index) {
       if(this.tableData.length!=0){
-        let id = this.tableData[index].id;
+        let id = this.tableData[index]._id;
         let status = await this.axios.delete(`http://localhost:1910/goodslist/${id}`);
       }
       this.tableData.splice(index,1);
