@@ -21,7 +21,12 @@
         <el-input v-model.number="loginForm.username"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password" :error="errorMsg">
-        <el-input type="password" v-model="loginForm.password" autocomplete="off"></el-input>
+        <el-input
+          type="password"
+          v-model="loginForm.password"
+          autocomplete="off"
+          @keyup.13.native="submitForm('loginForm')"
+        ></el-input>
       </el-form-item>
       <el-form-item prop="mdl">
         <van-checkbox v-model="loginForm.mdl" checked-color="#5fd9da">7天免登陆</van-checkbox>
