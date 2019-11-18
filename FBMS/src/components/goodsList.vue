@@ -158,21 +158,21 @@
 
 
 
-      <!-- 添加弹框 -->
-        <div class="box">
+      <!-- 编辑弹框 -->
+      <div class="box" :class="[sty?'':'nn']">
       <el-form label-width="90px" style="margin-top:30px">
         <el-form-item label="商品名称">
-          <el-input v-model="name"></el-input>
-        </el-form-item>
-        <el-form-item label="商品副标题">
-          <el-input v-model="namett"></el-input>
-        </el-form-item>
+          <el-input v-model="rename"></el-input>
+        </el-form-item>  
         <div style="height:70px;width:1000px">
           <el-form-item label="商品价格" style=" float: left; ">
-            <el-input placeholder style="width:200px; float: left; " v-model="price"></el-input>
+            <el-input placeholder style="width:100px; float: left; " v-model="reprice"></el-input>
           </el-form-item>
           <el-form-item label="销售价格" style=" float: left; ">
-            <el-input placeholder style="width:200px; float: left; " v-model="pricett"></el-input>
+            <el-input placeholder style="width:100px; float: left; " v-model="repricett"></el-input>
+          </el-form-item>
+          <el-form-item label="库存" style=" float: left; ">
+            <el-input placeholder style="width:100px; float: left; " v-model="kucun"></el-input>
           </el-form-item>
           <el-select v-model="value" placeholder="请选择国家名称" style="margin-left:70px">
             <el-option
@@ -205,7 +205,7 @@
       </el-form>
 
       <el-button
-        @click="tan"
+        @click="reWrite"
         type="primary"
         style="  background: #00bebf;
        padding:12px 12px; border: 1px solid #00bebf;"
@@ -216,9 +216,8 @@
 
 
 
->>>>>>> 6057e52d0393c0d3eac9c48cf46d5dfc138a7f83
     <el-col class="chengxu" :class="[chuxian?'bb':'nn']">
-      <div class="xiao">确定要取消添加吗？</div>
+      <div class="xiao">确定要取消修改吗？取消内容将被清空</div>
       <div class="ok" @click="ok">是</div>
       <div class="ok" @click="on">否</div>
     </el-col>
@@ -381,8 +380,6 @@ export default {
     },
     async tan(selVal) {
       this.sty = false
-     
-       
       let Data = {
         id: Date.now(),
          countryname:selVal.lable,
@@ -392,9 +389,6 @@ export default {
         text: this.name,
         kucun: this.kucun
       };
-      console.log(Data);
-      
-     
         this.tableData.push(Data);
         await this.axios.post(`http://localhost:1910/goodslist/${Data.id}`, {
           countryname: Data.value,
@@ -403,7 +397,6 @@ export default {
           text: Data.name,
           kucun: Data.kucun
         });
-    
         this.input = "",
         this.name = "",
         this.price = "",
@@ -426,7 +419,7 @@ export default {
       this.multipleSelection = val;
     },
     handleEdit(index, row) {
-      console.log(index, row);
+        this.sty=true
     },
     async handleDelete(index) {
 
