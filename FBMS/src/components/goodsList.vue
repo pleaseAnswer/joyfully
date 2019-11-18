@@ -87,9 +87,7 @@
         <el-form-item label="商品名称">
           <el-input v-model="name"></el-input>
         </el-form-item>
-        <el-form-item label="商品副标题">
-          <el-input v-model="namett"></el-input>
-        </el-form-item>
+       
         <div style="height:70px;width:1000px">
           <el-form-item label="商品价格" style=" float: left; ">
             <el-input placeholder style="width:200px; float: left; " v-model="price"></el-input>
@@ -109,12 +107,13 @@
 
         <div>
           <el-form-item label="商品图片">
-            <el-upload
+             <el-upload
               class="avatar-uploader"
               action="https://jsonplaceholder.typicode.com/posts/"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload"
+              style=" float: left;"
             >
               <img v-if="imageUrl" :src="imageUrl" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -155,7 +154,7 @@ export default {
     
       imageUrl: "",
       name: "",
-      namett: "",
+      
       price: "",
       pricett: "",
       input: "",
@@ -295,7 +294,7 @@ export default {
        this.input='',
       this.name='',
       this.price='',
-      this.pricett='',
+     
       this.namett=''
       this.tran=true;
        this.sty=false
@@ -307,12 +306,12 @@ export default {
       this.imageUrl = URL.createObjectURL(file.raw);
     },
 
-    tan() {
+     async tan() {
         this.input='',
       this.name='',
       this.price='',
       this.pricett='',
-      this.namett=''
+     
       this.sty = false;
     },
     beforeAvatarUpload(file) {

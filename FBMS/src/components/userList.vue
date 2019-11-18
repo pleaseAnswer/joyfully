@@ -197,8 +197,7 @@ export default {
         `http://localhost:1910/userlist/show?skip=${skip}&limit=${limit}`
       );
       this.tableData = data;
-      console.log(this.tableData);
-
+      
       if (this.$refs.refpage != undefined) {
         this.$refs.refpage.map(ele => {
           ele.classList.remove("activepage");
@@ -268,9 +267,11 @@ export default {
   .userlist-button {
     padding: 25px 0 10px 15px;
     text-align: left;
+   
   }
   .el-table th .cell {
     text-align: center;
+   
   }
 }
 .userlist-footer {
