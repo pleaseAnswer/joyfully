@@ -209,10 +209,13 @@
         type="primary"
         style="  background: #00bebf;
        padding:12px 12px; border: 1px solid #00bebf;"
-      >修改</el-button>
+      >确定</el-button>
       <!-- true -->
       <el-button @click="absent" style="  padding:12px 12px;">取消</el-button>
     </div>
+    <!-- 遮罩 -->
+    <el-main class="main" :class="[sty?'':'nn',tran?'time':'']"></el-main>
+
 
 
 
@@ -233,6 +236,11 @@ export default {
       pricett: "",
       input: "",
       kucun: "",
+      rename: "",
+      reprice: "",
+      repricett: "",
+      reinput: "",
+      rekucun: "",
       pagesize: 5,
       pagenum: "",
       currentPage: 1,
@@ -355,6 +363,14 @@ export default {
     }
   },
   methods: {
+    reWrite(){
+      this.sty=false
+       this.rename="",
+      this.reprice= "",
+      this.repricett= "",
+      this.reinput= "",
+      this.rekucun= ""
+    },
     absent() {
       this.chuxian = true;
     },
