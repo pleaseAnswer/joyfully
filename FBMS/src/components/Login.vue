@@ -63,11 +63,9 @@ export default {
           } else {
             //获取token
             let Authorization = data.data;
-            // this.$store.commit("login", { Authorization, username });
-            // let redirectUrl = this.$route.query.redirectUrl || "/mine";
-            // alert("登录成功");
-            // this.$router.replace(redirectUrl);
-            this.$router.replace("/mangeList");
+            this.$store.commit("login", { Authorization, username });
+            let redirectUrl = this.$route.query.redirectUrl || "/mine";
+            this.$router.replace(redirectUrl);
           }
         } else {
           this.$notify.error({

@@ -22,7 +22,11 @@ let cart = ({
         },
         //修改数量
         changQty(state, payload) {
-            state.menu.forEach(item => {
+
+            // let {
+            //     data
+            // } = await axios.patch(`http://localhost:1910/cart/${payload.id}`, state);
+            state.menu.forEach(async item => {
                 if (item.id === payload.id) {
                     item.qty = payload.qty
                 }

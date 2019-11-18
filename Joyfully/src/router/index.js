@@ -16,8 +16,6 @@ import Service from '../pages/Service.vue'
 import Classifylist from '../pages/Classifylist.vue';
 
 
-let vm = new Vue()
-
 const router = new VueRouter({
 
     routes: [{

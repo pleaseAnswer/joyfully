@@ -59,20 +59,10 @@ async function remove(colName, query) {
         client
     } = await connect();
     let collection = db.collection(colName);
-    
-    //处理id查询
-    //{_id:'xxxxx'} -> {_id:ObjectId('xxxxx')}
-    if (query._id && typeof query._id == 'string') {
-        query._id = ObjectId(query._id);
-    }
-
     let result = await collection.deleteMany({
         id: Number(query.id)
     });
 
-
-    let result = await collection.deleteMany({id:Number(query.id)});
-    
     client.close();
 
     return result;
@@ -85,17 +75,20 @@ async function remove(colName, query) {
  * @param {Object} data     更新字段数据
  */
 async function update(colName, query, data) {
+    console.log('-----');
+    
     const {
         db,
         client
     } = await connect();
     let collection = db.collection(colName);
+    console.log(typeof query);
 
     //处理id查询
     //{_id:'xxxxx'} -> {_id:ObjectId('xxxxx')}
-    if (query._id && typeof query._id == 'string') {
-        query._id = ObjectId(query._id);
-    }
+    // if (query._id && typeof query._id == 'string') {
+    //     query._id = ObjectId(query._id);
+    // }
 
     //具体操作查看中文网
     let result = await collection.updateMany(query, {
