@@ -10,7 +10,12 @@
             <el-input v-model="loginForm.username" placeholder="用户名"></el-input>
           </el-form-item>
           <el-form-item prop="password">
-            <el-input type="password" placeholder="密码" v-model="loginForm.password"></el-input>
+            <el-input
+              type="password"
+              placeholder="密码"
+              v-model="loginForm.password"
+              @keyup.13.native="submitForm('loginForm')"
+            ></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('loginForm')" class="submit_btn">登陆</el-button>

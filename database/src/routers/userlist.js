@@ -21,7 +21,7 @@ Router.get('/show', async(req, res) => {
     res.send(result);
 })
 
-// 更新用户
+// 添加用户
 Router.post("/:id", async(req, res) => {
     let { id } = req.params;
 

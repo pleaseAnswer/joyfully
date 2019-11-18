@@ -164,16 +164,6 @@ export default {
       this.sty = true;
     },
 
-    // onSubmit() {
-    //   let Data={
-    //     username:this.username,
-    //     password:this.password,
-    //     id: Date.now(),
-
-    //   }
-    //   this.sty = false;
-    //   this.tableData.unshift(Data)
-    // },
     async onSubmit() {
       let Data = {
         username: this.username,
@@ -205,7 +195,7 @@ export default {
         `http://localhost:1910/userlist/show?skip=${skip}&limit=${limit}`
       );
       this.tableData = data;
-      // console.log(this.tableData);
+
 
       if (this.$refs.refpage != undefined) {
         this.$refs.refpage.map(ele => {
@@ -276,9 +266,11 @@ export default {
   .userlist-button {
     padding: 10px 0 0px 15px;
     text-align: left;
+   
   }
   .el-table th .cell {
     text-align: center;
+   
   }
 }
 .userlist-footer {

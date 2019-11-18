@@ -5,7 +5,7 @@
         <img class="my-logo" src="./img/loadingx.gif" alt />
         喜地后台管理系统
         <div class="logou" v-if="isLogin">
-          欢迎 {{username}}
+          Welcome to xidi
           <p @click="logout">退出</p>
         </div>
         <template v-else>
@@ -53,8 +53,8 @@
 export default {
   data() {
     return {
-      activeNames: ["1"],
-      username: this.$store.state.common.user.username
+      activeNames: ["1"]
+
     };
   },
   methods: {
