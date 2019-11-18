@@ -86,7 +86,6 @@ export default {
     async handleDelete(index) {
       if(this.tableData.length!=0){
         let id = this.tableData[index].id;
-        
         let status = await this.axios.delete(`http://localhost:1910/orderlist/${id}`);
       }
       this.tableData.splice(index,1);

@@ -55,17 +55,40 @@ async function create(colName, data) {
  * @param {object} query     查询条件
  */
 async function remove(colName, query) {
-
+    
     const {
         db,
         client
     } = await connect();
+    
     let collection = db.collection(colName);
-    let result = await collection.deleteMany({
-        id: Number(query.id)
-    });
+    
+    let result = await collection.deleteMany({ id: Number(query.id) });
+    
+    client.close();
+
+    return result;
+}
 
 
+//删除用户
+async function ugremove(colName, query) {
+    
+    const {
+        db,
+        client
+    } = await connect();
+    
+    let collection = db.collection(colName);
+    
+    //处理id查询
+    //{_id:'xxxxx'} -> {_id:ObjectId('xxxxx')}
+    if (query._id && typeof query._id == 'string') {
+        query._id = ObjectId(query._id);
+    }
+
+    let result = await collection.deleteMany(query);
+    
     client.close();
 
     return result;
@@ -123,7 +146,6 @@ async function find(colName, query = {}, options = {}) {
         client
     } = await connect();
 
-    // console.log(skip,limit);
 
     //集合或文档操作
     // 获取集合
@@ -150,8 +172,6 @@ async function find(colName, query = {}, options = {}) {
     if (limit) {
         result = result.limit(limit * 1);
     }
-    // console.log(sort);
-
     //排序1-》升序 -1-》降序
     // sort="price"
     if (sort) {
@@ -177,6 +197,7 @@ async function find(colName, query = {}, options = {}) {
 module.exports = {
     create,
     remove,
+    ugremove,
     update,
     find
 }
