@@ -159,7 +159,7 @@
 
 
       <!-- 编辑弹框 -->
-      <div class="box" :class="[sty?'':'nn']">
+      <div class="box" :class="[wride?'':'nn']">
       <el-form label-width="90px" style="margin-top:30px">
         <el-form-item label="商品名称">
           <el-input v-model="rename"></el-input>
@@ -241,6 +241,7 @@ export default {
       sty: false,
       tableData: [],
       value: "",
+      wride:false,
     
       options: [
         {
