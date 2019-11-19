@@ -364,11 +364,11 @@ export default {
   methods: {
     reWrite(){
       this.sty=false
-       this.rename="",
+      this.rename="",
       this.reprice= "",
       this.repricett= "",
       this.reinput= "",
-      this.rekucun= ""
+       this.rekucun= ""
     },
     absent() {
       this.chuxian = true;
@@ -379,6 +379,12 @@ export default {
         this.name = "",
         this.price = "",
         this.namett = "";
+         this.rename="",
+      this.reprice= "",
+      this.repricett= "",
+      this.reinput= "",
+      this.rekucun= ""
+        
       this.tran = true;
       this.sty = false;
     },
