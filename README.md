@@ -2,11 +2,9 @@
 >喜地是一款基于vue框架开发的关于纯进口家具生活用品的线上商城。
 > 后台管理系统提供各部门管理员信息查看、用户注册信息管理、商品信息管理以及用户订单信息管理。
 
-### 上线地址：
-* webAPp：http://120.78.213.100:5211
-* 后台管理系统：http://120.78.213.100:5210
-### git仓库地址：
+### 上线地址：暂无上线
 
+### git仓库地址：
 * https://github.com/gzh51910/Joyfully.git
 
 ### 技术栈
@@ -20,8 +18,11 @@
 #### 分工如下：
 
 ###### 邱南焰：
-* 注册与登录页：使用Element前端框架实现页面
-    主要负责app项目路由搭建，利用Vant/Element前端框架，axios请求后台数据渲染，并且实现相应页面的功能。
+* app项目主体架构：利用vue-cli脚手架，搭建公共部分架构，使用vue-router实现页面切换。
+* 购物车：使用Element前端框架实现页面结构并实现对应功能，利用axios请求实现与数据库之间的交互。
+* 注册与登录页：使用Element前端框架实现页面结构，利用axios请求结合后台数据库接口验证用户名与校验用户信息，并把相应信息保存在数据库，使用路由守卫设置token进行访问拦截与免登陆设置等功能
+* 我的页面：实现页面结构并实现对应功能。
+* 后台管理系统：实现登录页面并且实现对应功能与路由守卫进行访问权限。
 
 ###### 周悦欣：
 * 首页：使用antd框架以及elementUI框架实现页面；编写数据接口拿取数据渲染页面；利用懒加载原理实现页面图片的加载；
@@ -40,21 +41,21 @@
 * 列表页：使用Element框架，结合后端传来的数据渲染实现
 * 后台管理系统：使用Element框架完成管理员权限页面框架，并处理添加后台管理系统部分数据
 
-###### 邱南焰：
-* app项目主体架构：利用vue-cli手脚架，搭建公共部分架构，使用vue-router实现页面切换。
-* 购物车：使用Element前端框架实现页面结构并实现对应功能，利用axios请求实现与数据库之间的交互。
-* 注册与登录页：使用Element前端框架实现页面结构，利用axios请求结合后台数据库接口验证用户名与校验用户信息，并把相应信息保存在数据库，使用路由守卫设置token进行访问拦截与免登陆设置等功能
-* 我的页面：实现页面结构并实现对应功能。
-* 后台管理系统：实现登录页面并且实现对应功能与路由守卫进行访问权限。
+
 ### 项目页面截图：
 * webAPP
-    ![home](https://github.com/gzh51907/bdyou/blob/master/project_img/home.png)
-    ![分类](https://github.com/gzh51907/bdyou/blob/master/project_img/clasify.png)
-    ![登录](https://github.com/gzh51907/bdyou/blob/master/project_img/login.png)
-    ![注册](https://github.com/gzh51907/bdyou/blob/master/project_img/reg.png)
+    ![home](https://github.com/gzh51910/Joyfully/blob/dev/project_img/Joyfully-home.png)
+    ![分类](https://github.com/gzh51910/Joyfully/blob/dev/project_img/Joyfully-fenlei.png)
+    ![国家馆](https://github.com/gzh51910/Joyfully/blob/dev/project_img/Joyfully-nation.png)
+    ![我的](https://github.com/gzh51910/Joyfully/blob/dev/project_img/Joyfully-mine.png)
+    ![购物车](https://github.com/gzh51910/Joyfully/blob/dev/project_img/Joyfully-cart.png)
+
 * 后台管理系统
-   ![商品信息](https://github.com/gzh51907/bdyou/blob/master/project_img/%E5%95%86%E5%93%81%E4%BF%A1%E6%81%AF.png)
-   ![用户注册信息](https://github.com/gzh51907/bdyou/blob/master/project_img/%E7%94%A8%E6%88%B7%E6%B3%A8%E5%86%8C%E4%BF%A1%E6%81%AF.png)
+   ![登录](https://github.com/gzh51910/Joyfully/blob/dev/project_img/FBMS-login.png)
+   ![管理员管理](https://github.com/gzh51910/Joyfully/blob/dev/project_img/FBMS-mangelist.png)
+   ![用户信息](https://github.com/gzh51910/Joyfully/blob/dev/project_img/FBMS-userlist.png)
+   ![商品信息](https://github.com/gzh51910/Joyfully/blob/dev/project_img/FBMS-goodslist.png)
+   ![订单信息](https://github.com/gzh51910/Joyfully/blob/dev/project_img/FBMS-orderlist.png)
 
 ### 项目文件目录：
 ##### database文件
