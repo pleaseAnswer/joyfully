@@ -72,7 +72,8 @@
             <el-button
               type="danger"
               @click="handleDelete(scope.$index)"
-              icon="el-icon-delete" style="padding:6px 10px"
+              icon="el-icon-delete"
+              style="padding:6px 10px"
             ></el-button>
           </template>
         </el-table-column>
@@ -111,14 +112,13 @@
           <el-form-item label="库存" style=" float: left; ">
             <el-input placeholder style="width:100px; float: left; " v-model="kucun"></el-input>
           </el-form-item>
-          <el-select v-model="value" placeholder="请选择国家名称" style="margin-left:70px"  >
+          <el-select v-model="value" placeholder="请选择国家名称" style="margin-left:70px">
             <el-option
               v-for="item in options"
               :key="item.value"
               :label="item.label"
               :value="item.value"
-               @click="change"
-            
+              @click="change"
             ></el-option>
           </el-select>
         </div>
@@ -145,7 +145,7 @@
       </el-form>
 
       <el-button
-        @click="change"
+        @click="tan"
         type="primary"
         style="  background: #00bebf;
        padding:12px 12px; border: 1px solid #00bebf;"
@@ -153,17 +153,16 @@
       <!-- true -->
       <el-button @click="absent" style="  padding:12px 12px;">取消</el-button>
     </div>
+
     <!-- 遮罩 -->
-    <el-main class="main" :class="[sty?'':'nn',tran?'time':'']"></el-main>
+    <el-main class="main" :class="[sty?'':'nn',wride?'bb':'nn']"></el-main>
 
-
-
-      <!-- 编辑弹框 -->
-      <div class="box" :class="[sty?'':'nn']">
+    <!-- 编辑弹框 -->
+    <div class="box" :class="[wride?'bb':'nn']">
       <el-form label-width="90px" style="margin-top:30px">
         <el-form-item label="商品名称">
           <el-input v-model="rename"></el-input>
-        </el-form-item>  
+        </el-form-item>
         <div style="height:70px;width:1000px">
           <el-form-item label="商品价格" style=" float: left; ">
             <el-input placeholder style="width:100px; float: left; " v-model="reprice"></el-input>
@@ -209,18 +208,15 @@
         type="primary"
         style="  background: #00bebf;
        padding:12px 12px; border: 1px solid #00bebf;"
-      >确定</el-button>
+      >修改</el-button>
       <!-- true -->
       <el-button @click="absent" style="  padding:12px 12px;">取消</el-button>
     </div>
     <!-- 遮罩 -->
     <el-main class="main" :class="[sty?'':'nn',tran?'time':'']"></el-main>
 
-
-
-
     <el-col class="chengxu" :class="[chuxian?'bb':'nn']">
-      <div class="xiao">确定要取消修改吗？取消内容将被清空</div>
+      <div class="xiao">确定要取消吗？取消内容将被清空</div>
       <div class="ok" @click="ok">是</div>
       <div class="ok" @click="on">否</div>
     </el-col>
@@ -249,7 +245,8 @@ export default {
       sty: false,
       tableData: [],
       value: "",
-    
+      wride: false,
+
       options: [
         {
           value: "选项1",
@@ -362,31 +359,33 @@ export default {
     }
   },
   methods: {
-    reWrite(){
-      this.sty=false
-      this.rename="",
-      this.reprice= "",
-      this.repricett= "",
-      this.reinput= "",
-       this.rekucun= ""
+    reWrite() {
+      this.wride = false;
+      (this.rename = ""),
+        (this.reprice = ""),
+        (this.repricett = ""),
+        (this.reinput = ""),
+        (this.rekucun = "");
+      alert("修改成功");
     },
     absent() {
       this.chuxian = true;
     },
     ok() {
+      (this.rename = ""),
+        (this.reprice = ""),
+        (this.repricett = ""),
+        (this.reinput = ""),
+        (this.rekucun = "");
       this.chuxian = false;
-      this.input = "",
-        this.name = "",
-        this.price = "",
-        this.namett = "";
-         this.rename="",
-      this.reprice= "",
-      this.repricett= "",
-      this.reinput= "",
-      this.rekucun= ""
-        
+      (this.input = ""),
+        (this.name = ""),
+        (this.price = ""),
+        (this.namett = "");
+      (this.rename = ""), (this.kucun = ""), (this.pricett = "");
       this.tran = true;
       this.sty = false;
+      this.wride = false;
     },
     on() {
       this.chuxian = false;
@@ -394,23 +393,26 @@ export default {
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
     },
-    change(selVal){
-       this.lable = selVal.lable
-       console.log(selVal);
-       console.log(selVal.lable);
-       
+    change(selVal) {
+      this.lable = selVal.lable;
     },
     async tan(selVal) {
-      this.sty = false
+      this.sty = false;
       let Data = {
         id: Date.now(),
-         countryname:selVal.lable,
-        //  countryname:this.lable,
+        countryname: selVal.lable,
         img: this.imageUrl,
         price: this.price,
         text: this.name,
         kucun: this.kucun
       };
+      if (
+        Data.kucun != "" &&
+        Data.text != "" &&
+        Data.price != "" &&
+        Data.countryname != "" &&
+        Data.img != ""
+      ) {
         this.tableData.push(Data);
         await this.axios.post(`http://localhost:1910/goodslist/${Data.id}`, {
           countryname: Data.value,
@@ -419,10 +421,15 @@ export default {
           text: Data.name,
           kucun: Data.kucun
         });
-        this.input = "",
-        this.name = "",
-        this.price = "",
-        this.pricett = ""
+        (this.input = ""),
+          (this.name = ""),
+          (this.price = ""),
+          (this.pricett = ""),
+          (this.kucun = "");
+      } else {
+        this.sty = true;
+        alert("添加失败，请完善信息");
+      }
     },
     beforeAvatarUpload(file) {
       const isLt2M = file.size / 1024 / 1024 < 2;
@@ -441,15 +448,14 @@ export default {
       this.multipleSelection = val;
     },
     handleEdit(index, row) {
-        this.sty=true
+      this.wride = true;
     },
     async handleDelete(index) {
-
-
-      if(this.tableData.length!=0){
+      if (this.tableData.length != 0) {
         let id = this.tableData[index]._id;
-        let status = await this.axios.delete(`http://localhost:1910/goodslist/${id}`);
-
+        let status = await this.axios.delete(
+          `http://localhost:1910/goodslist/${id}`
+        );
       }
       this.tableData.splice(index, 1);
     },
