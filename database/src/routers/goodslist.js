@@ -2,8 +2,7 @@ const express = require('express');
 
 const Router = express.Router();
 
-
-const { find, remove, create } = require('../db/mongodb');
+const { find, ugremove, create } = require('../db/mongodb');
 const { formatData } = require('../utils');
 
 
@@ -27,7 +26,7 @@ Router.delete('/:id', async(req, res) => {
         console.log(id);
 
         // 查询数据库
-        let result = await remove('goodslist', { id });
+        let result = await ugremove('goodslist', { _id:id });
 
         if (result.deletedCount > 0) {
             res.send(formatData())
