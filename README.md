@@ -5,6 +5,7 @@
 ### 上线地址：
 * webApp喜地：http://www.覃钧.top:1910
 * 后台管理系统：http://www.覃钧.top:1911
+>后台管理系统登录账号&密码：qiushao & 123456
 
 ### git仓库地址：
 * https://github.com/gzh51910/Joyfully.git
