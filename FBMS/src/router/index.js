@@ -5,11 +5,7 @@ Vue.use(VueRouter);
 // import login from '../components/login.vue';
 import mangeList from '../components/mangeList.vue';
 import goodsList from '../components/goodsList.vue';
-import addGoods from '../components/addGoods.vue';
-import editGoods from '../components/editGoods.vue';
 import userList from '../components/userList.vue';
-import addUser from '../components/addUser.vue';
-import editUser from '../components/editUser.vue';
 import orderList from '../components/orderList.vue';
 import Login from '../components/Login.vue';
 
@@ -29,41 +25,13 @@ const router = new VueRouter({
             requiresAuth: true
         }
     }, {
-        name: 'addGoods',
-        path: '/addGoods',
-        component: addGoods,
-        meta: {
-            requiresAuth: true
-        }
-    }, {
-        name: 'editGoods',
-        path: '/editGoods',
-        component: editGoods,
-        meta: {
-            requiresAuth: true
-        }
-    }, {
         name: 'userList',
         path: '/userList',
         component: userList,
         meta: {
             requiresAuth: true
         }
-    }, {
-        name: 'addUser',
-        path: '/addUser',
-        component: addUser,
-        meta: {
-            requiresAuth: true
-        }
-    }, {
-        name: 'editUser',
-        path: '/editUser',
-        component: editUser,
-        meta: {
-            requiresAuth: true
-        }
-    }, {
+    },  {
         name: 'orderList',
         path: '/orderList',
         component: orderList,
