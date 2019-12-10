@@ -6,7 +6,7 @@
 * 前端：Vue Vue-Router Vue-cli Vuex axios elementUI/Vant/ git
 * 后端：nodejs Express MongoDB
 
-###### 周悦欣：
+### 项目职责：
 * 首页：使用antd框架以及elementUI框架实现页面；编写数据接口拿取数据渲染页面；利用懒加载原理实现页面图片的加载；
 * 详情页：实现静态页面的编写；
 * 数据爬取：爬取首页数据并整理数据格式；
